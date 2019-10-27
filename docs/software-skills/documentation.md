@@ -1,3 +1,9 @@
+---
+authors:
+    - Eric J. Ma
+date: 2019-10-27
+---
+
 # Documenting your code
 
 Writing lightweight documentation is a practice that I found

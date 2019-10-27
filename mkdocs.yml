@@ -1,0 +1,13 @@
+site_name: Essays on Data Science
+nav:
+  - Home: index.md
+  - Software Skills:
+    - Documentation: software-skills/documentation.md
+    - Refactoring: software-skills/refactoring.md
+    - Testing: software-skills/testing.md
+theme:
+  name: 'material'
+
+# Taken from here: https://squidfunk.github.io/mkdocs-material/extensions/codehilite/
+markdown_extensions:
+  - codehilite

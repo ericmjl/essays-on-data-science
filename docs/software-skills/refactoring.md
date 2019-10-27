@@ -1,3 +1,9 @@
+---
+authors:
+    - Eric J. Ma
+date: 2019-10-27
+---
+
 # Refactoring your code
 
 How many times have you found yourself copy/pasting code from one notebook to another?
