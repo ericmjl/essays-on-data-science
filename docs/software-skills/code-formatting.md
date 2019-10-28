@@ -88,7 +88,7 @@ format:
 With that Makefile command,
 we can now execute all code formatting commands with a single call.
 
-_Side note: I usually do `isort` first
+_Side note:_ I usually do `isort` first
 because `black` will make detect `isort`-ed code as not properly formatted,
 hence I defer to `black` to make the final changes.
 
