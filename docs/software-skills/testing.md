@@ -18,6 +18,11 @@ As soon as we finish up a function, that first test should be written.
 Doing so lets us immediately sanity-check our intuition
 about the newly-written fuction.
 
+The second time scale is "longer-term".
+As soon as we discover bugs, new tests should be added to the test suite.
+Those new tests should either cover that exact bug,
+or cover the class of bugs together.
+
 ## How to get setup
 
 In a Python project, first ensure that you have `pytest` installed.

@@ -2,10 +2,11 @@ site_name: Essays on Data Science
 nav:
   - Home: index.md
   - Software Skills:
-    - Introduction: software-skills/index.md
+    - Introduction to Software Skills: software-skills/index.md
     - Refactoring: software-skills/refactoring.md
     - Documentation: software-skills/documentation.md
     - Testing: software-skills/testing.md
+    - Code Formatting: software-skills/code-formatting.md
 theme:
   name: 'material'
 
