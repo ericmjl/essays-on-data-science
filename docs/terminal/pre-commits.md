@@ -87,6 +87,23 @@ pre-commit run --all-files
 
 Now, the new hooks will be installed.
 
+## What happens when you use pre-commit
+
+As soon as you write your commit your source files,
+just before the commit happens,
+your installed pre-commit hooks execute.
+If the hooks modify any files,
+then the commit is halted,
+and the files that were modified will show up as being "modified"
+or "untracked"
+in your git status.
+
+At this point, add the files that were modified by your pre-commit hooks,
+commit those files,
+and re-enter your commit message.
+In this way, you will prevent yourself from committing code
+that does not pass your code checks.
+
 ## Good pre-commit hooks for Python projects
 
 My opinionated list of nice hooks to have can be found below.
