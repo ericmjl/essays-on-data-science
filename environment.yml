@@ -6,6 +6,7 @@ dependencies:
 - mkdocs=1.0.4
 - mkdocs-material=4.4.3
 - pygments=2.4.2
+- pre-commit=1.20.0
 - pip
 - pip:
   - mkdocs-minify-plugin
