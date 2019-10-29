@@ -7,6 +7,8 @@ nav:
     - Documentation: software-skills/documentation.md
     - Testing: software-skills/testing.md
     - Code Formatting: software-skills/code-formatting.md
+  - Your Terminal:
+    - Pre-Commits: terminal/pre-commits.md
   - Network Science:
     - Message Passing: network-science/message-passing.md
 theme:
