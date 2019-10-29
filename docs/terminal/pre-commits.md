@@ -37,7 +37,7 @@ and just want something to copy/paste:
 
 ```bash
 conda install -c conda-forge pre-commit
-pre-commit sample-config
+pre-commit sample-config > .pre-commit-config.yaml
 pre-commit install
 pre-commit run --all-files
 ```
