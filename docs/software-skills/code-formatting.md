@@ -110,4 +110,3 @@ of the tools that you can use to format your code automatically.
 Code formatting is important for readability,
 but isn't worth the tedium.
 Letting automation save your time is the wise thing to do.
-
