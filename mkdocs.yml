@@ -8,7 +8,7 @@ nav:
     - Testing: software-skills/testing.md
     - Code Formatting: software-skills/code-formatting.md
   - Workflow:
-    - Code Review: software-skills/code-review.md
+    - Code Review: workflow/code-review.md
   - Your Terminal:
     - Pre-Commits: terminal/pre-commits.md
   - Network Science:
