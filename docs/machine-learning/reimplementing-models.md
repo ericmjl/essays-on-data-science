@@ -106,7 +106,7 @@ basically the mathematical operations
 that transform the input data into the output observations.
 
 A few keywords to look out for
-are the `forward()` and  `__calll__()` class methods.
+are the `forward()` and  `__call__()` class methods.
 
 ```python
 class MyModel(nn.Model):
