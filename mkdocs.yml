@@ -9,6 +9,8 @@ nav:
     - Code Formatting: software-skills/code-formatting.md
   - Workflow:
     - Code Review: workflow/code-review.md
+  - Machine Learning:
+    - Reimplementing Models: machine-learning/reimplementing-models.md
   - Your Terminal:
     - Pre-Commits: terminal/pre-commits.md
   - Network Science:
