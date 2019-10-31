@@ -81,6 +81,15 @@ Hence, I would start by identifying a coding partner
 who has the requisite skillset and shared incentive
 to go deep on the model.
 
+Doing so helps a few ways.
+
+Firstly, we have real-time peer review on our code,
+making it easier for us to catch mistakes that show up.
+
+Secondly, working together at the same time means that
+both myself and my colleague will learn something about the neural network
+that we are re-implementing.
+
 ### Pick out the "forward" step of the model
 
 The "forward" pass of the model is where the structure of the model is defined:
