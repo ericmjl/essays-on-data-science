@@ -70,6 +70,15 @@ of how the model works,
 and hence forms a useful way of building intuition behind the model
 as well as correctness of the model.
 
+### Reimplementing models is _not_ a waste of time
+
+By contrast, it is a highly beneficial practice
+for gaining a deeper understanding into the inner workings
+of a deep neural network.
+The only price we pay is in person-hours,
+yet under the assumption that the model is of strong commercial interest,
+that price can only be considered an investment, and not a waste.
+
 ## A proposed workflow for reimplementing deep learning models
 
 I will now propose a workflow for re-implementing deep learning models.
