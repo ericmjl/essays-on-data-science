@@ -18,7 +18,7 @@ jobs:
   # Install an SSH key prior to a build or deployment
   - task: DownloadSecureFile@1
     inputs:
-      secureFile: deploy_key
+      secureFile: gh_key
     displayName: 'Get the deploy key'
 
   - script: |
