@@ -15,7 +15,15 @@ jobs:
     vmImage: 'ubuntu-16.04'
 
   steps:
-  - bash: git clone https://$(gh_pass)@github.com/$(gh_user)/$(gh_repo).git .
+  # Install an SSH key prior to a build or deployment
+  - task: InstallSSHKey@0
+    inputs:
+      knownHostsEntry: $(gh_known_hosts)
+      sshPublicKey: $(gh_key_pub)
+      #sshPassphrase: # Optional
+      sshKeySecureFile: $(gh_key)
+
+  - bash: git clone ssh://$(gh_user)@github.com:$(gh_repo).git .
     workingDirectory: $(Build.StagingDirectory)
     displayName: "[Git] Clone GitHub Pages Repository"
 
