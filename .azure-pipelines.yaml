@@ -19,6 +19,12 @@ jobs:
     workingDirectory: $(Build.StagingDirectory)
     displayName: "[Git] Clone GitHub Pages Repository"
 
+  - script: |
+      git config user.email $(gh_email)
+      git config user.name $(gh_user)
+    workingDirectory: $(Build.StagingDirectory)
+    displayName: '[Git] Configure User'
+
   - bash: echo "##vso[task.prependpath]$CONDA/bin"
     displayName: Add conda to PATH
 
