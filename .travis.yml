@@ -42,7 +42,7 @@ before_deploy:
   - mkdocs build --verbose --clean --strict
 
 deploy:
-  provider: site
+  provider: pages
   skip_cleanup: true
   github_token: $github_token
   local_dir: site
