@@ -27,7 +27,7 @@ jobs:
       ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     displayName: 'Setup SSH keys'
 
-  - bash: git clone ssh://$(gh_user)@github.com:$(gh_repo).git .
+  - bash: git clone ssh://$(gh_user)@github.com:$(gh_repo).git
     workingDirectory: $(Build.StagingDirectory)
     displayName: "[Git] Clone GitHub Pages Repository"
 
