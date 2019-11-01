@@ -30,11 +30,11 @@ jobs:
     workingDirectory: $(Build.StagingDirectory)
     displayName: "[Git] Clone GitHub Pages Repository"
 
-  - script: |
-      git config user.email $(gh_email)
-      git config user.name $(gh_user)
-    workingDirectory: $(Build.StagingDirectory)
-    displayName: '[Git] Configure User'
+  # - script: |
+  #     git config user.email $(gh_email)
+  #     git config user.name $(gh_user)
+  #   workingDirectory: $(Build.StagingDirectory)
+  #   displayName: '[Git] Configure User'
 
   - bash: echo "##vso[task.prependpath]$CONDA/bin"
     displayName: Add conda to PATH
@@ -49,8 +49,8 @@ jobs:
 
   - bash: |
       source activate essays-on-data-science
-      git config user.email $(gh_email)
-      git config user.name $(gh_user)
+      # git config user.email $(gh_email)
+      # git config user.name $(gh_user)
       make deploy
     workingDirectory: $(Build.StagingDirectory)
     displayName: Deploy docs to GitHub pages
