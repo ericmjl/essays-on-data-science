@@ -33,8 +33,6 @@ install:
   # Install Python, py.test, and required packages.
   - conda env create -f environment.yml
   - source activate essays-on-data-science
-  # This guarantees that Python version is matrixed.
-  - python -m ipykernel install --user --name nams
 
 script: true
 
