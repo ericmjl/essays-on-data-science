@@ -12,7 +12,7 @@ variables:
   gh_repo: essays-on-data-science
   gh_pass: $(github_pat)
   gh_email: $(github_email)
-  gh_auth_header: $(echo -n "${gh_user}:$(gh_pass)" | base64);)
+  gh_auth_header: $(echo -n "${gh_user}:$(gh_pass)" | base64);
 
 
 steps:
