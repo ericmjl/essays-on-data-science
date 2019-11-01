@@ -21,7 +21,7 @@ jobs:
       knownHostsEntry: $(gh_known_hosts)
       sshPublicKey: $(gh_key_pub)
       #sshPassphrase: # Optional
-      sshKeySecureFile: $(gh_key)
+      sshKeySecureFile: gh_key
 
   - bash: git clone ssh://$(gh_user)@github.com:$(gh_repo).git .
     workingDirectory: $(Build.StagingDirectory)
