@@ -16,7 +16,7 @@ variables:
 
 
   steps:
-  - script: git clone https://$(gh_pass)@github.com/$(gh_user)/$(gh_repo).git .
+  - bash: git clone https://$(gh_pass)@github.com/$(gh_user)/$(gh_repo).git .
     workingDirectory: $(Build.StagingDirectory)
     displayName: "[Git] Clone GitHub Pages Repository"
 
