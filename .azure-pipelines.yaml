@@ -38,5 +38,8 @@ jobs:
 
   - bash: |
       source activate essays-on-data-science
+      git config user.email $(gh_email)
+      git config user.name $(gh_user)
       make deploy
+    workingDirectory: $(Build.StagingDirectory)
     displayName: Deploy docs to GitHub pages
