@@ -2,6 +2,7 @@ trigger:
 - master
 
 variables:
+  gh_name: Eric J. Ma
   gh_pass: $(github_pat)
   gh_email: $(github_email)
   gh_auth_header: $(echo -n "${gh_user}:$(gh_pass)" | base64);
