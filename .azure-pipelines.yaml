@@ -2,8 +2,6 @@ trigger:
 - master
 
 variables:
-  gh_user: ericmjl
-  gh_repo: essays-on-data-science
   gh_pass: $(github_pat)
   gh_email: $(github_email)
   gh_auth_header: $(echo -n "${gh_user}:$(gh_pass)" | base64);
@@ -27,7 +25,7 @@ jobs:
       ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     displayName: 'Setup SSH keys'
 
-  - bash: git clone ssh://$(gh_user)@github.com:$(gh_repo).git
+  - bash: git clone git@github.com:ericmjl/essays-on-data-science.git
     workingDirectory: $(Build.StagingDirectory)
     displayName: "[Git] Clone GitHub Pages Repository"
 
