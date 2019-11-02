@@ -1,9 +1,3 @@
----
-authors:
-    - Eric J. Ma
-date: 2019-10-28
----
-
 # Using `pre-commit` git hooks to automate code checks
 
 Git hooks are an awesome way

@@ -59,7 +59,8 @@ alias diff="diff-so-fancy"
 ## `bat`
 
 [`bat`](https://github.com/sharkdp/bat) is another one of those instant favourites.
-I use `cat` and `less` often to look through files, but `bat` takes things to another level.
+I use `cat` and `less` often to look through files,
+but `bat` takes things to another level.
 It is basically a mash-up between `cat` and `less`,
 allowing you to scroll through your files in a `less`-like scrolling fashion,
 while also providing syntax highlighting for the files you open.

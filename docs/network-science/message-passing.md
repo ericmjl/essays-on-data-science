@@ -1,7 +1,4 @@
----
-title: Computational Representations of Message Passing
-author: Eric J. Ma
----
+# Computational Representations of Message Passing
 
 **Abstract:** Message passing on graphs,
 also known as graph convolutions,
@@ -452,7 +449,7 @@ for their pedagogy while they were at Harvard.
 
 ## Appendix
 
-### Equivalence between padded and non-padded message passing.
+### Equivalence between padded and non-padded message passing
 
 To readers who may need an example to be convinced
 that matrix multiplying the padded matrices
