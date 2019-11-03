@@ -10,3 +10,4 @@ dependencies:
 - pip
 - pip:
   - mkdocs-minify-plugin
+  - pymdown-extensions
