@@ -24,7 +24,7 @@ specifically using Python 3.7, NumPy 1.17 (in JAX), and NetworkX 2.2.
 ### Functions on Nodes
 
 Message passing starts with a “function defined over nodes”,
-which we will denote here as `f(N)` (for “function of node N”).
+which we will denote here as $f(v)$ (for “function of node/vertex v”).
 What is this, one might ask?
 In short,
 this is nothing more than a numeric value of some kind
@@ -37,10 +37,10 @@ that the graph is being used in.
 As a concrete example,
 in molecules, a “function” defined over the molecular graph
 could be the scalar-valued proton number.
-Carbon would be represented by the function `f(N) = 6`.
+Carbon would be represented by the function $f(v) = 6$.
 Alternatively, it could be a vector of values
 encompassing both the atomic mass and the number of valence electrons.
-In this case, carbon would be represented by the function `f(N) = (6, 4)`.
+In this case, carbon would be represented by the function $f(v) = (6, 4)$.
 
 Visually, one might represent it as follows:
 
@@ -67,8 +67,8 @@ shown using a scalar on water:
 
 Summation is not the only message passing operation that can be defined.
 In principle,
-given any node `N` and its neighbors `neighbors(N)` values,
-we may write down a generic function `f(N, neighbors(N))`
+given any node (or vertex) $v$ and its neighbors $N(v)$ values,
+we may write down a generic function $f(v, N(v))$
 that defines how the function value on each node
 is to be shared with its neighbors.
 
@@ -114,7 +114,7 @@ How might we speed things up? As it turns out, linear algebra may be useful.
 We know that every graph may be represented as an adjacency matrix `A`,
 whose shape is `(n_nodes, n_nodes)`.
 As long as we maintain proper node ordering,
-we may also define a compatibly-shaped matrix `F` for node values,
+we may also define a compatibly-shaped matrix `F` for node function values,
 whose shape is `(n_nodes, n_features)`.
 
 Taking advantage of this,
