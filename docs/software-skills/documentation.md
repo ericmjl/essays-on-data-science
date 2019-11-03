@@ -1,9 +1,3 @@
----
-authors:
-    - Eric J. Ma
-date: 2019-10-27
----
-
 # Documenting your code
 
 Writing lightweight documentation is a practice that I found
@@ -11,7 +5,7 @@ sorely lacking in data science practice.
 In this essay, I will show you how to introduce lightweight documentation
 into your code.
 
-## Why document your code?
+## Why document your code
 
 There are a few good reasons to document your code.
 
@@ -28,16 +22,17 @@ Thirdly, by clarifying what exactly you intended to accomplish with a block of c
 as well as the major steps taken towards accomplishing those goals,
 you often will end up with a much cleaner implementation in the end.
 
-## When should you document your code?
+## When to document your code
 
 A pragmatic choice would be once you find yourself accomplishing
 a logical chunk of work.
 
 I usually do it as soon as I define a Python function.
 
-## Where should your code documentation go?
+## Where your code documentation should go
 
-As a general rule of thumb, having code documentation as close to the actual source code
+As a general rule of thumb,
+having code documentation as close to the actual source code
 is probably the best way to approach this.
 
 For Python programmers, this would imply taking advantage of __docstrings__!
@@ -48,11 +43,15 @@ For Python programmers, this would imply taking advantage of __docstrings__!
 1. Right inside a class definition.
 1. Right at the top of a `.py` module.
 
-An anti-pattern here would be writing your documentation in an external system, such as a Wiki.
+An anti-pattern here
+would be writing your documentation in an external system,
+such as a Wiki.
 (Woe betide the code developer who writes code docs in Confluence...)
 This is because the documentation is not proximal to the source code.
-I have found myself forgetting to update the docstrings after updating the source code.
-If it's easy to forget to update the docs when the docs are right next to the source,
+I have found myself forgetting to update the docstrings
+after updating the source code.
+If it's easy to forget to update the docs
+when the docs are right next to the source,
 imagine how much easier it is to forget to update external docs!
 
 Where, then, would documentation on how the code is organized live then?
@@ -60,9 +59,9 @@ I would argue it should be pushed as close to the source code as possible.
 For example, we can use the `.py` module docstrings
 to describe the intent behind why certain entire modules exist.
 
-## Can you show an example?
+## An example
 
-Of course! First off, here is a skeleton to follow:
+Here is a skeleton to follow:
 
 ```python
 """
@@ -118,7 +117,7 @@ This bodes well for working in a team,
 especially when a data scientist hands over a prototype
 to the engineering team.
 
-## But we don't have time to do this?
+## Addressing objections
 
 The main objections to injecting "basic software engineering"
 into a data scientist's workflow

@@ -1,9 +1,3 @@
----
-authors:
-    - Eric J. Ma
-date: 2019-10-27
----
-
 # Testing your code
 
 Writing tests for code is a basic software skill.

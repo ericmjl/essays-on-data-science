@@ -81,8 +81,8 @@ in a Makefile, to run all of those commands together.
 
 ```makefile
 format:
-	isort -r -y .
-	black -l 79 .
+    isort -r -y .
+    black -l 79 .
 ```
 
 With that Makefile command,

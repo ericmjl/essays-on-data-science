@@ -13,6 +13,7 @@ nav:
     - Reimplementing Models: machine-learning/reimplementing-models.md
   - Your Terminal:
     - Pre-Commits: terminal/pre-commits.md
+    - CLI Tools: terminal/cli-tools.md
   - Network Science:
     - Message Passing: network-science/message-passing.md
 theme:
