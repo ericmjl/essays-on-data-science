@@ -28,6 +28,8 @@ nor vice versa.
 
 ## Why data scientists should do code review
 
+### Reason 1: Sharing Knowledge
+
 The first reason is to ensure that project knowledge
 is shared amongst teammates.
 By doing this, we ensure that
@@ -45,6 +47,8 @@ and pointing out where those assumptions should be documented
 is a good way of ensuring
 that N+1 people know those implicit assumptions that go into the model.
 
+### Reason 2: Catching Mistakes
+
 The second reason is that
 even so-called "senior" data scientists are humans,
 and will make mistakes.
@@ -55,6 +59,22 @@ Sometimes, their lack of experience gives me an opportunity to explain
 and share design considerations during the code review process,
 but at other times, they are correct, and I have made a mistake in my code
 that should be rectified.
+
+### Reason 3: Social Networking
+
+If your team is remote,
+then code review can be an incredibly powerful way
+of interacting with one another
+in a professional and constructive fashion.
+
+Because of code review,
+even in the absence of in-person chats,
+we still know someone else is looking at the product of our work.
+The constructive feedback
+and the mark of approval at the end of the code review session
+are little plus points that add up to a great working relationship
+in the long-run,
+and reduce the sense of loneliness in working remotely.
 
 ## What code review can be
 
