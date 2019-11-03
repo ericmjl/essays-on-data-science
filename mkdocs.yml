@@ -30,3 +30,6 @@ extra_javascript:
 google_analytics:
   - 'UA-12498603-3'
   - 'auto'
+
+repo_name: 'ericmjl/essays-on-data-science'
+repo_url: 'https://github.com/ericmjl/essays-on-data-science'
