@@ -33,3 +33,12 @@ google_analytics:
 
 repo_name: 'ericmjl/essays-on-data-science'
 repo_url: 'https://github.com/ericmjl/essays-on-data-science'
+
+extra:
+  social:
+    - type: 'github'
+      link: 'https://github.com/ericmjl'
+    - type: 'twitter'
+      link: 'https://twitter.com/ericmjl'
+    - type: 'linkedin'
+      link: 'https://linkedin.com/in/ericmjl'
