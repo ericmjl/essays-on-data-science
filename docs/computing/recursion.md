@@ -43,6 +43,11 @@ under circumstances where we do not know
 the exact number of loop iterations needed
 before we encounter the stopping condition.
 
+While I do find recursion useful in certain applied settings,
+I will also clarify that I don't use recursion on a daily basis.
+As such, I recommend this as a back-pocket trick that one should have,
+but won't necessarily use all the time.
+
 ## Where recursion shows up in a real-life situation
 
 I can speak to one situation at work
