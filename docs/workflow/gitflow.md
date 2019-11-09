@@ -254,11 +254,11 @@ to get it going productively.
 
 Because this is a collaborative workflow,
 and because adoption is usually done only in the presence of incentives,
-I propose that in order for GitFlow and associated practices to be adopted,
-one or more champion(s) for using GitFlow needs to be empowered
-with the authority to require it on every new project they embark on.
+I think that in order for GitFlow and associated practices to be adopted,
+one or more champions for using GitFlow needs to be empowered
+with the authority to use this workflow on any project they embark on.
 They also have to be sufficiently unpressured to deliver,
-so that time pressures do not compromise on adoption.
+so that time and performance pressures do not compromise on adoption.
 Finally, they have to be able to teach `git` newcomers
 and debug problems that show up in `git` branching,
 and be able to handle the `git` workflow
@@ -274,6 +274,8 @@ At my workplace, I have been fortunate to initiate two projects
 on which we practice GitFlow,
 bringing along an intern and a colleague one rank above me
 who were willing to try this out.
+This has led to much better sharing of the coding and knowledge load,
+and has also allowed us to cover for one another much more effectively.
 
 While above I may have sounded as if there is resistance to adoption,
 in practice I know that most data scientists instinctively know
