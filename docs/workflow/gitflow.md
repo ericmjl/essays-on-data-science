@@ -173,7 +173,7 @@ with respect to the applied problem that we are tackling.
     where new molecules are often out-of-distribution.
 
     If we focused on getting a good model right from the get-go,
-    we may have missed out on elementary details such as these.
+    we may end up missing out on elementary details such as these.
 
 Once we are done with this,
 we embark on the second phase,
