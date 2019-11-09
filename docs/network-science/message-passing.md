@@ -84,7 +84,7 @@ the summation of one’s neighbors values with one’s values.
 With this definition in place,
 we may then define a message passing operation in Python as follows:
 
-```python
+```python linenums="1"
 def message_passing(G):
     """Object-oriented message passing operation."""
 
@@ -128,7 +128,7 @@ Then, message passing,
 as defined above,
 is trivially the dot product of `A` and `F`:
 
-```python
+```python linenums="1"
 def message_passing(A, F):
     """
     Message passing done by linear algebra.
@@ -152,7 +152,7 @@ we get back the connectivity of nodes
 at two degrees of separation away.
 More generically:
 
-```python
+```python linenums="1"
 def n_degree_adjacency(A, n: int):
     """
     Return the n-degree of separation adjacency matrix.
@@ -213,7 +213,7 @@ and a list of adjacency matrices.
 The message passing operation, then,
 may be defined by writing a for-loop over pairs of these matrices.
 
-```python
+```python linenums="1"
 def message_passing(As, Fs):
     outputs = []
     for A, F in zip(As, Fs):
@@ -241,7 +241,7 @@ then we will have a dense feature matrix of shape `(sum(n_nodes), n_feats)`,
 and a sparse adjacency matrix of shape `(sum(n_nodes), sum(n_nodes))`.
 Message passing then becomes a sparse-dense dot product:
 
-```python
+```python linenums="1"
 def message_passing(A, F):
     return sparse.dot(A, F)
 ```
@@ -269,7 +269,7 @@ ensuring that we preserve the sample/batch dimension in the final result.
 
 In terms of Python code, this requires special preparation of the graphs.
 
-```python
+```python linenums="1"
 from collections import defaultdict
 from jax.lax import batch_matmul
 
@@ -292,7 +292,6 @@ def prep_data(Gs: list):
     for size, Fs in feature_matrices.items():
         feature_matrices[size] = np.stack(Fs)
     return adjacency_matrices, feature_matrices
-
 
 def message_passing(As, Fs):
     result = dict()
@@ -323,14 +322,14 @@ In this implementation,
 we prepare the data in a different way.
 Firstly, we must know the size of the largest graph ahead-of-time.
 
-```python
+```python linenums="1"
 size = ...  # largest graph size
 ```
 
 We then pad every graph’s feature matrix with zeros along the node axis
 until the node axis is as long as the largest graph size.
 
-```python
+```python linenums="1"
 def prep_feats(F, size):
     # F is of shape (n_nodes, n_feats)
     return np.pad(
@@ -344,7 +343,7 @@ def prep_feats(F, size):
 
 We do the same with every adjacency matrix.
 
-```python
+```python linenums="1"
 def prep_adjs(A, size):
     # A is of shape (n_nodes, n_nodes)
     return np.pad(
@@ -358,7 +357,7 @@ def prep_adjs(A, size):
 
 Finally, we simply stack them into the data matrix:
 
-```python
+```python linenums="1"
 As = np.stack([prep_adjs(A, size) for A in As]
 Fs = np.stack([prep_feats(F, size) for F in Fs]
 ```
@@ -374,7 +373,7 @@ assign the first dimension to be the sample/batch dimension.
 
 Finally, message passing is now trivially defined as a batch matrix multiply:
 
-```python
+```python linenums="1"
 def message_passing(A, F):
     return batch_matmul(A, F)
 ```
