@@ -11,6 +11,7 @@ nav:
     - Code Formatting: software-skills/code-formatting.md
   - Workflow:
     - Code Review: workflow/code-review.md
+    - GitFlow: workflow/gitflow.md
   - Machine Learning:
     - Reimplementing Models: machine-learning/reimplementing-models.md
     - Message Passing: machine-learning/message-passing.md
@@ -24,6 +25,7 @@ theme:
 markdown_extensions:
   - codehilite
   - pymdownx.arithmatex
+  - pymdownx.details
   - pymdownx.superfences
 
 extra_javascript:
