@@ -1,6 +1,8 @@
 site_name: Essays on Data Science
 nav:
   - Home: index.md
+  - Computing:
+    - Recursion: computing/recursion.md
   - Software Skills:
     - Introduction to Software Skills: software-skills/index.md
     - Refactoring: software-skills/refactoring.md
@@ -23,6 +25,7 @@ theme:
 markdown_extensions:
   - codehilite
   - pymdownx.arithmatex
+  - pymdownx.superfences
 
 extra_javascript:
     - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
