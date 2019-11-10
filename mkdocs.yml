@@ -20,6 +20,14 @@ nav:
     - CLI Tools: terminal/cli-tools.md
 theme:
   name: 'material'
+  palette:
+    primary: 'light blue'
+    accent: 'light blue'
+  logo:
+    icon: 'library_books'
+
+plugins:
+  - search
 
 # Taken from here: https://squidfunk.github.io/mkdocs-material/extensions/codehilite/
 markdown_extensions:
