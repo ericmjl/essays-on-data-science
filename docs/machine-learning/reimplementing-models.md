@@ -157,6 +157,16 @@ a specially designed recurrent neural network layer in JAX,
 we did a manual sanity check through our implementation
 to identify what the shapes would need to be
 for the inputs and outputs.
+After that, we encoded that manual test into an automatic test.
+Later on, after we built another test that integrated
+which paradoxically failed on shapes,
+we eventually uncovered that we were indexing into the wrong dimensions
+in our implementation.
+This led to us
+(1) fixing the bug,
+(2) writing a more comprehensive documentation suite, and
+(3) writing better documentations for the semantic meaning
+of each tensor axis.
 
 ### Write tests for the neural network components
 
