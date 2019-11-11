@@ -1,10 +1,11 @@
 # Principled Git-based Workflow in Collaborative Data Science Projects
 
-[GitFlow](https://datasift.github.io/gitflow/IntroducingGitFlow.html)
-is an incredible branching model for working with code.
+[GitFlow] is an incredible branching model for working with code.
 In this essay, I would like to introduce it to you, the data scientist,
 and show how it might be useful in your context,
 especially for working with multiple colleagues on the same project.
+
+[GitFlow]: https://datasift.github.io/gitflow/IntroducingGitFlow.html
 
 ## What GitFlow is
 
@@ -37,19 +38,31 @@ can I think be of great utility to data scientists.
 It does, however, involve a bit of change in the common mode of working
 that data scientists use.
 
+??? question "Is GitFlow still confusing for you?"
+
+    If so, please check out [this article][GitFlow] on GitFlow.
+    It includes the appropriate graphics that will make it much clearer.
+    I felt that a detailed explanation here would be rather out of scope.
+
+    That said, nothing beats trying it out to get a feel for it,
+    so if you're willing to pick it up,
+    I would encourage you to find a software developer in your organization
+    who has experience with GitFlow
+    and ask them to guide you on it.
+
 ## GitFlow in a data science project
 
 Here is how I think GitFlow can be successfully deployed
 in a data science project.
 
-Everything starts with the unit of analysis that we are trying to perform.
+Everything starts with the **unit of analysis** that we are trying to perform.
 
 We start by defining the question that we are trying to answer.
 We then proceed forward by sketching out an analysis plan
-(let's call this an analysis sketch),
+(let's call this an **analysis sketch**),
 which outlines the data sources that we need,
 the strategy for analyzing the data
-(roughly including
+(roughly including:
 models we think might be relevant to the scale of the problem,
 the plots we think might be relevant to make,
 and where we think, future directions might lie).
@@ -62,6 +75,13 @@ be more thoughtful of what we want to do when analyzing our data.
 After all, one of the myths of data science
 is that we can
 ["stir the pile until the data start looking right"](https://xkcd.com/1838/).
+
+??? tip "About stirring the pot..."
+
+    If you didn't click the URL to go to XKCD,
+    here's the cartoon embedded below:
+
+    ![](https://imgs.xkcd.com/comics/machine_learning_2x.png)
 
 Once we are done with defining the analysis sketch in an issue,
 we follow the rest of GitFlow-based workflow:
@@ -78,6 +98,13 @@ Ideally this is done in-person,
 but by submitting a formal pull request,
 our colleague can pull down our code
 and check that things have been done correctly on their computer.
+
+??? tip "Code review"
+
+    If you want to know more about code review,
+    please check out [another essay][code-review] in this collection.
+
+[code-review]: /workflow/code-review/
 
 If your team has access to a [Binder]-like service,
 then review can be done in an even simpler fashion:
