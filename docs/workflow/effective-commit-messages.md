@@ -98,13 +98,17 @@ rather than writing a message that read:
 
 ???+ failure "Don't do this"
 
-        black
+    ```text
+    black
+    ```
 
 Perhaps a a more informative message might be:
 
 ???+ success "Do this"
 
-        Applied code formatting (make format).
+    ```text
+    Applied code formatting (make format).
+    ```
 
 We don’t need an extended message (unlike those we might see later), because it is a trivial change.
 
@@ -125,20 +129,24 @@ So instead of writing a commit message that reads:
 
 ???+ failure "Don't do this"
 
-        WIP loaded data
+    ```text
+    WIP loaded data
+    ```
 
 
 We instead can write a commit message that reads:
 
 ???+ success "Do this"
 
-        WIP finished code that loads data into memory
+    ```text
+    WIP finished code that loads data into memory
 
-        We still need to do the following:
+    We still need to do the following:
 
-        - Check statistical covariation between columns
+    - Check statistical covariation between columns
             and remove correlated features.
-        - Identify the best predictors.
+    - Identify the best predictors.
+    ```
 
 Now, when we look at the `git log`,
 we will see something that looks like this
@@ -172,27 +180,31 @@ An uninformative commit message for this would look like:
 
 ???+ failure "Don't do this"
 
-        Finally done with model building
+    ```text
+    Finally done with model building
+    ```
 
 By contrast, an informative one might look something like this:
 
 ???+ success "Do this"
 
-        Model building (Issue #34) ready for review
+    ```text
+    Model building (Issue #34) ready for review
 
-        Finished:
+    Finished:
 
-        - Pipeline taking data from input (strings) to activity prediction.
-        - Custom code for data pipeline has been stored in custom package.
-            Tests and docs written.
-        - Notebooks documenting work are also written.
-            Static HTML version for archival also generated.
+    - Pipeline taking data from input (strings) to activity prediction.
+    - Custom code for data pipeline has been stored in custom package.
+        Tests and docs written.
+    - Notebooks documenting work are also written.
+        Static HTML version for archival also generated.
 
-        Not done:
+    Not done:
 
-        - Hyperparameter selection.
-            This is the logical next step,
-            and as agreed at last meeting, of highest priority.
+    - Hyperparameter selection.
+        This is the logical next step,
+        and as agreed at last meeting, of highest priority.
+    ```text
 
 Admittedly, it can be tough to know when to write this one,
 and I think it’s because it _feels_ like
