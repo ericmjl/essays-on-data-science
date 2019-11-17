@@ -1,23 +1,4 @@
 site_name: Essays on Data Science
-nav:
-  - Home: index.md
-  - Computing:
-    - Recursion: computing/recursion.md
-  - Software Skills:
-    - Introduction to Software Skills: software-skills/index.md
-    - Refactoring: software-skills/refactoring.md
-    - Documentation: software-skills/documentation.md
-    - Testing: software-skills/testing.md
-    - Code Formatting: software-skills/code-formatting.md
-  - Workflow:
-    - Code Review: workflow/code-review.md
-    - GitFlow: workflow/gitflow.md
-  - Machine Learning:
-    - Reimplementing Models: machine-learning/reimplementing-models.md
-    - Message Passing: machine-learning/message-passing.md
-  - Your Terminal:
-    - Pre-Commits: terminal/pre-commits.md
-    - CLI Tools: terminal/cli-tools.md
 theme:
   name: 'material'
   palette:
