@@ -42,7 +42,7 @@ has the "mean" and "variance" parameters defined.
 In Python code, we might write it as:
 
 ```python
-class Normal(object):
+class Normal:
     def __init__(self, mu, sigma):
         self.mu = mu
         self.sigma = sigma
@@ -63,7 +63,7 @@ assigned to the value of `x` passed in.
 ```python
 import numpy as np
 
-class Normal(object):
+class Normal:
     def __init__(self, mu, sigma):
         self.mu = mu
         self.sigma = sigma
@@ -92,7 +92,7 @@ which gives us reference implementations of probability distributions.
 ```python
 import numpy as np
 
-class Normal(object):
+class Normal:
     def __init__(self, mu, sigma):
         self.mu = mu
         self.sigma = sigma
@@ -139,7 +139,7 @@ evaluated at a bunch of i.i.d. data points.
 ```python
 import numpy as np
 
-class Normal(object):
+class Normal:
     def __init__(self, mu, sigma):
         self.mu = mu
         self.sigma = sigma
@@ -204,7 +204,7 @@ to include a `.sample(n)` method:
 ```python
 import numpy as np
 
-class Normal(object):
+class Normal:
     def __init__(self, mu, sigma):
         self.mu = mu
         self.sigma = sigma
