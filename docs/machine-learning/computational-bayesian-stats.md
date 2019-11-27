@@ -152,7 +152,7 @@ class Normal:
         return self.dist.pdf(x)
 
     def logpdf(self, x):
-        return np.sum(self.pdf(x))
+        return self.dist.logpdf(x)
 ```
 
 ## Random Variables
