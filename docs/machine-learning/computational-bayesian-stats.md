@@ -1,7 +1,7 @@
 # An Introduction to Probability and Computational Bayesian Statistics
 
 In Bayesian statistics,
-we often say that we are using "sampling" from a posterior distribution
+we often say that we are "sampling" from a posterior distribution
 to estimate what parameters could be,
 given a model structure and data.
 What exactly is happening here?
@@ -23,26 +23,26 @@ of what a probability distribution is before we can go on.
 Without going down deep technical and philosophical rabbit holes
 (I hear they are deep),
 I'll start by proposing
-that "a probability distribution is an object
+that "a probability distribution is a Python object
 that has a math function
 that allocates credibility points onto the number line".
 
-Because we'll be using the Normal distribution extensively in this essay,
+Because we'll be using the normal distribution extensively in this essay,
 we'll start off by examining that definition
-in the context of the standard Normal distribution.
+in the context of the standard normal distribution.
 
 ### Base Object Implementation
 
-Since the Normal distribution is an object,
+Since the normal distribution is an object,
 I'm implying here that it can hold state.
 What might that state be?
 Well, we know from math that probability distributions have parameters,
-and that the Normal distribution
+and that the normal distribution
 has the "mean" and "variance" parameters defined.
 In Python code, we might write it as:
 
 ```python
-class Normal:
+class normal:
     def __init__(self, mu, sigma):
         self.mu = mu
         self.sigma = sigma
@@ -50,7 +50,7 @@ class Normal:
 
 ### Probability Density Function
 
-Now, I also stated that the Normal distribution has a math function
+Now, I also stated that the normal distribution has a math function
 that we can use to allocate credibility points to the number line.
 This function also has a name,
 called a "probability distribution function", or the "PDF".
@@ -80,7 +80,7 @@ class Normal:
 If we pass in a number `x` from the number line,
 we will get back another number that tells us
 the number of credibility points given to that value `x`,
-under the state of the Normal distribution instantiated.
+under the state of the normal distribution instantiated.
 We'll call this $P(x)$.
 
 To simplify the implementation used here,
@@ -131,7 +131,7 @@ By the usual rules of math, then:
 
 $$\log P(X_1, X_2, ..., X_i) = \sum_{j=1}^{i}\log P(X_i)$$
 
-To our Normal distribution class,
+To our normal distribution class,
 we can now add in another class method
 that computes the sum of log likelihoods
 evaluated at a bunch of i.i.d. data points.
@@ -151,7 +151,7 @@ class Normal:
         # Now, our PDF class method is simplified to be just a wrapper.
         return self.dist.pdf(x)
 
-    def sumlogpdf(self, x):
+    def logpdf(self, x):
         return np.sum(self.pdf(x))
 ```
 
@@ -218,7 +218,7 @@ class Normal:
         return self.dist.rvs(n)
 ```
 
-Now, if we draw 10 realizations of a Normally distributed random variable,
+Now, if we draw 10 realizations of a normally distributed random variable,
 and the drawing of each realization has no dependence of any kind
 on the previous draw,
 then we can claim that each draw is **independent**
@@ -226,7 +226,7 @@ and **identically distributed**.
 This is where the fabled "_iid_" term in undergraduate statistics classes
 comes from.
 
-## Data Generative Process
+## Data Generating Process
 
 Now that we have covered what probability distributions are,
 we can now move on to other concepts
@@ -269,8 +269,8 @@ It may look weird,
 but didn't we say before that data are realizations from a random variable?
 Why are we now treating data as a random variable?
 Here, we are doing not-so-intuitive but technically correct step
-of treating the data as being part of this probabilistic space $D$,
-(hence it "looks" like a random variable)
+of treating the data $D$ as being part of this probabilistic model
+(hence it "looks" like a random variable),
 alongside our model parameters $H$.
 There's a lot of measure theory that goes into this interpretation,
 which at this point I have not yet mastered,
@@ -334,6 +334,8 @@ $$y \sim Normal(\mu, \sigma)$$
 
 Let's now map the symbols onto Bayes' rule.
 
+- $H$ are the parameters, which are $\mu$ and $\sigma$ here.
+- $D$ is the data that I will observe [TODO: this is referred to as `xs` later, but is not shown how to generate].
 - $P(H|D)$ is the posterior, which we would like to compute.
 - $P(D|H)$ is the likelihood,
 and is given by $y$'s probability distribution $Normal(\mu, \sigma)$,
@@ -394,15 +396,15 @@ This also translates directly into Python code!
 def model_log_prob(mu, sigma, y):
     # log-probability of mu under prior.
     normal_prior = Normal(0, 10)
-    mu_log_prob = normal_prior.sumlogpdf(mu)
+    mu_log_prob = normal_prior.logpdf(mu)
 
     # log-probability of sigma under prior.
     sigma_prior = Exponential(1)
-    sigma_log_prob = sigma_prior.sumlogpdf(mu)
+    sigma_log_prob = sigma_prior.logpdf(mu)
 
     # log-likelihood given priors and data
     likelihood = Normal(mu, sigma)
-    likelihood_log_prob = likelihood.sumlogpdf(y)
+    likelihood_log_prob = likelihood.logpdf(y)
 
     # Joint log-likelihood
     return mu_log_prob + sigma_log_prob + likelihood_log_prob
@@ -451,7 +453,7 @@ our parameters $p$ are actually $(\mu, \sigma)$.
 This means that we have to propose two numbers
 and sample two numbers in each loop of the sampler.
 
-To make things simple for us, let's use the Normal distribution
+To make things simple for us, let's use the normal distribution
 centered on $0$ but with scale $0.1$
 to propose values for each.
 
@@ -501,14 +503,14 @@ for i in range(1000):
 ```
 
 Because of a desire for convenience,
-we chose to use a single Normal distribution to sample all values.
+we chose to use a single normal distribution to sample all values.
 However, that distribution choice is going to bite us during sampling,
 because the values that we could possibly sample for the $\sigma$ parameter
 can take on negatives,
 but when a negative $\sigma$ is passed
-into the Normally-distributed likelihood,
+into the normally-distributed likelihood,
 we are going to get computation errors!
-This is because the scale parameter of a Normal distribution
+This is because the scale parameter of a normal distribution
 can only be positive, and cannot be negative or zero.
 (If it were zero, there would be no randomness.)
 
@@ -587,7 +589,7 @@ we get the following trace:
 
 We intentionally skipped over a number of topics.
 
-One of them was why we used a Normal distribution with scale of 0.1
+One of them was why we used a normal distribution with scale of 0.1
 to propose a different value, rather than a different scale.
 As it turns out the, scale parameter is a tunable hyperparameter,
 and in PyMC3 we do perform tuning as well.
@@ -635,7 +637,7 @@ and a proposed set of initial parameter values,
 and return a chain of sampled values.
 
 Finally, I hope the "simplest complex example"
-of estimating $\mu$ and $\sigma$ of a Normal distribution
+of estimating $\mu$ and $\sigma$ of a normal distribution
 helps further your understanding of the math behind Bayesian statistics.
 
 All in all, I hope this essay helps your learning, as writing it did for me!
