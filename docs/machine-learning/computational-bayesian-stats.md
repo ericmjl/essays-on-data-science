@@ -631,7 +631,9 @@ as well as a function that calculates the joint log likelihood
 of the model and data.
 
 In fact, based on the exercise above,
-any "sampler" is only concerned with the model log probability,
+any "sampler" is only concerned with the model log probability
+(though some also require the local gradient of the log probability
+w.r.t. the parameters to find where to climb next),
 and should only be required to accept a **model log probability** function
 and a proposed set of initial parameter values,
 and return a chain of sampled values.
