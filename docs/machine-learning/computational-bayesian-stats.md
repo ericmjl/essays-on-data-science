@@ -173,6 +173,20 @@ According to the Wikipedia definition of a [random variable][rv]:
 As such, it may be tempting to conceive of a random variable
 as an object that has a probability distribution attribute attached to it.
 
+??? note "Random Variables and Sampling"
+
+    A piece of wisdom directly quoted from my friend [Colin Carroll][colin],
+    who is also a PyMC developer:
+
+    > Random variables are *measures*,
+    > and measures are only really defined under an integral sign.
+    > *Sampling* is usually defined as the act of generating data
+    > according to a certain measure.
+    > This is confusing, because we invert this relationship
+    > when we do computational statistics:
+    > we generate the data,
+    > and use that to approximate an integral or expectation.
+
 ### Realizations of a Random Variable
 
 On the other hand, it can also be convenient to invert that relationship,
@@ -279,9 +293,7 @@ and propose that this interpretation be accepted for now and move on.
 
 ??? note "Data are random variables?"
 
-    Notes from a chat with my friend [Colin Carroll][colin],
-    who is also a PyMC developer,
-    gave me a lot to chew on, as usual:
+    Notes from a chat with Colin gave me a lot to chew on, as usual:
 
     > The answer is in how you define "event" as
     > "an element of a sigma algebra".
@@ -413,10 +425,11 @@ def model_log_prob(mu, sigma, y):
 ## Computing the Posterior with Sampling
 
 To identify what the values of $\mu$ and $\sigma$
-should take on given the data,
+should take on given the data and priors,
 we can turn to sampling to help us.
-(I am intentionally skipping over integrals,
-which is what sampling is replacing.)
+I am intentionally skipping over integrals
+which are used to compute expectations,
+which is what sampling is replacing.
 
 ### Metropolis-Hastings Sampling
 
