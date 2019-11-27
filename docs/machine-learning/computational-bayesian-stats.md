@@ -173,20 +173,6 @@ According to the Wikipedia definition of a [random variable][rv]:
 As such, it may be tempting to conceive of a random variable
 as an object that has a probability distribution attribute attached to it.
 
-??? note "Random Variables and Sampling"
-
-    A piece of wisdom directly quoted from my friend [Colin Carroll][colin],
-    who is also a PyMC developer:
-
-    > Random variables are *measures*,
-    > and measures are only really defined under an integral sign.
-    > *Sampling* is usually defined as the act of generating data
-    > according to a certain measure.
-    > This is confusing, because we invert this relationship
-    > when we do computational statistics:
-    > we generate the data,
-    > and use that to approximate an integral or expectation.
-
 ### Realizations of a Random Variable
 
 On the other hand, it can also be convenient to invert that relationship,
@@ -597,6 +583,26 @@ If we prune the trace to just the values after the 200th iteration,
 we get the following trace:
 
 ![](./comp-bayes-figures/mcmc-trace-burn-in.png)
+
+The samples drawn are an approximation to
+the expected values of $\mu$ and $\sigma$
+given the data and priors specified.
+
+???+ note "Random Variables and Sampling"
+
+    A piece of wisdom directly quoted from my friend [Colin Carroll][colin],
+    who is also a PyMC developer:
+
+    > Random variables are *measures*,
+    > and measures are only really defined under an integral sign.
+    > *Sampling* is usually defined as the act of generating data
+    > according to a certain measure.
+    > This is confusing, because we invert this relationship
+    > when we do computational statistics:
+    > we generate the data,
+    > and use that to approximate an integral or expectation.
+
+
 
 ## Topics We Skipped Over
 
