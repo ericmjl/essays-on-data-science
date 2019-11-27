@@ -42,7 +42,7 @@ has the "mean" and "variance" parameters defined.
 In Python code, we might write it as:
 
 ```python
-class normal:
+class Normal:
     def __init__(self, mu, sigma):
         self.mu = mu
         self.sigma = sigma
