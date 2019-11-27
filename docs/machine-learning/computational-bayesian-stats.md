@@ -1,4 +1,4 @@
-# An Introduction to Computational Bayesian Statistics
+# An Introduction to Probability and Computational Bayesian Statistics
 
 In Bayesian statistics,
 we often say that we are using "sampling" from a posterior distribution
@@ -164,9 +164,11 @@ a variable whose quantity is non-deterministic (hence random)
 but whose probability of taking on a certain value
 can be described by a probability distribution.
 
-According to the Wikipedia definition of a random variable:
+According to the Wikipedia definition of a [random variable][rv]:
 
 > A random variable has a probability distribution, which specifies the probability of its values.
+
+[rv]: https://en.wikipedia.org/wiki/Random_variable
 
 As such, it may be tempting to conceive of a random variable
 as an object that has a probability distribution attribute attached to it.
@@ -192,7 +194,7 @@ norm(loc=0, scale=1).rvs(10)
     A "realization" of a random variable is nothing more than
     generating a random number
     whose probability of being generated
-    is proportional to the random variable's probability distribution.
+    is defined by the random variable's probability density function.
 
 Because the generation of realizations of a random variable
 is equivalent to sampling from a probability distribution,
@@ -244,7 +246,6 @@ given the probability distribution used to model it.
 Keep this idea in mind:
 it is going to be important shortly.
 
-
 ## Bayes' Rule
 
 Now that we've covered probability distributions,
@@ -267,8 +268,9 @@ $$P(H|D) = \frac{P(D|H)P(H)}{P(D)}$$
 It may look weird,
 but didn't we say before that data are realizations from a random variable?
 Why are we now treating data as a random variable?
-we are doing an unintuitive but technically correct step
-of treating the data as being part of this probabilistic space $D$
+Here, we are doing not-so-intuitive but technically correct step
+of treating the data as being part of this probabilistic space $D$,
+(hence it "looks" like a random variable)
 alongside our model parameters $H$.
 There's a lot of measure theory that goes into this interpretation,
 which at this point I have not yet mastered,
@@ -292,9 +294,305 @@ and propose that this interpretation be accepted for now and move on.
     > if the data being ordered vs unordered are different!
 
 With the data + hypothesis interpretation of Bayes' rule in hand,
-we can finally get going on
+the next question arises:
+What math happens when we calculate posterior densities?
 
-TBD:
+## Translating Bayes' Math to Python
 
-- draw samples from distribution: gives us a bunch of random variates (RVs).
-- if X is the random variable, then X_1, X_2, ..., X_i is a list of i.i.d. random variates from X's distribution, with each X_i being a realization of the random variable.
+### Defining Posterior Log-Likelihood
+
+To understand this, let's look at the simplest complex example
+that I could think of:
+Estimating the $\mu$ and $\sigma$ parameters
+of a normal distribution
+conditioned on observing data points $y$.
+
+If we assume a data generating process that looks like the following
+(with no probability distributions specified yet):
+
+```mermaid
+graph TD;
+    μ((μ)) --> y(y);
+    σ((σ)) --> y(y);
+```
+
+We can write out the following probabilistic model
+(now explicitly specifying probability distributions):
+
+$$\mu \sim Normal(0, 10)$$
+
+$$\sigma \sim Exponential(1)$$
+
+$$y \sim Normal(\mu, \sigma)$$
+
+Let's now map the symbols onto Bayes' rule.
+
+- $P(H|D)$ is the posterior, which we would like to compute.
+- $P(D|H)$ is the likelihood,
+and is given by $y$'s probability distribution $Normal(\mu, \sigma)$,
+or in probability notation, $P(y|\mu, \sigma)$.
+- $P(H)$ is the the prior, and is given by $P(\mu, \sigma)$.
+- $P(D)$ is a hard quantity to calculate, so we sort of cheat and don't use it,
+and merely claim that the posterior is proportional to likelihood times prior.
+
+If we look at the probability symbols again,
+we should notice that $P(\mu, \sigma)$
+is the joint distribution between $\mu$ and $\sigma$.
+However, from observing the graphical diagram,
+we'll notice that $\mu$ and $\sigma$ have no bearing on one another:
+we do not need to know $\mu$ to know the value of $sigma$,
+and vice versa.
+Hence, they are independent of one another,
+and so by the rules of probability,
+
+$$P(\mu, \sigma) = P(\mu | \sigma)P(\sigma) = P(\mu)P(\sigma) = P(H)$$
+
+Now, by simply moving symbols around:
+
+$$P(H|D) = P(D|H)P(H)$$
+
+$$ = P(y|\mu,\sigma)P(\mu, \sigma)$$
+
+$$ = P(y|\mu, \sigma)P(\mu)P(\sigma)$$
+
+This translates directly into Python code!
+
+```python
+def model_prob(mu, sigma, y):
+    # Probability of mu under prior.
+    normal_prior = Normal(0, 10)
+    mu_prob = normal_prior.pdf(mu)
+
+    # Probability of sigma under prior.
+    sigma_prior = Exponential(1)
+    sigma_prob = sigma_prior.pdf(mu)
+
+    # Likelihood of data given mu and sigma
+    likelihood = Normal(mu, sigma)
+    likelihood_prob = likelihood.pdf(y)
+
+    # Joint likelihood
+    return mu_prob * sigma_prob * likelihood_prob
+```
+
+If you remember, multiplying so many probability distributions together
+can give us underflow issues when computing,
+so it is common to take the log of both sides.
+
+$$\log(P(H|D)) = log(P(y|\mu, \sigma)) + log(P(\mu)) + log(P(\sigma))$$
+
+This also translates directly into Python code!
+
+```python
+def model_log_prob(mu, sigma, y):
+    # log-probability of mu under prior.
+    normal_prior = Normal(0, 10)
+    mu_log_prob = normal_prior.sumlogpdf(mu)
+
+    # log-probability of sigma under prior.
+    sigma_prior = Exponential(1)
+    sigma_log_prob = sigma_prior.sumlogpdf(mu)
+
+    # log-likelihood given priors and data
+    likelihood = Normal(mu, sigma)
+    likelihood_log_prob = likelihood.sumlogpdf(y)
+
+    # Joint log-likelihood
+    return mu_log_prob + sigma_log_prob + likelihood_log_prob
+```
+
+## Computing the Posterior with Sampling
+
+To identify what the values of $\mu$ and $\sigma$
+should take on given the data,
+we can turn to sampling to help us.
+(I am intentionally skipping over integrals,
+which is what sampling is replacing.)
+
+### Metropolis-Hastings Sampling
+
+An easy-to-understand sampler that we can start with
+is the Metropolis-Hastings sampler.
+I first learned it in a grad-level computational biology class,
+but I expect most statistics undergrads should have
+a good working knowledge of the algorithm.
+
+For the rest of us, check out the note below on how the algorithm works.
+
+???+ note "The Metropolis-Hastings Algorithm"
+
+    Shamelessly copied (and modified)
+    from the [Wikipedia article]():
+
+    - For each parameter $p$, do the following.
+    - Initialize an arbitrary point for the parameter (this is $p_t$, or $p$ at step $t$).
+    - Define a probability density $P(p_t)$, for which we will draw new values of the parameters. Here, we will use $P(p) = Normal(p_{t-1}, 1)$.
+    - For each iteration:
+        - Generate candidate new candidate $p_t$ drawn from $P(p_t)$.
+        - Calculate the likelihood of the data under the previous parameter value(s) $p_{t-1}$: $L(p_{t-1})$
+        - Calculate the likelihood of the data under the proposed parameter value(s) $p_t$: $L(p_t)$
+        - Calculate acceptance ratio $r = \frac{L(p_t)}{L(p_{t-1})}$.
+        - Generate a new random number on the unit interval: $s \sim U(0, 1)$.
+        - Compare $s$ to $r$.
+            - If $s \leq r$, accept $p_t$.
+            - If $s \gt r$, reject $p_t$ and continue sampling again with $p_{t-1}$.
+
+[mh]: https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm
+
+In the algorithm described in the note above,
+our parameters $p$ are actually $(\mu, \sigma)$.
+This means that we have to propose two numbers
+and sample two numbers in each loop of the sampler.
+
+To make things simple for us, let's use the Normal distribution
+centered on $0$ but with scale $0.1$
+to propose values for each.
+
+We can implement the algorithm in Python code:
+
+```python linenums="1"
+# Metropolis-Hastings Sampling
+mu_prev = np.random.normal()
+sigma_prev = np.random.normal()
+
+# Keep a history of the parameter values and ratio.
+mu_history = dict()
+sigma_history = dict()
+ratio_history = dict()
+
+for i in range(1000):
+    mu_history[i] = mu_prev
+    sigma_history[i] = sigma_prev
+    mu_t = np.random.normal(mu_prev, 0.1)
+    sigma_t = np.random.normal(sigma_prev, 0.1)
+
+    # Compute joint log likelihood
+    LL_t = model_log_prob(mu_t, sigma_t, xs)
+    LL_prev = model_log_prob(mu_prev, sigma_prev, xs)
+
+    # Calculate the difference in log-likelihoods
+    # (or a.k.a. ratio of likelihoods)
+    diff_log_like = LL_t - LL_prev
+    if diff_log_like > 0:
+        ratio = 1
+    else:
+        # We need to exponentiate to get the correct ratio,
+        # since all of our calculations were in log-space
+        ratio = np.exp(diff_log_like)
+
+    # Defensive programming check
+    if np.isinf(ratio) or np.isnan(ratio):
+        raise ValueError(f"LL_t: {LL_t}, LL_prev: {LL_prev}")
+
+    # Ratio comparison step
+    ratio_history[i] = ratio
+    p = np.random.uniform(0, 1)
+
+    if ratio >= p:
+        mu_prev = mu_t
+        sigma_prev = sigma_t
+```
+
+Because of a desire for convenience,
+we chose to use a single Normal distribution to sample all values.
+However, that distribution choice is going to bite us during sampling,
+because the values that we could possibly sample for the $\sigma$ parameter
+can take on negatives,
+but when a negative $\sigma$ is passed
+into the Normally-distributed likelihood,
+we are going to get computation errors!
+This is because the scale parameter of a Normal distribution
+can only be positive, and cannot be negative or zero.
+(If it were zero, there would be no randomness.)
+
+### Transformations as a Hack
+
+The key problem here is that the support of the Exponential distribution
+is bound to be positive real numbers only.
+That said, we can get around this problem
+simply by sampling amongst the unbounded real number space $(-\inf, +\inf)$,
+and then transforming the number by a math function to be in the bounded space.
+
+One way we can transform numbers from an unbounded space
+to a positive-bounded space
+is to use the exponential transform:
+
+$$y = e^x$$
+
+For any given value $x$, $y$ will be guaranteed to be positive.
+
+Knowing this, we can modify our sampling code, specifically, what was before:
+
+```python
+# Initialize in unconstrained space
+sigma_prev = np.random.normal(0, 1)
+# ...
+for i in range(1000):
+    # ...
+    # Propose in unconstrained space
+    sigma_t = np.random.normal(sigma_prev, 0.1)
+
+    # Transform the sampled values to the constrained space
+    sigma_prev_tfm = np.exp(sigma_prev)
+    sigma_t_tfm = np.exp(sigma_t)
+
+    # ...
+
+    # Pass the transformed values into the log-likelihood calculation
+    LL_t = model_log_prob(mu_t, sigma_t_tfm, xs)
+    LL_prev = model_log_prob(mu_prev, sigma_prev_tfm, xs)
+
+    # ...
+```
+
+And _voila_!
+We have implemented the necessary components
+to compute posterior distributions on parameters!
+
+### Samples from Posterior
+
+If we simulate 1000 data points from a $Normal(3, 1)$ distribution,
+and pass them into the model log probability function defined above,
+then after running the sampler,
+we get a chain of values that the sampler has picked out
+as maximizing the joint likelihood of the data and the model.
+This, by the way, is essentially the simplest version of
+Markov Chain Monte Carlo sampling that exists
+in modern computational Bayesian statistics.
+
+Let's examine the trace from one run:
+
+![](./comp-bayes-figures/mcmc-trace.png)
+
+Notice how it takes about 200 steps before the trace becomes **stationary**,
+that is it becomes a flat trend-line.
+If we prune the trace to just the values after the 200th iteration,
+we get the following trace:
+
+![](./comp-bayes-figures/mcmc-trace-burn-in.png)
+
+## Computational Bayesian Statistics Framework
+
+Having gone through this exercise
+has been extremely helpful in deciphering
+what goes on behind-the-scenes in PyMC3
+(and the in-development PyMC4,
+which is built on top of TensorFlow probability).
+
+From digging through everything from scratch,
+my thought framework to think about Bayesian modelling
+has been updated (pun intended) to the following.
+
+Firstly, we can view a Bayesian model
+from the axis of prior, likelihood, posterior.
+Bayes' rule provides us the equation "glue"
+that links those three components together.
+
+Secondly, when doing _computational_ Bayesian statistics,
+we should be able to modularly separate **sampling**
+from **model definition**.
+In fact, based on the exercise above,
+any "sampler" is only concerned with the model log probability,
+and should only be required to accept a **model log probability** function
+and a proposed set of initial parameter values,
+and return a chain of sampled values.

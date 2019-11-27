@@ -45,7 +45,7 @@ In this case, carbon would be represented by the function $f(v) = (6, 4)$.
 Visually, one might represent it as follows:
 
 <!-- \<FIGURE\> -->
-![](figures/figure-msg-passing-carbon-methane.png)
+![](message-passing-figures/figure-msg-passing-carbon-methane.png)
 
 ### Message Passing
 
@@ -63,7 +63,7 @@ with the function evaluated on its neighbor’s nodes.
 Here is a simplistic example,
 shown using a scalar on water:
 
-![](figures/figure-msg-passing-water.png)
+![](message-passing-figures/figure-msg-passing-water.png)
 
 Summation is not the only message passing operation that can be defined.
 In principle,
@@ -234,7 +234,7 @@ If we order the nodes in our adjacency matrix and feature matrix correctly,
 we will end up with a block diagonal adjacency matrix,
 and vertically stacked feature matrices.
 
-![](figures/figure-message-passing-sparse.png)
+![](message-passing-figures/figure-message-passing-sparse.png)
 
 If we prepare the multiple graphs as a large disconnected graph,
 then we will have a dense feature matrix of shape `(sum(n_nodes), n_feats)`,
@@ -265,7 +265,7 @@ of graphs of the same size together,
 and perform a batched matrix multiplication,
 ensuring that we preserve the sample/batch dimension in the final result.
 
-![](figures/figure-message-passing-graph-size.png)
+![](message-passing-figures/figure-message-passing-graph-size.png)
 
 In terms of Python code, this requires special preparation of the graphs.
 
@@ -380,7 +380,7 @@ def message_passing(A, F):
 
 Visually, this is represented as follows:
 
-![](figures/figure-message-passing-batched.png)
+![](message-passing-figures/figure-message-passing-batched.png)
 
 To this author’s best knowledge,
 this should be the most efficient implementation of batched message passing
