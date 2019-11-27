@@ -333,7 +333,7 @@ $$y \sim Normal(\mu, \sigma)$$
 Let's now map the symbols onto Bayes' rule.
 
 - $H$ are the parameters, which are $\mu$ and $\sigma$ here.
-- $D$ is the data that I will observe [TODO: this is referred to as `xs` later, but is not shown how to generate].
+- $D$ is the data that I will observe
 - $P(H|D)$ is the posterior, which we would like to compute.
 - $P(D|H)$ is the likelihood,
 and is given by $y$'s probability distribution $Normal(\mu, \sigma)$,
@@ -475,8 +475,8 @@ for i in range(1000):
     sigma_t = np.random.normal(sigma_prev, 0.1)
 
     # Compute joint log likelihood
-    LL_t = model_log_prob(mu_t, sigma_t, xs)
-    LL_prev = model_log_prob(mu_prev, sigma_prev, xs)
+    LL_t = model_log_prob(mu_t, sigma_t, y)
+    LL_prev = model_log_prob(mu_prev, sigma_prev, y)
 
     # Calculate the difference in log-likelihoods
     # (or a.k.a. ratio of likelihoods)
@@ -547,8 +547,8 @@ for i in range(1000):
     # ...
 
     # Pass the transformed values into the log-likelihood calculation
-    LL_t = model_log_prob(mu_t, sigma_t, xs)
-    LL_prev = model_log_prob(mu_prev, sigma_prev, xs)
+    LL_t = model_log_prob(mu_t, sigma_t, y)
+    LL_prev = model_log_prob(mu_prev, sigma_prev, y)
 
     # ...
 ```
