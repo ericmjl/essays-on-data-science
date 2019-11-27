@@ -279,7 +279,7 @@ and propose that this interpretation be accepted for now and move on.
 
 ??? note "Data are random variables?"
 
-    Notes from a chat with my friend Colin Carroll,
+    Notes from a chat with my friend [Colin Carroll][colin],
     who is also a PyMC developer,
     gave me a lot to chew on, as usual:
 
@@ -292,6 +292,13 @@ and propose that this interpretation be accepted for now and move on.
     > And so analogously, "the data were configured as [0, 5, 2, 3]".
     > Notice also that the events are different
     > if the data being ordered vs unordered are different!
+
+    This was a logical leap that I had been asked about before,
+    but did not previously have the knowledge to respond to.
+    Thanks to Colin, I now do.
+
+
+[colin]: https://colindcarroll.com/
 
 With the data + hypothesis interpretation of Bayes' rule in hand,
 the next question arises:
@@ -525,27 +532,32 @@ Knowing this, we can modify our sampling code, specifically, what was before:
 
 ```python
 # Initialize in unconstrained space
-sigma_prev = np.random.normal(0, 1)
+sigma_prev_unbounded = np.random.normal(0, 1)
 # ...
 for i in range(1000):
     # ...
     # Propose in unconstrained space
-    sigma_t = np.random.normal(sigma_prev, 0.1)
+    sigma_t_unbounded = np.random.normal(sigma_prev, 0.1)
 
     # Transform the sampled values to the constrained space
-    sigma_prev_tfm = np.exp(sigma_prev)
-    sigma_t_tfm = np.exp(sigma_t)
+    sigma_prev = np.exp(sigma_prev_unbounded)
+    sigma_t = np.exp(sigma_t_unbounded)
 
     # ...
 
     # Pass the transformed values into the log-likelihood calculation
-    LL_t = model_log_prob(mu_t, sigma_t_tfm, xs)
-    LL_prev = model_log_prob(mu_prev, sigma_prev_tfm, xs)
+    LL_t = model_log_prob(mu_t, sigma_t, xs)
+    LL_prev = model_log_prob(mu_prev, sigma_prev, xs)
 
     # ...
 ```
 
 And _voila_!
+If you notice, the key trick here was
+to **sample in unbounded space**,
+but **evalute log-likelihood in bounded space**.
+We call the "unbounded" space the _transformed_ space,
+while the "bounded" space is the _original_ or _untransformed_ space.
 We have implemented the necessary components
 to compute posterior distributions on parameters!
 
@@ -571,7 +583,25 @@ we get the following trace:
 
 ![](./comp-bayes-figures/mcmc-trace-burn-in.png)
 
-## Computational Bayesian Statistics Framework
+## Topics We Skipped Over
+
+We intentionally skipped over a number of topics.
+
+One of them was why we used a Normal distribution with scale of 0.1
+to propose a different value, rather than a different scale.
+As it turns out the, scale parameter is a tunable hyperparameter,
+and in PyMC3 we do perform tuning as well.
+If you want to learn more about how tuning happens,
+[Colin][colin] has a [great essay][tuning] on that too.
+
+[tuning]: https://colcarroll.github.io/hmc_tuning_talk/
+
+We also skipped over API design,
+as that is a topic I will be exploring in a separate essay.
+It will also serve as a tour through the PyMC3 API
+as I understand it.
+
+## An Anchoring Thought Framework for Learning Computational Bayes
 
 Having gone through this exercise
 has been extremely helpful in deciphering
@@ -584,15 +614,28 @@ my thought framework to think about Bayesian modelling
 has been updated (pun intended) to the following.
 
 Firstly, we can view a Bayesian model
-from the axis of prior, likelihood, posterior.
+from the axis of **prior, likelihood, posterior**.
 Bayes' rule provides us the equation "glue"
 that links those three components together.
 
 Secondly, when doing _computational_ Bayesian statistics,
 we should be able to modularly separate **sampling**
 from **model definition**.
+**Sampling** is computing the posterior distribution of parameters
+given the model and data.
+**Model definition**, by contrast,
+is all about providing the model structure
+as well as a function that calculates the joint log likelihood
+of the model and data.
+
 In fact, based on the exercise above,
 any "sampler" is only concerned with the model log probability,
 and should only be required to accept a **model log probability** function
 and a proposed set of initial parameter values,
 and return a chain of sampled values.
+
+Finally, I hope the "simplest complex example"
+of estimating $\mu$ and $\sigma$ of a Normal distribution
+helps further your understanding of the math behind Bayesian statistics.
+
+All in all, I hope this essay helps your learning, as writing it did for me!
