@@ -602,8 +602,6 @@ given the data and priors specified.
     > we generate the data,
     > and use that to approximate an integral or expectation.
 
-
-
 ## Topics We Skipped Over
 
 We intentionally skipped over a number of topics.
