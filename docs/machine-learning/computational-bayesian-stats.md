@@ -90,7 +90,7 @@ particularly from the SciPy stats module,
 which gives us reference implementations of probability distributions.
 
 ```python
-import numpy as np
+from scipy.stats import norm
 
 class Normal:
     def __init__(self, mu, sigma):
@@ -137,7 +137,7 @@ that computes the sum of log likelihoods
 evaluated at a bunch of i.i.d. data points.
 
 ```python
-import numpy as np
+from scipy.stats import norm
 
 class Normal:
     def __init__(self, mu, sigma):
@@ -202,7 +202,7 @@ we can extend our probability distribution definition
 to include a `.sample(n)` method:
 
 ```python
-import numpy as np
+from scipy.stats import norm
 
 class Normal:
     def __init__(self, mu, sigma):
