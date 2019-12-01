@@ -347,7 +347,7 @@ we should notice that $P(\mu, \sigma)$
 is the joint distribution between $\mu$ and $\sigma$.
 However, from observing the graphical diagram,
 we'll notice that $\mu$ and $\sigma$ have no bearing on one another:
-we do not need to know $\mu$ to know the value of $sigma$,
+we do not need to know $\mu$ to know the value of $\sigma$,
 and vice versa.
 Hence, they are independent of one another,
 and so by the rules of probability,
