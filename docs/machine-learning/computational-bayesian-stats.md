@@ -74,7 +74,7 @@ class Normal:
             * np.exp(
                 - (x - self.mu) ** 2
                 / 2 * self.sigma ** 2
-            )
+            ))
 ```
 
 If we pass in a number `x` from the number line,
