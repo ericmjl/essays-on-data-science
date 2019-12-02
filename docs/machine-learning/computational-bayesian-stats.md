@@ -372,7 +372,7 @@ def model_prob(mu, sigma, y):
 
     # Probability of sigma under prior.
     sigma_prior = Exponential(1)
-    sigma_prob = sigma_prior.pdf(mu)
+    sigma_prob = sigma_prior.pdf(sigma)
 
     # Likelihood of data given mu and sigma
     likelihood = Normal(mu, sigma)
@@ -398,7 +398,7 @@ def model_log_prob(mu, sigma, y):
 
     # log-probability of sigma under prior.
     sigma_prior = Exponential(1)
-    sigma_log_prob = sigma_prior.logpdf(mu)
+    sigma_log_prob = sigma_prior.logpdf(sigma)
 
     # log-likelihood given priors and data
     likelihood = Normal(mu, sigma)
