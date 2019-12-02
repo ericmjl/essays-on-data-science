@@ -53,7 +53,7 @@ class Normal:
 Now, I also stated that the normal distribution has a math function
 that we can use to allocate credibility points to the number line.
 This function also has a name,
-called a "probability distribution function", or the "PDF".
+called a "probability density function", or the "PDF".
 Using this, we may then extend extend this object
 with a method called `.pdf(x)`,
 that returns a number
@@ -376,7 +376,7 @@ def model_prob(mu, sigma, y):
 
     # Likelihood of data given mu and sigma
     likelihood = Normal(mu, sigma)
-    likelihood_prob = likelihood.pdf(y)
+    likelihood_prob = likelihood.pdf(y).prod()
 
     # Joint likelihood
     return mu_prob * sigma_prob * likelihood_prob
@@ -402,7 +402,7 @@ def model_log_prob(mu, sigma, y):
 
     # log-likelihood given priors and data
     likelihood = Normal(mu, sigma)
-    likelihood_log_prob = likelihood.logpdf(y)
+    likelihood_log_prob = likelihood.logpdf(y).sum()
 
     # Joint log-likelihood
     return mu_log_prob + sigma_log_prob + likelihood_log_prob
@@ -538,7 +538,7 @@ sigma_prev_unbounded = np.random.normal(0, 1)
 for i in range(1000):
     # ...
     # Propose in unconstrained space
-    sigma_t_unbounded = np.random.normal(sigma_prev, 0.1)
+    sigma_t_unbounded = np.random.normal(sigma_prev_unbounded, 0.1)
 
     # Transform the sampled values to the constrained space
     sigma_prev = np.exp(sigma_prev_unbounded)
