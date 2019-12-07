@@ -78,12 +78,47 @@ In my conception, when I present material,
 I am tracing a path through the knowledge graph,
 while sprinkling in edges that branch off a main knowledge trunk.
 
+```mermaid
+graph LR;
+    A((A)) ==> B((B));
+    A((A)) --> C((C));
+    B((B)) ==> D((D));
+    C((C)) ==> E((E));
+    D((D)) ==> C((C));
+    B((B)) --> E((E));
+    D((D)) --> E((E));
+```
+
+The third point pertains to learning by teaching in quantitative topics.
+By forcing myself to "teach" the ultimate dumb student
+- a Python interpreter - to do math-y things,
+I not only make concrete an abstract topic,
+I also have to verify that the abstract topic is implemented correctly,
+because a Python interpreter will definitely get it wrong
+if I implemented it wrong.
+
 I've been incredibly fortunate to have a few platforms to do teaching,
 the primary one being the Python and data science conferences that I attend.
+That said, there are many avenues for teaching
+that you could take advantage of,
+including at work (1-on-1 pair coding or workshops),
+regional or international conferences,
+e-learning platforms,
+and more,
+and I would encourage you to leverage the platform
+that suits your situation best.
 
 ## Leveraging existing knowledge
 
-"Projects that are adjacenct to what I know how to do."
+> "Pick projects that are adjacenct to what I know how to do."
+
+Continuing the "knowledge graph" analogy referenced above,
+I have made an effort in my learning journey
+to leverage as much existing knowledge that I can.
+It seems to me that knowledge is best picked up and made to stick
+when I can use one topic to anchor another, and vice versa.
+
+For example, I have
 
 ## Seeking learning partners and teachers
 
