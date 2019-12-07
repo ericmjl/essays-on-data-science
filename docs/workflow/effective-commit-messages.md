@@ -56,7 +56,7 @@ might be helpful in adapting `git` as a lab notebook-style log book.
 ### Effective `git` commits
 
 But before we describe how, a few preliminaries are in order.
-L et’s take a look at
+Let’s take a look at
 what effective and informative commit messages accomplish:
 
 **Firstly**, if we are committing something that is work-in-progress
@@ -204,7 +204,7 @@ By contrast, an informative one might look something like this:
     - Hyperparameter selection.
         This is the logical next step,
         and as agreed at last meeting, of highest priority.
-    ```text
+    ```
 
 Admittedly, it can be tough to know when to write this one,
 and I think it’s because it _feels_ like

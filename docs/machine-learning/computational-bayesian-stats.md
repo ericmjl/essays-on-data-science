@@ -53,7 +53,7 @@ class Normal:
 Now, I also stated that the normal distribution has a math function
 that we can use to allocate credibility points to the number line.
 This function also has a name,
-called a "probability distribution function", or the "PDF".
+called a "probability density function", or the "PDF".
 Using this, we may then extend extend this object
 with a method called `.pdf(x)`,
 that returns a number
@@ -74,7 +74,7 @@ class Normal:
             * np.exp(
                 - (x - self.mu) ** 2
                 / 2 * self.sigma ** 2
-            )
+            ))
 ```
 
 If we pass in a number `x` from the number line,
@@ -90,7 +90,7 @@ particularly from the SciPy stats module,
 which gives us reference implementations of probability distributions.
 
 ```python
-import numpy as np
+from scipy.stats import norm
 
 class Normal:
     def __init__(self, mu, sigma):
@@ -137,7 +137,7 @@ that computes the sum of log likelihoods
 evaluated at a bunch of i.i.d. data points.
 
 ```python
-import numpy as np
+from scipy.stats import norm
 
 class Normal:
     def __init__(self, mu, sigma):
@@ -202,7 +202,7 @@ we can extend our probability distribution definition
 to include a `.sample(n)` method:
 
 ```python
-import numpy as np
+from scipy.stats import norm
 
 class Normal:
     def __init__(self, mu, sigma):
@@ -372,11 +372,11 @@ def model_prob(mu, sigma, y):
 
     # Probability of sigma under prior.
     sigma_prior = Exponential(1)
-    sigma_prob = sigma_prior.pdf(mu)
+    sigma_prob = sigma_prior.pdf(sigma)
 
     # Likelihood of data given mu and sigma
     likelihood = Normal(mu, sigma)
-    likelihood_prob = likelihood.pdf(y)
+    likelihood_prob = likelihood.pdf(y).prod()
 
     # Joint likelihood
     return mu_prob * sigma_prob * likelihood_prob
@@ -398,11 +398,11 @@ def model_log_prob(mu, sigma, y):
 
     # log-probability of sigma under prior.
     sigma_prior = Exponential(1)
-    sigma_log_prob = sigma_prior.logpdf(mu)
+    sigma_log_prob = sigma_prior.logpdf(sigma)
 
     # log-likelihood given priors and data
     likelihood = Normal(mu, sigma)
-    likelihood_log_prob = likelihood.logpdf(y)
+    likelihood_log_prob = likelihood.logpdf(y).sum()
 
     # Joint log-likelihood
     return mu_log_prob + sigma_log_prob + likelihood_log_prob
@@ -538,7 +538,7 @@ sigma_prev_unbounded = np.random.normal(0, 1)
 for i in range(1000):
     # ...
     # Propose in unconstrained space
-    sigma_t_unbounded = np.random.normal(sigma_prev, 0.1)
+    sigma_t_unbounded = np.random.normal(sigma_prev_unbounded, 0.1)
 
     # Transform the sampled values to the constrained space
     sigma_prev = np.exp(sigma_prev_unbounded)
