@@ -118,7 +118,11 @@ to leverage as much existing knowledge that I can.
 It seems to me that knowledge is best picked up and made to stick
 when I can use one topic to anchor another, and vice versa.
 
-For example, I have
+A few lightweight examples that have showed up in my learning journey:
+
+- [Connecting graph message passing with linear algebra](/machine-learning/message-passing)
+- [Implementing Bayesian models from scratch but leveraging Python](/machine-learning/computational-bayesian-stats/)
+- [Digging into deep learning starting from linear regression](https://github.com/ericmjl/dl-workshop)
 
 ## Seeking learning partners and teachers
 
