@@ -7,6 +7,8 @@ but I do think that having a broad knowledge base can be very handy.
 Especially when confronted with a new problem class,
 having a broad toolkit of methods to solve it
 can give us a leg-up in terms of efficiency.
+This set of reflections hopefully lights up some lighbulbs
+for your own learning journey.
 
 ## Learning by doing/building/making
 
@@ -124,6 +126,63 @@ A few lightweight examples that have showed up in my learning journey:
 - [Implementing Bayesian models from scratch but leveraging Python](/machine-learning/computational-bayesian-stats/)
 - [Digging into deep learning starting from linear regression](https://github.com/ericmjl/dl-workshop)
 
+In the process of leveraging my existing knowledge to learn new things,
+I find that tying the learning process
+to the creation of "minimally complex examples"
+greatly accelerates my own learning process.
+
+
+??? note "Minimally Complex Examples"
+
+    These are examples that are simple to grok,
+    but not trivial.
+    For example, it's trivial to illustrate
+    sampling from a (multivariate) Gaussian distribution,
+    which is how [sampyl](https://github.com/mcleonard/sampyl)
+    illustrates MCMC sampling on its docs page.
+    However, it is non-trivial, and in fact quite illuminating,
+    to illustrate sampling from a joint distribution
+    of data, likelihood, and priors
+    involving a Gaussian and its parameters.
+
 ## Seeking learning partners and teachers
 
-Acknowledge David Duvenaud and Colin Carroll.
+> Learn and teach with others.
+
+I also have to state that I have benefited much
+from learning from others.
+For example, my primary deep learning teacher was David Duvenaud,
+back when he was a post-doc at Harvard.
+(He is now a professor at the University of Toronto.)
+It was from him through which I gained the framework of
+deep learning as "model + loss + optimizer",
+and if I remember correctly,
+he was the one that taught me how to think about linear regression
+in that exact framework.
+
+Additionally, a friend from amongst the PyMC developers, Colin Carroll,
+has been particularly helpful and inspiring.
+I read [his blog](https://colindcarroll.com)
+in which he writes about his own learnings and insights.
+In particular, I very much appreciate how he uses "minimal complex examples"
+to illustrate how things work.
+He was also the one who kept reminding me
+that gradient descent doesn't happen in MCMC,
+which thus inspired the essay
+[on MCMC](/machine-learning/computational-bayesian-stats/).
+
+More generally,
+I find that identifying learning partners and teachers
+against whom I can check understanding
+is a great "social" strategy for picking up ideas.
+I generally try to find win-win scenarios,
+where I can offer something in exchange,
+as this helps balance out the learning partnership
+and makes it win-win for my fellow learner too.
+
+## Concluding Words
+
+This was neither a comprehensive reflection on how exactly I learn
+nor a comprehensive overview of how everybody learns.
+Nonetheless, it is my hope that you find it useful to reflect on,
+and that it gives you ideas for learning new technical topics.
