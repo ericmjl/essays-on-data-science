@@ -180,6 +180,25 @@ where I can offer something in exchange,
 as this helps balance out the learning partnership
 and makes it win-win for my fellow learner too.
 
+## Asking the "dumb" questions
+
+One thing I do know I'm infamous for is asking dumb questions.
+By "dumb" questions, I mostly mean questions that clarify basic ideas
+that I might have missed, or still have a gap on.
+
+In my mind, there are very, very few dumb questions.
+(I would probably classify
+repetitively asking the same basic questions over and over
+as not being particularly smart -
+use a notebook for heaven's sake!)
+In a more intimate learning situation, say, a 1-on-1 session,
+clarifying basic questions as soon as they come up
+is a wonderful way of ensuring that
+our foundational knowledge is strengthened.
+In larger settings,
+I am almost always certain
+that someone else will share the same basic questions that I do.
+
 ## Concluding Words
 
 This was neither a comprehensive reflection on how exactly I learn
