@@ -248,3 +248,41 @@ In particular, the consistent practice of testing
 builds confidence in our codebase,
 not just for my future self, but also for other colleagues
 who might end up using the codebase too.
+
+-----
+
+## A Glossary of Testing in Data Science
+
+**Manual testing**:
+Basically where we use a Jupyter notebook
+and manually inspect that the function works to how we’re expecting.
+
+**Automated testing**:
+Where we provide a test suite and use a test runner (e.g. `pytest`)
+to automatically execute all of the tests in the suite.
+
+**Example-based testing**:
+Where we provide one or more hard-coded examples in our test suite,
+and test that our function works on those examples.
+
+**Parameterized testing**:
+Where we provide examples as parameters to our test functions,
+helping us reduce code duplication in our test functions.
+Not necessarily something distinct from example-based testing.
+
+**Auto-manual testing**:
+A not-so-tongue-in-cheek way of describing
+automated testing using hard-coded examples.
+
+**Property-based testing**:
+Where we use an automatic generator of examples
+that fulfill certain “properties”.
+For example, numbers with range constraints,
+or strings generated from an alphabet of a certain length or less.
+Property-based testing builds on top of parameterized testing.
+
+**Data testing**:
+Where we test the “correctness” of our data.
+Property-based testing can be used here,
+or we can hard-code checks on our data
+that we know should be invariant over time.
