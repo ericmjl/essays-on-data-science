@@ -164,15 +164,14 @@ we eventually uncovered that we were indexing into the wrong dimensions
 in our implementation.
 This led to us
 (1) fixing the bug,
-(2) writing a more comprehensive documentation suite, and
+(2) writing a more comprehensive documentation and test suite, and
 (3) writing better documentations for the semantic meaning
 of each tensor axis.
 
 ### Write tests for the neural network components
 
 Once we have the neural network model and its components implemented,
-writing tests for those components is a wonderful way of making sure
-that
+writing tests for those components is a wonderful way of making sure that
 (1) the implementation is correct, to the best of our knowledge, and that
 (2) we can catch when the implementation might have been broken inadvertently.
 
