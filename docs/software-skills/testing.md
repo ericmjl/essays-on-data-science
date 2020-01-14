@@ -17,6 +17,9 @@ As soon as we discover bugs, new tests should be added to the test suite.
 Those new tests should either cover that exact bug,
 or cover the class of bugs together.
 
+A general rule-of-thumb that has proven reliable
+is to write an automated test for anything function you come to rely on.
+
 ## How to get setup
 
 In a Python project, first ensure that you have `pytest` installed.
