@@ -4,11 +4,15 @@ theme:
   palette:
     primary: 'light blue'
     accent: 'light blue'
-  logo:
-    icon: 'library_books'
+    icon:
+      logo: 'library_books'
 
 plugins:
-  - search
+  - search:
+      separator: '[\s\-\.]+'
+      lang:
+        - en
+  - mknotebooks
 
 # Taken from here: https://squidfunk.github.io/mkdocs-material/extensions/codehilite/
 markdown_extensions:
@@ -37,11 +41,11 @@ repo_url: 'https://github.com/ericmjl/essays-on-data-science'
 
 extra:
   social:
-    - type: 'envelope'
+    - icon: 'material/email'
       link: 'http://www.shortwhale.com/ericmjl'
-    - type: 'github'
+    - icon: 'fontawesome/brands/github'
       link: 'https://github.com/ericmjl'
-    - type: 'twitter'
+    - icon: 'fontawesome/brands/twitter'
       link: 'https://twitter.com/ericmjl'
-    - type: 'linkedin'
+    - icon: 'fontawesome/brands/linkedin'
       link: 'https://linkedin.com/in/ericmjl'
