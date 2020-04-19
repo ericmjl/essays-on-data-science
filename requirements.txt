@@ -1,0 +1,5 @@
+mkdocs-minify-plugin
+pymdown-extensions
+mknotebooks
+mkdocs
+mkdocs-material
