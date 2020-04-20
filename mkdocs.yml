@@ -6,6 +6,8 @@ theme:
     accent: 'light blue'
     icon:
       logo: 'library_books'
+  features:
+    - tabs
 
 plugins:
   - search:
@@ -24,6 +26,7 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_div_format
+  - markdown.extensions.footnotes
 
 extra_css:
   - https://unpkg.com/mermaid@7.1.2/dist/mermaid.css
