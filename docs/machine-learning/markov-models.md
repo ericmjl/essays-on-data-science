@@ -108,12 +108,12 @@ because the probability of transitioning to the next state depends on only the c
 and all possible states are known and enumerated.
 
 Let's call the transition matrix $P_{transition}$.
-The symbol etymology, which usually gets swept under the rug in mathematically-oriented papers, are as follows: 
+The symbol etymology, which usually gets swept under the rug in mathematically-oriented papers, are as follows:
 
-- $transition$ doesn't refer to time but simply indicates that it is for transitioning states, 
+- $transition$ doesn't refer to time but simply indicates that it is for transitioning states,
 - $P$ is used because it is a probability matrix.
 
-$$ P_{transition} = 
+$$ P_{transition} =
 \begin{pmatrix}
     p_{11} & p_{12} & p_{13}\\
     p_{21} & p_{22} & p_{23}\\
@@ -131,8 +131,8 @@ Alrighty, enough with that now, let's initialize a transition matrix below.
 
 ```python
 p_transition = np.array(
-    [[0.90, 0.05, 0.05], 
-     [0.01, 0.90, 0.09], 
+    [[0.90, 0.05, 0.05],
+     [0.01, 0.90, 0.09],
      [0.07, 0.03, 0.9]]
 )
 p_transition
@@ -158,12 +158,12 @@ assert p_transition[2, :].sum() == 1
 
 ### Equilibrium or Stationary Distribution
 
-Now, do you remember how above we talked about 
+Now, do you remember how above we talked about
 the Markov chain being in some "equilibrated" state?
-Well, the stationary or equilibrium distribution of a Markov chain 
+Well, the stationary or equilibrium distribution of a Markov chain
 is the distribution of observed states at infinite time.
 
-An interesting property is that regardless of what the initial state is, 
+An interesting property is that regardless of what the initial state is,
 the equilibrium distribution will always be the same,
 as the equilibrium distribution only depends on the transition matrix.
 
@@ -171,7 +171,7 @@ Here's how to think about the equilibrium:
 if you were to imagine instantiating a thousand Markov chains
 using the initial distribution
 
-$$ p_{init} = 
+$$ p_{init} =
 \begin{pmatrix} 0.1 & 0.8 & 0.1
 \end{pmatrix}
 $$
@@ -199,8 +199,8 @@ This will make it easier for us to plot later.
 
 ```python
 p_transition_example = np.array(
-    [[0.6,  0.2, 0.2], 
-     [0.05, 0.9, 0.05], 
+    [[0.6,  0.2, 0.2],
+     [0.05, 0.9, 0.05],
      [0.1,  0.2, 0.7]]
 )
 ```
@@ -402,8 +402,8 @@ def equilibrium_distribution(p_transition):
     """This implementation comes from Colin Carroll, who kindly reviewed the notebook"""
     n_states = p_transition.shape[0]
     A = np.append(
-        arr=p_transition.T - np.eye(n_states), 
-        values=np.ones(n_states).reshape(1, -1), 
+        arr=p_transition.T - np.eye(n_states),
+        values=np.ones(n_states).reshape(1, -1),
         axis=0
     )
     # Moore-Penrose pseudoinverse = (A^TA)^{-1}A^T
@@ -456,7 +456,7 @@ def markov_sequence(p_init: np.array, p_transition: np.array, sequence_length: i
     if p_init is None:
         p_init = equilibrium_distribution(p_transition)
     initial_state = list(multinomial.rvs(1, p_init)).index(1)
-    
+
     states = [initial_state]
     for _ in range(sequence_length - 1):
         p_tr = p_transition[states[-1]]
@@ -492,7 +492,7 @@ If a "Markov sequence" feels abstract at this point, one example to help you anc
 
 ## Emissions: When Markov chains not only produce "states", but also observable data
 
-So as you've seen above, a Markov chain can produce "states". If we are given direct access to the "states", then a problem that we may have is inferring the transition probabilities given the states. 
+So as you've seen above, a Markov chain can produce "states". If we are given direct access to the "states", then a problem that we may have is inferring the transition probabilities given the states.
 
 A more common scenario, however, is that the states are **latent**, i.e. we cannot directly observe them. Instead, the latent states generate data that are given by some distribution conditioned on the state. We call these **Hidden Markov Models**.
 
@@ -540,7 +540,7 @@ def plot_emissions(states, emissions):
     axes[1].plot(emissions)
     axes[1].set_title("Emissions")
     sns.despine();
-    
+
 plot_emissions(states, gaussian_ems)
 ```
 
@@ -592,9 +592,9 @@ for the data that you observe!
 
 ### Autoregressive Emissions
 
-Autoregressive emissions make things even more interesting and flexible! 
-They show up, for example, 
-when we're trying to model "motion states" of people or animals: 
+Autoregressive emissions make things even more interesting and flexible!
+They show up, for example,
+when we're trying to model "motion states" of people or animals:
 that's because people and animals don't _abruptly_
 change from one state to another,
 but gradually transition in.
@@ -611,7 +611,7 @@ In terms of a generic graphical model, it is represented as follows:
 
 ### Heteroskedastic Autoregressive Emissions
 
-Here's a "simple complex" example, where the location $\mu_t$ of the emission distribution at time $t$ depends on $y_{t-1}$, and the scale $\sigma$ depends only on the current state $s_t$. 
+Here's a "simple complex" example, where the location $\mu_t$ of the emission distribution at time $t$ depends on $y_{t-1}$, and the scale $\sigma$ depends only on the current state $s_t$.
 
 A place where this model might be useful is when we believe that
 noise is the only thing that depends on state,
@@ -652,7 +652,7 @@ plot_emissions(states, ar_het_ems)
 ![png](./markov-models-figures/output_41_0.png)
 
 
-Keep in mind, here, that given the way that we've defined the **autoregressive heteroskedastic Gaussian HMM**, it is the **variance** around the _heteroskedastic autoregressive emissions_ that gives us information about the state, _not_ the location. (To see this, notice how every time the system enters into state 2, the chain stops bouncing around much.) 
+Keep in mind, here, that given the way that we've defined the **autoregressive heteroskedastic Gaussian HMM**, it is the **variance** around the _heteroskedastic autoregressive emissions_ that gives us information about the state, _not_ the location. (To see this, notice how every time the system enters into state 2, the chain stops bouncing around much.)
 
 Contrast that against vanilla Gaussian emissions that are non-autoregressive:
 
@@ -739,7 +739,7 @@ Notice how we get "smoother" transitions into each state. It's less jumpy. As me
 
 ### Non-Autoregressive Homoskedastic Emissions
 
-With non-autoregressive homoskedastic Gaussian emissions, the mean $\mu$ depends only on the hidden state at time $t$, and not on the previous hidden state or the previous emission value. 
+With non-autoregressive homoskedastic Gaussian emissions, the mean $\mu$ depends only on the hidden state at time $t$, and not on the previous hidden state or the previous emission value.
 
 In equations: $y_t \sim N(\mu=f(x_t), \sigma)$, where $f(x_t)$ could be a simple mapping:
 
@@ -753,7 +753,7 @@ What we can see here is that the mean gives us information about the state, but 
 ```python
 def gaussian_homoskedastic_emissions(states: List[int], mus: List[float]) -> List[float]:
     emissions = []
-    
+
     prev_loc = 0
     for state in states:
         e = norm.rvs(loc=mus[state], scale=1)
@@ -778,12 +778,12 @@ As you might intuit from looking at the equations, this is nothing more than a s
 
 There's the plain old **Markov Model**, in which we might generate a sequence of states $S$, which are generated from some initial distribution and transition matrix.
 
-$$ p_S = 
+$$ p_S =
 \begin{pmatrix} p_1 & p_2 & p_3
 \end{pmatrix}
 $$
 
-$$ p_T = 
+$$ p_T =
 \begin{pmatrix}
     p_{11} & p_{12} & p_{13}\\
     p_{21} & p_{22} & p_{23}\\
@@ -797,16 +797,16 @@ Graphically:
 
 ![](./markov-models-figures/01-markov-chain-example.png)
 
-Then there's the **"Hidden" Markov Model**, 
-in which we don't observe the states 
-but rather the _emissions_ generated from the states 
+Then there's the **"Hidden" Markov Model**,
+in which we don't observe the states
+but rather the _emissions_ generated from the states
 (according to some assumed distribution).
-Now, there's not only the initial distribution 
-and transition matrix to worry about, 
-but also the distribution of the emissions 
-conditioned on the state. 
-The general case is when we have some distribution 
-e.g., the Gaussian or the Poisson or the Chi-Squared - 
+Now, there's not only the initial distribution
+and transition matrix to worry about,
+but also the distribution of the emissions
+conditioned on the state.
+The general case is when we have some distribution
+e.g., the Gaussian or the Poisson or the Chi-Squared -
 whichever fits the likelihood of your data best.
 Usually, we would pick a parametric distribution
 both because of modelling convenience
@@ -826,7 +826,7 @@ Secondly, the distribution parameters can depend on the solely on the current st
 
 If you make the variance of the likelihood distribution vary based on state, you get **heteroskedastic** HMMs; conversely, if you keep the variance constant, then you have **homoskedastic** HMMs.
 
-Moving on, there's the **"Autoregressive" Hidden Markov Models**, in which the emissions generated from the states have a dependence on the previous states' emissions (and hence, indirectly, on the previous state). Here, we have the ultimate amount of flexibility to model our processes. 
+Moving on, there's the **"Autoregressive" Hidden Markov Models**, in which the emissions generated from the states have a dependence on the previous states' emissions (and hence, indirectly, on the previous state). Here, we have the ultimate amount of flexibility to model our processes.
 
 $$y_t|s_t \sim Dist(f(y_{t-1}, \theta_t))$$
 
@@ -838,13 +838,13 @@ To keep things simple in this essay, we've only considered the case of lag of 1 
 
 And, as usual, you can make them homoskedastic or heteroskedastic by simply controlling the variance parameter of the $Dist$ distribution.
 
-Bonus point: your data don't necessarily have to be single dimensional; 
-they can be multidimensional too! 
-As long as you write the $f(y_{t-1}, \theta_t)$ 
+Bonus point: your data don't necessarily have to be single dimensional;
+they can be multidimensional too!
+As long as you write the $f(y_{t-1}, \theta_t)$
 in a fashion that handles $y$ that are multidimensional,
 you're golden!
 Moreover, you can also write the function $f$ to be any function you like.
-The function $f$ doesn't have to be a linear function (like we did); 
+The function $f$ doesn't have to be a linear function (like we did);
 it can instead be a neural network if you so choose,
 thus giving you a natural progression from Markov models to Recurrent Neural Networks.
 That, however, is out of scope for this essay.
@@ -855,11 +855,11 @@ Now that we've gone through the "data generating process" for Markov sequences w
 
 If you've been observing the models that we've been "forward-simulating" all this while to generate data, you'll notice that there are a few key parameters that seemed like, "well, if we changed them, then the data would change, right?" If that's what you've been thinking, then bingo! You're on the right track.
 
-Moreover, you'll notice that I've couched everything in the language of probability distributions. 
-The transition probabilities $P(s_t | s_{t-1})$ are given by a Multinomial distribution. 
-The emissions are given by an arbitrary continuous (or discrete) distribution, 
+Moreover, you'll notice that I've couched everything in the language of probability distributions.
+The transition probabilities $P(s_t | s_{t-1})$ are given by a Multinomial distribution.
+The emissions are given by an arbitrary continuous (or discrete) distribution,
 depending on what you believe to be the likelihood distribution for the observed data.
-Given that we're working with probability distributions and data, you probably have been thinking about it already: 
+Given that we're working with probability distributions and data, you probably have been thinking about it already:
 we need a way to calculate the log-likelihoods of the data that we observe!
 
 (Why we use log-likelihoods instead of likelihoods
@@ -951,11 +951,11 @@ Since $P(s_t|s_{t-1})$ is a **multinomial distribution**, then if we are given t
 ```python
 def state_logp(states, p_transition):
     logp = 0
-    
+
     # states are 0, 1, 2, but we model them as [1, 0, 0], [0, 1, 0], [0, 0, 1]
     states_oh = np.eye(len(p_transition))
     for curr_state, next_state in zip(states[:-1], states[1:]):
-        p_tr = p_transition[curr_state]        
+        p_tr = p_transition[curr_state]
         logp += multinomial(n=1, p=p_tr).logpmf(states_oh[next_state])
     return logp
 
@@ -1199,7 +1199,7 @@ class HMMStates(pm.Categorical):
         # so that we can broadcast the calculation
         # of log-likelihoods
         p_tr = self.p_transition[x[:-1]]
-        
+
         # the logp of the initial state evaluated against the equilibrium probabilities
         initial_state_logp = pm.Categorical.dist(p_eq).logp(x[0])
 
@@ -1238,14 +1238,14 @@ with pm.Model() as model:
         "p_transition",
         a=tt.ones((n_states, n_states)) * 4,  # weakly informative prior
         shape=(n_states, n_states))
-    
+
     # Solve for the equilibrium state
     p_equilibrium = solve_equilibrium(n_states, p_transition)
 
     obs_states = HMMStates(
-        "states", 
-        p_transition=p_transition, 
-        p_equilibrium=p_equilibrium, 
+        "states",
+        p_transition=p_transition,
+        p_equilibrium=p_equilibrium,
         n_states=n_states,
         observed=np.array(states).astype("float")
     )
@@ -1296,7 +1296,7 @@ class HMMGaussianEmissions(pm.Continuous):
         # self.rate = rate
         self.mu = mu
         self.sigma = sigma
-    
+
     def logp(self, x):
         """
         x: observations
@@ -1315,29 +1315,29 @@ n_states = 3
 with pm.Model() as model:
     # Priors for transition matrix
     p_transition = pm.Dirichlet("p_transition", a=tt.ones((n_states, n_states)), shape=(n_states, n_states))
-    
+
     # Solve for the equilibrium state
     p_equilibrium = solve_equilibrium(n_states, p_transition)
 
     # HMM state
     hmm_states = HMMStates(
-        "hmm_states", 
-        p_transition=p_transition, 
-        p_equilibrium=p_equilibrium, 
-        n_states=n_states, 
+        "hmm_states",
+        p_transition=p_transition,
+        p_equilibrium=p_equilibrium,
+        n_states=n_states,
         shape=(len(gaussian_ems),)
     )
-    
+
     # Prior for mu and sigma
     mu = pm.Normal("mu", mu=0, sigma=1, shape=(n_states,))
     sigma = pm.Exponential("sigma", lam=2, shape=(n_states,))
-    
+
     # Observed emission likelihood
     obs = HMMGaussianEmissions(
-        "emission", 
-        states=hmm_states, 
-        mu=mu, 
-        sigma=sigma, 
+        "emission",
+        states=hmm_states,
+        mu=mu,
+        sigma=sigma,
         observed=gaussian_ems
     )
 ```
@@ -1388,7 +1388,7 @@ We are able to recover the parameters, but there is significant intra-chain homo
 
 ### Autoregressive HMMs with Gaussian Emissions
 
-Let's now add in the autoregressive component to it. 
+Let's now add in the autoregressive component to it.
 The data we will use is the `ar_het_ems` data, which were generated by using a heteroskedastic assumption, with Gaussian emissions whose mean depends on the previous value, while variance depends on state.
 
 As a reminder of what the data look like:
@@ -1421,10 +1421,10 @@ class ARHMMGaussianEmissions(pm.Continuous):
         states = self.states
         sigma = self.sigma[states]
         k = self.k
-        
+
         ar_mean = k * x[:-1]
         ar_like = tt.sum(pm.Normal.dist(mu=ar_mean, sigma=sigma[1:]).logp(x[1:]))
-        
+
         boundary_like = pm.Normal.dist(mu=0, sigma=sigma[0]).logp(x[0])
         return ar_like + boundary_like
 ```
@@ -1435,27 +1435,27 @@ n_states = 3
 with pm.Model() as model:
     # Priors for transition matrix
     p_transition = pm.Dirichlet("p_transition", a=tt.ones((n_states, n_states)), shape=(n_states, n_states))
-    
+
     # Solve for the equilibrium state
     p_equilibrium = solve_equilibrium(n_states, p_transition)
 
     # HMM state
     hmm_states = HMMStates(
-        "hmm_states", 
-        p_transition=p_transition, 
-        p_equilibrium=p_equilibrium, 
-        n_states=n_states, 
+        "hmm_states",
+        p_transition=p_transition,
+        p_equilibrium=p_equilibrium,
+        n_states=n_states,
         shape=(len(ar_het_ems),)
     )
-    
+
     # Prior for sigma and k
     sigma = pm.Exponential("sigma", lam=2, shape=(n_states,))
     k = pm.Beta("k", alpha=2, beta=2) # a not-so-weak prior for k
-    
+
     # Observed emission likelihood
     obs = ARHMMGaussianEmissions(
-        "emission", 
-        states=hmm_states, 
+        "emission",
+        states=hmm_states,
         sigma=sigma,
         k=k,
         observed=ar_het_ems
@@ -1557,7 +1557,7 @@ distinguishing between these two states may be more difficult.
 
 ### Nothing in statistics makes sense...
 
-...unless in light of a "data generating model". 
+...unless in light of a "data generating model".
 
 I initially struggled with the math behind HMMs and its variants,
 because I had never taken the time to think through the "data generating process" carefully.
@@ -1596,3 +1596,19 @@ I would like to acknowledge the following colleagues and friends who have helped
 - My colleagues, Zachary Barry and Balaji Goparaju, both of whom pointed out unclear phrasings in my prose and did some code review.
 - Fellow PyMC developers, Colin Carroll (from whom I never cease to learn things), Alex Andorra (who also did code review), Junpeng Lao, Ravin Kumar, and Osvaldo Martin (also for their comments),
 - Professor Allen Downey (of the Olin College of Engineering) who provided important pedagogical comments throughout the notebook.
+
+## Thank you for reading!
+
+If you enjoyed this essay and would like to receive early-bird access to more,
+[please support me on Patreon][patreon]!
+A coffee a month sent my way gets you _early_ access to my essays
+on a private URL exclusively for my supporters
+as well as shoutouts on every single essay that I put out.
+
+[patreon]: https://patreon.com/ericmjl
+
+Also, I have a free monthly newsletter that I use as an outlet
+to share programming-oriented data science tips and tools.
+If you'd like to receive it, sign up on [TinyLetter][tinyletter]!
+
+[tinyletter]: https://tinyletter.com/ericmjl
