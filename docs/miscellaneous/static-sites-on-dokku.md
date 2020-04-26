@@ -822,7 +822,7 @@ They have to go in that order, so that the first one is used for building, and t
 
 
 Thirdly, instead of a `Procfile`,
-we add an `apps.json` file that contains the command
+we add an `app.json` file that contains the command
 for building the static site.
 
 ```json
@@ -949,7 +949,7 @@ Thirdly, we configured both static sites and dynamic data apps,
 using a collection of configuration files.
 For our data apps, it was primarily a `Procfile` and `requirements.txt`.
 For our static sites, it was a `.buildpacks` file,
-`apps.json` file, and `requirements.txt`.
+`app.json` file, and `requirements.txt`.
 Each have their purpose, but together they tell Dokku
 how to configure the environment in which apps are built.
 
@@ -1035,13 +1035,13 @@ touch .static
 ```
 
 `.buildpacks` for static sites and multi-buildpack apps
+
 ```text
-# .buildpacks
 https://github.com/heroku/heroku-buildpack-python.git
 https://github.com/dokku/buildpack-nginx.git
 ```
 
-`apps.json` for static sites:
+`app.json` for static sites:
 
 ```json
 {
