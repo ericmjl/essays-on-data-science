@@ -802,10 +802,9 @@ Secondly, we have to add a `.buildpacks` file,
 where we specify that we are using two "buildpacks":
 one to provide the environment to run the commands that build the site,
 and another to build the site and serve up the static site files.
-In the case of our dummy `mkdocs` static sites, we need:
+In the case of our dummy `mkdocs` static sites, we need in `.buildpacks`:
 
 ```text
-# .buildpacks
 https://github.com/heroku/heroku-buildpack-python.git
 https://github.com/dokku/buildpack-nginx.git
 ```
