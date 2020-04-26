@@ -835,6 +835,14 @@ for building the static site.
 }
 ```
 
+??? question "Deployment tasks"
+
+    If you want to read more about this file,
+    as well as the custom "deployment tasks" bit of Dokku,
+    then check out the [docs pages here][deployment].)
+
+    [deployment]: http://dokku.viewdocs.io/dokku/advanced-usage/deployment-tasks/
+
 OK, we just created a bunch of files,
 but I haven't explained how they're interacting with Dokku.
 There's definitely some opinionated things that we'll have to unpack.
