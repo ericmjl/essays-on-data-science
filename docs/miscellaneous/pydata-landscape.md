@@ -244,7 +244,7 @@ At this point, I usually default to PyCaret to get baseline models quickly set u
 It is basically painless and automates many routine tasks
 that I would otherwise end up writing many lines of code for.
 
-### Tensor and Deep Learning Libraries
+### What libraries do I use for tensor computing and deep learning?
 
 Those who know me well enough will know that I'm a fan of community standard APIs.
 So when it comes to Tensor computing,
@@ -265,6 +265,15 @@ In fact, the guys who taught me deep learning are the JAX developers,
 for which I remain eternally thankful:
 anthropomorphisms of neural networks no longer capture my attention.
 
+Built on top of JAX include a number of neural network libraries
+whose semantics play very nicely with the NumPy API.
+This includes:
+
+- `stax`: Built into jax, under `jax.experimental.stax`
+- [`flax`](https://github.com/google/flax): Designed for flexibility
+- [`trax`](https://github.com/google/trax): Built for speed.
+I believe DeepMind is the Google subgroup that built this.
+
 Regardless, though, there's still a smaller (but sizeable)
 group of people who use the deep learning frameworks quite productively,
 even though they do not have perfect interoperability with the NumPy API:
@@ -281,7 +290,7 @@ and we know that the monopolistic tendencies of Silicon Valley won out.
 The Chainer team at Preferred Networks have discontinued further development,
 instead providing CuPy and Optuna.
 
-### Statistical Modelling
+### What do I do if I need to do statistical inference?
 
 It’s taken me many years of studying to finally reach this conclusion:
 it _seriously_ pays to know the core concepts
@@ -335,7 +344,7 @@ including linear models, time series models, and more.
 As with all models, **know the tools that you’re wielding** well enough
 to know when they can fail!
 
-### Scalable Computing
+### What do I use if my data don't fit in RAM?
 
 In the PyData ecosystem, there are two major players: Dask and Spark.
 
@@ -458,7 +467,7 @@ This allows you to host the documentation on the internet (or your organization�
 
 So what tools are available for documentation?
 
-The workhorse of the Python documentation world is Sphinx.
+The workhorse of the Python documentation world is [Sphinx][sphinx].
 It comes with a lot of features and extensions, and many developers swear by it.
 Many others, however, also swear a ton because of it, because it is complicated to learn,
 and the syntax is not easy to remember — especially if one doesn’t write documentation _every day_ like code!
@@ -466,20 +475,26 @@ If you’re willing to invest the time to learn,
 you’ll be amazed at the power that Sphinx provides for building static HTML documentation.
 Think of Sphinx as the matplotlib of documentation: old, low-level, and extremely powerful.
 
+[sphinx]: https://www.sphinx-doc.org/en/master/
+
 If you prefer Markdown documentation,
-then consider using MkDocs, which is an up-and-coming documentation system.
+then consider using [MkDocs][mkdocs], which is an up-and-coming documentation system.
 Markdown is quite idiomatic to write,
 has a nice one-to-one correspondence to HTML,
 lets you interleave HTML,
 and as such makes writing documentation much simpler.
-An ecosystem of packages that you can mix-and-match are available
+An [ecosystem of packages][mkdocs-eco] that you can mix-and-match are available
 to help with automatic parsing of docstrings (for API docs),
-and the `mkdocs-material` package provides very fancy ways
+and the [`mkdocs-material`][mkmat] package provides very fancy ways
 to write device screen-responsive documentation with built-in static site search (no server required).
 Personally, I’ve switched to writing all new docs using MkDocs and `mkdocs material`.
 (This site itself is built using mkdocs material!)
 There are some compatibility rough spots that I have seen,
 but that should not discourage you from trying it out.
+
+[mkdocs]: https://www.mkdocs.org/
+[mkdocs-eco]: https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins
+[mkmat]: https://squidfunk.github.io/mkdocs-material/
 
 ### What do I do to solve my code copy/pasting problem?
 
@@ -537,6 +552,40 @@ Almost every pipeline runner can be triggered on new commits to any pre-specifie
 and also come with the ability to execute checks automatically
 on any pull request branches,
 thereby guaranteeing that you have fully reproducible builds!
+
+### What package should I use for network analysis?
+
+I would strongly recommend the [`NetworkX`][networkx] package!
+It provides a very consistent, easy-to-learn API,
+which lowers the barrier of entry to learning graph theory concepts.
+
+Together with Mridul Seth, I teach [Network Analysis Made Simple][nams]
+at PyCon, SciPy and ODSC conferences.
+It's the culmination of our respective learning journeys,
+shared freely with everyone!
+
+[networkx]: https://networkx.github.io
+[nams]: https://ericmjl.github.io/Network-Analysis-Made-Simple
+
+NetworkX provides the data structures and algorithms for working with graphs in memory,
+but in case you want additional speed,
+the `igraph` package is written in C++ with Python and R bindings.
+
+### What can I do to improve my code quality?
+
+There's a few things you can do!
+
+Firstly, use type hints in your function signatures.
+They help a code reader reason about the types of the objects that you pass into a function.
+
+Secondly, learn how to design software from the outside in.
+As my friend Jesse Johnson puts it,
+it is tempting to write software focusing on the most interesting piece first,
+but you end up making it difficult to write composable code.
+
+Thirdly, learn how to test your code!
+That will give you confidence that you've written _correct_ code.
+It'll also train you to write software in a composable fashion.
 
 ## Was there something missing that you still have questions about?
 
