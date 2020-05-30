@@ -563,7 +563,11 @@ Together with Mridul Seth, I teach [Network Analysis Made Simple][nams]
 at PyCon, SciPy and ODSC conferences.
 It's the culmination of our respective learning journeys,
 shared freely with everyone!
+We also have courses on [DataCamp][datacamp]
+where you can learn how to use the NetworkX package
+in an interactive learning environment.
 
+[datacamp]: https://learn.datacamp.com/courses/introduction-to-network-analysis-in-python
 [networkx]: https://networkx.github.io
 [nams]: https://ericmjl.github.io/Network-Analysis-Made-Simple
 
