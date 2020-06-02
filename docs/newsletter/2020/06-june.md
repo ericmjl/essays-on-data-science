@@ -6,7 +6,7 @@ We're back with another edition of the programmer-oriented data science newslett
 This month, I have so much I've learned and to share,
 so I'm _thoroughly_ excited to be writing this newsletter edition!
 
-## Python 3.9 Beta
+## Python 3.9 Beta!
 
 First things first, Python 3.9's latest beta has been released!
 There are new language features in there, including:
@@ -21,7 +21,7 @@ Check out [Martin Heinz' blog post on Medium][py39] to learn more!
 
 [py39]: https://medium.com/@martin.heinz/new-features-in-python-3-9-you-should-know-about-14f3c647c2b4
 
-## The Data Science Design Manual
+## Learn Through The Data Science Design Manual
 
 During this extraordinary COVID-19 time,
 Springer did an extraordinary thing that I never expected:
@@ -61,7 +61,7 @@ this package can be considered to be one of those "great tricks to have" in your
 
 [celluloid]: https://github.com/jwkvam/celluloid
 
-## Points of View
+## Better Design Skills: Points of View
 
 Continuing the theme of visualization,
 I wanted to share with you a resource from Nature Methods that has influenced
@@ -77,7 +77,7 @@ Imagine getting to work with your grad school hero :).
 
 [pov]: http://blogs.nature.com/methagora/2013/07/data-visualization-points-of-view.html
 
-## Document your tests!
+## Better Software Skills: Document your tests!
 
 For those of you who know me, I am a strong proponent of data scientists
 being equipped with good, basic software skills.
@@ -99,7 +99,7 @@ His blog post, then, gets an absolute strong recommendation from me!
 
 [doctest]: https://hynek.me/articles/document-your-tests/
 
-## Development Containers
+## Work Anywhere with Development Containers
 
 For those of you who, like myself, moonlight as a software engineer because you develop tools,
 this next piece might come as music to your ears:
@@ -128,7 +128,7 @@ check out [the docs I wrote for the pyjanitor project][devdocs]!
 [pyjanitor]: https://github.com/ericmjl/pyjanitor
 [devdocs]: https://pyjanitor.readthedocs.io/contributing.html#get-started
 
-## Continuous [STUFF]
+## Automate Workflow with Continuous X
 
 I first saw what "Continuous X" meant
 when I made my first pull requests to the `matplotlib` project,
@@ -173,7 +173,7 @@ It's a neat hack - especially if you wrap specific data queries from a database 
 [cachier]: https://github.com/shaypal5/cachier
 [blog_cachier]: https://ericmjl.github.io/blog/2019/10/18/caching-long-running-function-results/
 
-## Humour
+## Take a break, have a bit of humour
 
 Let's close with some humorous stuff, if not at least to lighten the mood in these tumultuous times.
 
@@ -192,10 +192,17 @@ Secondly, the prolifically-hilarious Kareem Carr writes about ["practicing safe.
 ## Happy, ahem, modelling :)
 
 Hope you enjoyed this edition of the programmer-oriented data science newsletter!
+As always, let me know [on Twitter][twitter] if you've enjoyed the newsletter,
+and I'm always open to hearing about the new things you've learned from it.
+
+[twitter]: https://twitter.com/ericmjl
+
 If you'd like to get early access to new written tutorials, essays,
 1-on-1 consulting (I just did one session with one of my supporters!)
-and free access to the Skillshare workshops that I make,
-I'd appreciate your support on Patreon!
+and complimentary access to the Skillshare workshops that I make,
+I'd appreciate your support on [Patreon][patreon]!
+
+[patreon]: https://patreon.com/ericmjl
 
 Stay safe, stay indoors, and keep hacking!
 
