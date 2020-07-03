@@ -26,7 +26,9 @@
         8005
     ],
     // Use 'postCreateCommand' to run commands after the container is created.
-    "postCreateCommand": ["pre-commit install", "cd src && python setup.py develop"]
+    "postCreateCommand": [
+        "pre-commit install",
+    ]
     // Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
     // "remoteUser": "vscode"
 }
