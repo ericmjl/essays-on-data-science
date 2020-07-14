@@ -5,6 +5,9 @@
 1. Eddie Janowicz
 1. Carol Willing
 1. Hector Munoz
+1. Mridul Seth
+1. Kapil Jain
+1. Brian Gue
 
 Your support keeps me caffeinated,
 so I can continue to make educational material

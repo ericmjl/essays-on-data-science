@@ -7,33 +7,32 @@ Welcome to the July edition of the programming-oriented data science newsletter.
 I usually try to send the newsletter on the first Monday of the month,
 but this edition is a little bit later than usual,
 and that’s because I was attending SciPy 2020’s virtual conference this month!
-Be sure to [catch the videos on Enthought’s YouTube channel](https://www.youtube.com/c/enthought) next week, when they are edited and uploaded!
-(The talks are already up, check them out!) 
+Be sure to [catch the videos on Enthought’s YouTube channel](https://www.youtube.com/c/enthought) next week,
+when they are edited and uploaded!
+(The talks are already up, check them out!)
 
 Back to regular scheduled programming (\*cough cough the SciPy puns cough\*),
 this month’s newsletter focuses on production ML systems and everything around it!
 
 ## [On getting ML models into production](http://veekaybee.github.io/2020/06/09/ml-in-prod/)
 
-Vicki Boykis has this very well-written article titled "[Getting machine learning to production](http://veekaybee.github.io/2020/06/09/ml-in-prod/)".
-In there, she details a lot of the struggle in getting an ML model into a production system.
-I found it very instructive to read.
-As it turns out, your ML model is kind of the least of your worries.
-I won’t spoil it for you - take a good 10 minutes out of your day to read it!
+Vicki Boykis has this very well-written article titled
+"[Getting machine learning to production](http://veekaybee.github.io/2020/06/09/ml-in-prod/)". In there, she details a lot of the struggle in getting an ML model into a production system. I found it very instructive to read. As it turns out, your ML model is kind of the least of your worries. I won’t spoil it for you - take a good 10 minutes out of your day to read it!
 
 ## [MLOps](https://mlops-github.com/)
 
-Related to ML in production is the term that is quickly becoming "a thing": MLOps.
+Related to ML in production is the term
+that is quickly becoming "a thing": MLOps.
 In the same vein as DevOps, DevSecOps etc.,
-it’s all about continuously running things to check for reproducibility of your analyses,
+it’s all about continuously running things
+to check for reproducibility of your analyses,
 and at least ensuring that the code continuously runs.
-(Checking that everything is semantically correct is still a human job
-that can’t be eliminated.) 
+(Checking that everything is semantically correct
+is still a human job that can’t be eliminated.)
 
 GitHub has put together [a resource](https://mlops-github.com/)
-to help you learn about some of the tooling
-to help you facilitate the automation, collaboration,
-and reproducibility in your ML workflows. 
+to help you learn about some of the tooling to help you facilitate
+the automation, collaboration, and reproducibility in your ML workflows.
 
 If anything, I have found at work that continuously executed pipelines
 are the basic unit of engineering reliability into both my software and my models,
@@ -43,8 +42,7 @@ and I’d encourage you to do the same!
 
 This one comes from the Harvard Business Review.
 Usually the HBR is a tad too suit-oriented for my tastes,
-but having been involved in some data products at work,
-this article resonated with me.
+but having been involved in some data products at work, this article resonated with me.
 Production systems usually imply something that directly impact decision-making,
 and "data products" are what help facilitate/accelerate that process.
 Especially if there’s a focus on "unmet needs",
@@ -55,10 +53,10 @@ I hope it gives you inspiration for your work!
 
 ## [On Technical Debt...](https://matthewmcateer.me/blog/machine-learning-technical-debt/)
 
-If you’ve read the paper titled "[Hidden Technical Debt in Machine Learning Systems](https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf)",
+If you’ve read the paper titled
+"[Hidden Technical Debt in Machine Learning Systems](https://papers.nips.cc/paper/5656-hidden-technical-debt-in-machine-learning-systems.pdf)",
 then come read an article by Matthew McAteer,
-in which he dissects the paper and teases out
-which points have been made obsolete as time progressed.
+in which he dissects the paper and teases out which points have been made obsolete as time progressed.
 [It’s an eye-opening read](https://matthewmcateer.me/blog/machine-learning-technical-debt/)!
 
 ## Assortments of Goodies
@@ -85,16 +83,18 @@ adding a theme that provides search,
 and adding a pipeline that reproducibly builds the notebook collection.
 For those of you who like eBook artifacts to keep, we also compiled a book!
 [If you’re interested in it, come tell us what you think the book is worth](https://leanpub.com/nams).
-We’ll be officially launching next week,
-after the final chapter is added to the collection!
+We’ll be officially launching next week, after the final chapter is added to the collection!
 
-([Bayesian Data Science by Simulation and Probabilistic Programming](https://github.com/ericmjl/bayesian-stats-modelling-tutorial) is also undergoing a similar rebuild, stay tuned!)
+([Bayesian Data Science by Simulation and Probabilistic Programming](https://github.com/ericmjl/bayesian-stats-modelling-tutorial)
+is also undergoing a similar rebuild, stay tuned!)
 
-A few colleagues have also given me feedback that the Python data science ecosystem
+A few colleagues have also given me feedback
+that the Python data science ecosystem
 is kind of like "the Wild Wild West".
 Reflecting on my prior experience thus far,
 I can appreciate the sentiment,
-and so I sat down and wrote [a long essay that tries to linearize & untangle the ecosystem for newcomers](https://ericmjl.github.io/essays-on-data-science/miscellaneous/pydata-landscape/).
+and so I sat down and wrote
+[a long essay that tries to linearize/untangle the ecosystem for newcomers](https://ericmjl.github.io/essays-on-data-science/miscellaneous/pydata-landscape/).
 I hope it’s useful for you too :).
 My [Patreon supporters](https://ericmjl.github.io/essays-on-data-science/supporters/)
 have had early access to the article for a while,
