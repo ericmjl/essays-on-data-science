@@ -1,4 +1,4 @@
-# May 2020 Newsletter
+# Data Science Programming May 2020 Newsletter
 
 Hello fellow datanistas!
 

@@ -1,4 +1,4 @@
-# Data Science Newsletter July 2020 Edition
+# Data Science Programming July 2020 Newsletter
 
 Hello datanistas!
 
