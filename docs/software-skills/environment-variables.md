@@ -178,17 +178,23 @@ If you've gotten to this point, then you'll hopefully realize there's a few impo
 
 Now, what other environment variables might a data scientist encounter? These are a sampling of them that you might see, and might have to fix, especially in contexts where your system administrators are off on vacation (or taking too long to respond).
 
-**For general use**, you'll definitely want to know where your `HOME` folder is -- on Linux systems, it's often `/home/username`, while on macOS systems, it's often `/Users/username`.  You can figure out what `HOME` is by doing:
+### General Use
+
+For general use**, you'll definitely want to know where your `HOME` folder is -- on Linux systems, it's often `/home/username`, while on macOS systems, it's often `/Users/username`.  You can figure out what `HOME` is by doing:
 
 ```
 $ echo $HOME
 /Users/ericmjl
 ```
 
+### Python
+
 **If you're a Python user**,
 then the `PYTHONPATH` is one variable that might be useful.
 It is used by the Python interpreter,
 and specifies where to find Python modules/packages.
+
+### C++ libraries
 
 **If you have to deal with C++ libraries**,
 then knowing your `LD_LIBRARY_PATH` environment variable is going to be very important.
@@ -196,11 +202,15 @@ I'm not well-versed enough in this to espouse on it intelligently,
 so I would defer to [this website](http://xahlee.info/UnixResource_dir/_/ldpath.html)
 for more information on best practices for using the `LD_LIBRARY_PATH` variable.
 
+### Spark
+
 **If you're working with Spark**,
 then the `PYSPARK_PYTHON` environment variable would be of interest.
 This essentially tells Spark which Python to use for both its driver and its workers;
 you can also set the `PYSPARK_DRIVER_PYTHON`
 to be separate from the `PYSPARK_PYTHON` environment variable, if needed.
+
+### Data science apps
 
 **If you're developing data science apps**,
 then according to the [12 factor app development principles](https://12factor.net),
@@ -237,13 +247,14 @@ username = os.getenv("SOME_USERNAME")
 password = os.getenv("SOME_PASSWORD")
 ```
 
-### Hack Your Environment Variables
+## Hack Your Environment Variables
 
 This is where the most fun happens!
 Follow along for some stuff you might be able to do
 by hacking your environment variables.
 
-**Hack #1: Enable access to PyPy.**
+### Hack #1: Enable access to PyPy.
+
 I occasionally keep up with the development of PyPy,
 but because PyPy is not yet the default Python interpreter,
 and is not yet `conda install`-able,
@@ -253,12 +264,14 @@ I have to make sure that my `/path/to/pypy` is present
 in the `PATH` environment variable,
 but at a lower priority than my regular CPython interpreter.
 
-**Hack #2: Enable access to other language interpreters/compilers.**
+### Hack #2: Enable access to other language interpreters/compilers.
+
 This is analogous to PyPy.
 I once was trying out Lua's JIT interpreter to use Torch for deep learning,
 and needed to add a path to there in my `.bashrc`.
 
-**Hack #3: Install Python packages to your home directory.**
+### Hack #3: Install Python packages to your home directory.
+
 On shared Linux compute systems that use the `modules` system
 rather than `conda` environments,
 a `modulefile` that you load might be configured
@@ -270,7 +283,8 @@ Ensuring that your `PYTHONPATH`
 includes `$HOME/.local/lib/python-[version]/site-packages`
 at a high enough priority is going to be important in this case.
 
-**Hack 4: Debugging when things go wrong.**
+### Hack 4: Debugging when things go wrong.
+
 In case something throws an error,
 or you have unexpected behaviour --
 something I encountered before was my Python interpreter
