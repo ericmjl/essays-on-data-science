@@ -188,7 +188,7 @@ begins to dominate.
 
 We could simulate this explicitly in Python,
 but as it turns out, there is a mathematical shortcut
-that invovles simple dot products.
+that involves simple dot products.
 Let's check it out.
 
 Assume we have an initial state and a transition matrix.
