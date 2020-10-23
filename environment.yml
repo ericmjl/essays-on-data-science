@@ -1,3 +1,6 @@
+# We only want the essentials for building the website.
+# Other packages will make the environment bloat too much,
+# therefore any notebooks added should preserve their outputs.
 name: essays-on-data-science
 channels:
 - conda-forge
