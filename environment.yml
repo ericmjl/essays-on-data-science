@@ -7,6 +7,7 @@ channels:
 dependencies:
 - python=3.8
 - conda
+- ipykernel
 - jax
 - jaxlib
 - jupyter

@@ -17,6 +17,7 @@ install:
   # Install Python, py.test, and required packages.
   - conda env create -f environment.yml
   - source activate essays-on-data-science
+  - python -m ipykernel install --name essays-on-data-science --user
 
 script: true
 
