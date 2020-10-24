@@ -8,13 +8,55 @@ theme:
       logo: 'library_books'
   features:
     - tabs
+    
+nav:
+  - Home: index.md
+  - Computing:
+    - Recursion: computing/recursion.md
+  - Machine Learning:
+    - An Introduction to Probability and Computational Bayesian Statistics: "machine-learning/computational-bayesian-stats.md"
+    - Dirichlet Processes and Hidden Markov Model Transition Matrices: "machine-learning/generating-markov-chains-dirichlet.ipynb"
+    - "Markov Models From The Bottom Up, with Python": "machine-learning/markov-models.md"
+    - Computational Representations of Message Passing: "machine-learning/message-passing.md"
+    - Reimplementing and Testing Deep Learning Models: "machine-learning/reimplementing-models.md"
+  - Miscellaneous:
+    - A Review of the Python Data Science Dashboarding Landscape in 2019: "miscellaneous/dashboarding-landscape.md"
+    - How I Learned to Learn: "miscellaneous/learning-to-learn.md"
+    - An Opinionated and Unofficial Guide to the PyData Ecosystem: "miscellaneous/pydata-landscape.md"
+    - Static Sites and Apps On Your Own Dokku Server: "miscellaneous/static-sites-on-dokku.md"
+  - Newsletter:
+    - May 2020: "newsletter/2020/05-may.md"
+    - June 2020: "newsletter/2020/06-june.md"
+    - July 2020: "newsletter/2020/07-july.md"
+    - August 2020: "newsletter/2020/08-august.md"
+    - September 2020: "newsletter/2020/09-september.md"
+  - Software Skills: 
+    - Importance: "software-skills/index.md"
+    - Formatting your code: "software-skills/code-formatting.md"
+    - Documenting your code: "software-skills/documentation.md"
+    - "A Data Scientist's Guide to Environment Variables": "software-skills/environment-variables.md"
+    - Refactoring your code: "software-skills/refactoring.md"
+    - Testing your code: "software-skills/testing.md"
+  - Terminal Hacks:
+    - Tools and Upgrades for your CLI: "terminal/cli-tools.md"
+    - Using pre-commit git hooks to automate code checks: "terminal/pre-commits.md"
+  - Workflow:
+    - "Practicing Code Review": "workflow/code-review.md"
+    - "Effective Git Commits in Data Science": "workflow/effective-commit-messages.md"
+    - "Principled Git-based Workflow in Collaborative Data Science Projects": "workflow/gitflow.md"
+  - Supporters: "supporters.md"
 
 plugins:
   - search:
       separator: '[\s\-\.]+'
       lang:
         - en
-  - mknotebooks
+  - mknotebooks:
+      execute: true
+      timeout: 600
+      binder: true
+      binder_service_name: "gh"
+      binder_branch: "master"
 
 # Taken from here: https://squidfunk.github.io/mkdocs-material/extensions/codehilite/
 markdown_extensions:
