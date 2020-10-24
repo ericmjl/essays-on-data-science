@@ -14,8 +14,11 @@ install:
   # Useful for debugging any issues with conda
   - conda info -a
 
+  # Install mamba to make the build run faster later
+  - conda install -c conda-forge mamba
+
   # Install Python, py.test, and required packages.
-  - conda env create -f environment.yml
+  - mamba env create -f environment.yml
   - source activate essays-on-data-science
   - python -m ipykernel install --name essays-on-data-science --user
 
