@@ -35,7 +35,7 @@ Amazing stuff, Microsoft, I like what you've become now :).
 Since learning about ECDFs a few years ago,
 I have advocated for visualizing distributions of data
 [using ECDFs rather than histograms](http://ericmjl.com/blog/2018/7/14/ecdfs/).
-Well, nothing beats having best practices available  conveniently,
+Well, nothing beats having best practices available conveniently,
 so I'm super happy to see ECDFs conveniently available in seaborn!
 
 ## [Stupid Simple Kubernetes](https://levelup.gitconnected.com/stupid-simple-kubernetes-e509355fba3d)
@@ -68,15 +68,15 @@ Some things I recently wrote about:
 - [Some early thoughts test-driving `pandera` for data validation.](https://ericmjl.github.io/blog/2020/8/30/pandera-data-validation-and-statistics/)
 - [`.also()`, which comes from the Kotlin programming language, proposed in `pyjanitor` as a new feature](https://github.com/ericmjl/pyjanitor/issues/731) - I'm excited to see where this one goes!
 - I'll be speaking at JupyterCon 2020 this year!
-Super excited to release a talk on how we compiled Network Analysis Made Simple
-into our [eBook](http://leanpub.com/nams) and [website](https://ericmjl.github.io/Network-Analysis-Made-Simple/)!
+  Super excited to release a talk on how we compiled Network Analysis Made Simple
+  into our [eBook](http://leanpub.com/nams) and [website](https://ericmjl.github.io/Network-Analysis-Made-Simple/)!
 
 ## A plug for an awesome open source contributor
 
 The final thing I'd like to include in this newsletter
 is a completely unsolicited but heartfelt advertisement for
 [Samuel Oranyeli](https://samukweku.github.io/data-wrangling-blog/).
-He's been a consistent contributor to the  `pyjanitor` project,
+He's been a consistent contributor to the `pyjanitor` project,
 and I have witnessed his skills growth
 over the past few months of contribution.
 The most important quality he possesses is consistent learning!
