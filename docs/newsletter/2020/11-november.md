@@ -1,4 +1,4 @@
-Hello fellow datanistas!
+Hello fellow datanistas,
 
 Welcome to the November 2020 edition of the Data Science Programming newsletter.
 Each newsletetter edition,
@@ -48,7 +48,7 @@ I found myself learning something new from Sam's writings.
 In there, you'll find lots of practical advice for those
 who are interested in practical wrangling of messy spreadsheet data
 that come to us from collaborators,
-and his writings are directly in the spirit of learning in the open!
+and his writings are directly in the spirit of learning in the open.
 
 ## [Git Scraping](https://simonwillison.net/2020/Oct/9/git-scraping/)
 
@@ -66,7 +66,7 @@ while the repo can be found [on GitHub](https://github.com/alex/nyt-2020-electio
 Apart from being an incredibly useful real-time tracker
 of the election counts this year,
 in my opinion, it also served as a great example
-of building (and learning) in the open!
+of building (and learning) in the open.
 
 ## [The myths and traps of managing up](https://leaddev.com/communication-relationships/myths-and-traps-managing)
 
@@ -82,17 +82,19 @@ One particular quote that I find important:
 After all, we as data scientists
 are not in the business of politics for politics sake.
 If we do engage in managing expectations,
-it's for the benefit of the whole team!
+it's for the benefit of the whole team.
 
-## Thank you for reading!
+## Thank you for reading
 
-Next edition, I'm planning a newsletter surrounding [JAX](https://jax.readthedocs.io/en/latest/),
+Next edition,
+I am planning a newsletter centered on
+[JAX](https://jax.readthedocs.io/en/latest/),
 as the more I've used it,
-the more I've become excited about what we could possibly build with it!
+the more I've become excited about what we could build with it.
 
 I'd also like to celebrate with you all the milestone
 of hitting 300 newsletter subscribers -
-thank you to everyone who has subscribed!
+thank you to everyone who has subscribed :).
 Please do share the [link to the subscribe page](http://tinyletter.com/ericmjl)
 with those whom you think might benefit from it.
 
