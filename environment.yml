@@ -3,24 +3,25 @@
 # therefore any notebooks added should preserve their outputs.
 name: essays-on-data-science
 channels:
-- conda-forge
+  - conda-forge
 dependencies:
-- python=3.8
-- conda
-- ipykernel
-- jax
-- jaxlib
-- jupyter
-- jupyterlab
-- mamba
-- matplotlib
-- pip
-- pre-commit>=1.20.0
-- pygments>=2.4.2
-- seaborn
-- pip:
-  - mkdocs
-  - mkdocs-material
-  - mkdocs-minify-plugin
-  - mknotebooks
-  - pymdown-extensions
+  - python=3.8
+  - conda
+  - ipykernel
+  - jax
+  - jaxlib
+  - jupyter
+  - jupyterlab
+  - mamba
+  - matplotlib
+  - pip
+  - pre-commit>=1.20.0
+  - pygments>=2.4.2
+  - seaborn
+  - pip:
+      - mkdocs
+      - mkdocs-material
+      - mkdocs-minify-plugin
+      - mknotebooks
+      - pymdown-extensions
+      - proselint
