@@ -12,7 +12,7 @@ repos:
   - repo: local
     hooks:
       - id: proselint
-        name: proselint
+        name: Proselint
         description: An English prose (speech or writing) linter
         entry: proselint
         language: system

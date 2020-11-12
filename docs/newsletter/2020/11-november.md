@@ -90,7 +90,7 @@ Next edition,
 I am planning a newsletter centered on
 [JAX](https://jax.readthedocs.io/en/latest/),
 as the more I've used it,
-the more I've become excited about what we could build with it.
+the more I've become excited about what we could build with it!
 
 I'd also like to celebrate with you all the milestone
 of hitting 300 newsletter subscribers -
