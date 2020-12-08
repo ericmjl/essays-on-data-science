@@ -1,9 +1,20 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.4.0
     hooks:
-    -   id: trailing-whitespace
-    -   id: end-of-file-fixer
-    -   id: check-added-large-files
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-added-large-files
+
+  # Prose (speech or writing) Linter
+  - repo: local
+    hooks:
+      - id: proselint
+        name: Proselint
+        description: An English prose (speech or writing) linter
+        entry: proselint
+        language: system
+        types: [rst, markdown]
+        additional_dependencies: [proselint]
