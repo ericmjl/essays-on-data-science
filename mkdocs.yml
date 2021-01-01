@@ -33,6 +33,7 @@ nav:
           - September: newsletter/2020/09-september.md
           - October: newsletter/2020/10-october.md
           - November: newsletter/2020/11-november.md
+          - December: newsletter/2020/12-december.md
   - Software Skills:
       - Importance: software-skills/index.md
       - Formatting your code: software-skills/code-formatting.md
