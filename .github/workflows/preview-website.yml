@@ -1,0 +1,35 @@
+# This GitHub workflow runs on every commit.
+name: Website Preview
+
+on: [pull_request]
+
+jobs:
+  build-website:
+    name: "Website Preview"
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      # See: https://github.com/marketplace/actions/setup-conda
+      - uses: s-weigand/setup-conda@v1
+        with:
+          conda-channels: "conda-forge"
+
+      - name: Build environment
+        run: |
+          conda install -c conda-forge mamba
+          mamba env create -f environment.yml
+
+      - name: Build website
+        run: |
+          source activate essays-on-data-science
+          python -m ipykernel install --name essays-on-data-science --user
+          mkdocs build --verbose --clean --strict
+
+      # https://www.bradmcgonigle.com/blog/github-action-for-continuous-deployment
+      # - NETLIFY_SITE_ID maps to the netlify site's API ID
+      # - NETLIFY_AUTH_TOKEN maps to netlify's Personal Access Token that I set on a per-user basis
+      - name: Netlify PR preview
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --site ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --dir=site/

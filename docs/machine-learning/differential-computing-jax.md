@@ -13,7 +13,8 @@ Before we go on, we must first ask: what is differential computing all about?
 I think at its core, we can think of differential computing as
 "computing where derivatives (from calculus) are a first-class citizen".
 This is analogous to probabilistic computing,
-in which probabilistic constructs (such as probability distributions and MCMC samplers)
+in which probabilistic constructs
+(such as probability distributions and MCMC samplers)
 are given "first class" status in a language.
 By "first class" status,
 I mean that the relevant computing constructs
@@ -21,7 +22,8 @@ are a well-developed category of constructs in the language,
 with clearly defined interfaces.
 
 In differential computing,
-being able to evaluate _gradients_ of a math function are at the heart of the language.
+being able to evaluate _gradients_ of a math function
+are at the heart of the language.
 (How the gradients are used is a matter of application.)
 The objective of a differential computing system is to write a program that gets a computer
 to automatically evaluate gradients of a math function that we have written in that language.
@@ -33,9 +35,11 @@ which can be used to evaluate the derivative of the original function.
 All of this falls under the paradigm of AD systems, as I mentioned earlier.
 Symbolic differentiation can be considered one subclass of AD systems;
 this is a point PyMC3 developer [Brandon Willard](https://brandonwillard.github.io) would make.
-Packages such as `autograd` and now [JAX](https://github.com/google/jax) (also by the `autograd` authors)
+Packages such as `autograd`
+and now [JAX](https://github.com/google/jax) (also by the `autograd` authors)
 are another subclass of AD systems,
-which leverage the chain rule and a recorder tape of math operations called in the program
+which leverage the chain rule
+and a recorder tape of math operations called in the program
 to automatically construct the gradient function.
 
 ## Where differential computing gets used
@@ -57,7 +61,7 @@ However, that is not the only place where AD systems show up.
 For example, AD is used in the Bayesian statistical modelling world.
 Hamiltonian Monte Carlo samplers use AD to help the sampler program
 identify the direction in which its next MCMC step should be taken.
-AD systems can also be used to optimize parameters 
+AD systems can also be used to optimize parameters
 of non-neural network models of the world against data,
 such as Gaussian Mixture Models and Hidden Markov Models.
 We can even use AD in a class of problems called "input design" problems,
@@ -214,7 +218,7 @@ that are performant and automatically differentiable.
 `vmap` and `lax.scan` help us eliminate Python loop overhead in our code;
 `jit` just-in-time compiles code to accelerate it;
 `grad` gives us differentiability,
-thus opening the door for us to write 
+thus opening the door for us to write
 performant optimization routines that solve real world problems.
 
 At work, I have used JAX productively in both neural network and non-neural network settings,
@@ -296,9 +300,9 @@ I also try to provide "simple complex examples" of how to use JAX idioms in solv
 Besides that, JAX's documentation is quite well-written,
 and you can find it at [jax.readthedocs.io](https://jax.readthedocs.io/en/latest/).
 In particular, they have a very well-documented suite of "The Sharp Bits" to look out for
-when using JAX, geared towards both power users of vanilla NumPy and beginners. 
+when using JAX, geared towards both power users of vanilla NumPy and beginners.
 If you're using JAX and run into unexpected behaviour,
-I'd strongly encourage you to check out the post - 
+I'd strongly encourage you to check out the post -
 it'll clear up many misconceptions you might have!
 
 In terms of introductory material, a blog post by Colin Raffel,

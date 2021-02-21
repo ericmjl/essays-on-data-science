@@ -1,0 +1,49 @@
+# This GitHub workflow runs only on push to master.
+# By this point, we are assuming that all checks on the PR,
+# which are checked by the Azure Pipeline, have passed.
+# The full pipeline is also leveraged here,
+# as we don't want a broken website to be deployed anyways.
+
+name: Master branch deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-website:
+    name: "Build website"
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      # See: https://github.com/marketplace/actions/setup-conda
+      - uses: s-weigand/setup-conda@v1
+        with:
+          conda-channels: "conda-forge"
+
+      - name: Build environment
+        # if: steps.cache-environment.outputs.cache-hit != 'true'
+        run: |
+          conda install -c conda-forge mamba
+          mamba env create -f environment.yml
+
+      - name: Build website
+        run: |
+          source activate essays-on-data-science
+          python -m ipykernel install --name essays-on-data-science --user
+          mkdocs build --verbose --clean --strict
+
+      - name: Deploy Website
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          # https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-set-personal-access-token-personal_token
+          personal_token: ${{ secrets.GHPAGES_TOKEN }}
+          publish_dir: ./site
+          publish_branch: gh-pages
+          allow_empty_commit: false
+          keep_files: false
+          force_orphan: true
+          enable_jekyll: false
+          disable_nojekyll: false
