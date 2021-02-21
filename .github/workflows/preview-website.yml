@@ -1,23 +1,11 @@
 # This GitHub workflow runs on every commit.
-name: Pull request checks
-
-on:
-  pull_request:
-
-jobs:
-# This GitHub workflow runs only on push to master.
-# By this point, we are assuming that all checks on the PR,
-# which are checked by the Azure Pipeline, have passed.
-# The full pipeline is also leveraged here,
-# as we don't want a broken website to be deployed anyways.
-
-name: Pull request site previews
+name: Website Preview
 
 on: [pull_request]
 
 jobs:
   build-website:
-    name: "Build website"
+    name: "Website Preview"
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -28,7 +16,6 @@ jobs:
           conda-channels: "conda-forge"
 
       - name: Build environment
-        # if: steps.cache-environment.outputs.cache-hit != 'true'
         run: |
           conda install -c conda-forge mamba
           mamba env create -f environment.yml
