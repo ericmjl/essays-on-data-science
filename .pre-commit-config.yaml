@@ -8,13 +8,18 @@ repos:
       - id: end-of-file-fixer
       - id: check-added-large-files
 
-  # Prose (speech or writing) Linter
-  - repo: local
+  - repo: https://github.com/kynan/nbstripout
+    rev: master
     hooks:
-      - id: proselint
-        name: Proselint
-        description: An English prose (speech or writing) linter
-        entry: proselint
-        language: system
-        types: [rst, markdown]
-        additional_dependencies: [proselint]
+      - id: nbstripout
+
+  # Prose (speech or writing) Linter
+  # - repo: local
+  #   hooks:
+  #     - id: proselint
+  #       name: Proselint
+  #       description: An English prose (speech or writing) linter
+  #       entry: proselint
+  #       language: system
+  #       types: [rst, markdown]
+  #       additional_dependencies: [proselint]

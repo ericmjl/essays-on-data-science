@@ -17,7 +17,9 @@ dependencies:
   - pip
   - pre-commit>=1.20.0
   - pygments>=2.4.2
+  - pyjanitor
   - seaborn
+  - rdkit
   - pip:
       - mkdocs
       - mkdocs-material
@@ -25,3 +27,5 @@ dependencies:
       - mknotebooks
       - pymdown-extensions
       - proselint
+      - neural-tangents
+      - watermark
