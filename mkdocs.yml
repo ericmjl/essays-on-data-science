@@ -19,11 +19,14 @@ nav:
       - Dirichlet Processes and Hidden Markov Model Transition Matrices: machine-learning/generating-markov-chains-dirichlet.ipynb
       - Computational Representations of Message Passing: machine-learning/message-passing.md
       - Reimplementing and Testing Deep Learning Models: machine-learning/reimplementing-models.md
+      - Differential Computing Explained: machine-learning/differential-computing-jax.md
+      - Infinitely Wide Neural Networks: machine-learning/nngp.ipynb
   - Miscellaneous:
       - A Review of the Python Data Science Dashboarding Landscape in 2019: miscellaneous/dashboarding-landscape.md
       - How I Learned to Learn: miscellaneous/learning-to-learn.md
       - An Opinionated and Unofficial Guide to the PyData Ecosystem: miscellaneous/pydata-landscape.md
       - Static Sites and Apps On Your Own Dokku Server: miscellaneous/static-sites-on-dokku.md
+      - Code Style Tools: miscellaneous/code-style-tools.md
   - Newsletter:
       - 2020:
           - May: newsletter/2020/05-may.md
