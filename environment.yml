@@ -20,6 +20,10 @@ dependencies:
   - pyjanitor
   - seaborn
   - rdkit
+  - jupyter-lsp
+  - jupyterlab-lsp
+  - python-language-server
+  - jedi=0.17.2  # pinned because of one of the language server packages needing it
   - pip:
       - mkdocs
       - mkdocs-material
