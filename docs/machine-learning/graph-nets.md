@@ -52,27 +52,39 @@ Coming up, we'll explore how this can be done.
 
 Let's start with nodes, our entities.
 Our nodes, being entities, may have certain properties.
-Let's use a concrete example of molecules, which is what I would consider a minimally complex example for exploring key ideas.
-(I use minimally complex examples as my anchoring examples to learn an idea, I hope this one is useful for you too!)
+Let's use a concrete example of molecules,
+which is what I would consider
+a minimally complex example for exploring key ideas.
+(I use minimally complex examples as my anchoring examples to learn an idea,
+I hope this one is useful for you too!)
 
 Imagine we have a molecule of ethanoic acid.
-It's comprised of two carbons, two oxygen, and four hydrogens joined in the following fashion:
+It's comprised of two carbons, two oxygen,
+and four hydrogens joined in the following fashion:
 
 ![](./graph-nets-figures/fig2-ethanoic-acid.png)
 
 Each atom is a node, and edges are bonds between the atoms.
-Each atom, or node, carries *properties* or *features* which can be represented on the array.
-For example, there's the atomic mass (a floating point number, or integer if you desire to round it off).
+Each atom, or node, carries *properties* or *features*
+which can be represented on the array.
+For example, there's the atomic mass
+(a floating point number, or integer if you desire to round it off).
 There's the valence of the atom as well.
-And many more! To keep things simple, I'll stick to just these two for now.
+And many more!
+To keep things simple, I'll stick to just these two for now.
 As you can see, you'll end up with a *vector of features* per node.
-If we stack them up together, we get what we call a node feature matrix, which will become handy later.
+If we stack them up together,
+we get what we call a node feature matrix, which will become handy later.
 
 ![](./graph-nets-figures/fig3-ethanoic-acid-features.png)
 
 ### Representing edges as arrays
 
-Similarly, there is an array representation of edges too! If you imagine lining up all of the atoms inside the ethanoic acid molecule along a square matrix, you can fill in the square matrix based on whether an edge exists between those two atoms.
+Similarly, there is an array representation of edges too!
+If you imagine lining up all of the atoms
+inside the ethanoic acid molecule along a square matrix,
+you can fill in the square matrix
+based on whether an edge exists between those two atoms.
 It'll look something like this:
 
 ![](./graph-nets-figures/fig4-ethanoic-acid-adjacency.png)
@@ -319,11 +331,14 @@ Okay, so we've explored three examples of graph neural networks.
 What exactly is general here? Here's the answer:
 
 1. We must have a message passing operator, $A$.
-It can be learned or it can be provided _a priori_ and remain fixed throughout the neural network.
+It can be learned or it can be provided _a priori_
+and remain fixed throughout the neural network.
 You basically have the freedom to define any form of $A$ that you need!
 2. We need to have node feature matrices, $F$.
-3. For convenience, we usually transform our graphs' array representations $A$ and $F$ into a summary vector
-that then gets processed by a feed forward neural network.
+3. For convenience,
+we usually transform our graphs' array representations $A$ and $F$
+into a summary vector that then gets processed
+by a feed forward neural network.
 
 Again, what remains relatively constant is the _structure_ of the model -
 some form of generalized message passing
