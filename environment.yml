@@ -5,11 +5,11 @@ name: essays-on-data-science
 channels:
   - conda-forge
 dependencies:
-  - python=3.8
+  - python>=3.8
   - conda
   - ipykernel
-  - jax<=0.2.9
-  - jaxlib<=0.1.57
+  - jax
+  - jaxlib
   - jupyter
   - jupyterlab
   - mamba
