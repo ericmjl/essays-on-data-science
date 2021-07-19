@@ -26,18 +26,26 @@ Pictorially, we'd usually draw something that looks like this:
 
 ![](./graph-nets-figures/fig1-graphs.png)
 
-A graph $G$, in really concise mathematical notation, can be represented as $G = (V, E)$, or in plain English, an unordered collection of vertices (a synonym for nodes) and an unordered collection of edges.
+A graph $G$, in really concise mathematical notation,
+can be represented as $G = (V, E)$,
+or in plain English,
+an unordered collection of vertices (a synonym for nodes)
+and an unordered collection of edges.
 
 ## Graphs as _arrays_
 
 One thing that's a really neat property of graphs is that we can actually represent them as _arrays_.
-This is covered in the [Linear Algebra section][linalg] of [Network Analysis Made Simple][nams]; I also wrote about this in the earlier sections of an essay I wrote on [message passing][msg] I'd encourage you to check it out in its entirety, but nonetheless here's a simplified version to introduce you to the key ideas.
+This is covered in the [Linear Algebra section][linalg] of [Network Analysis Made Simple][nams];
+I also wrote about this in the earlier sections of an essay I wrote on [message passing][msg]
+that I'd encourage you to check it out in its entirety,
+but nonetheless here's a simplified version to introduce you to the key ideas.
 
 [nams]: https://ericmjl.github.io/Network-Analysis-Made-Simple/index.html
 [linalg]: https://ericmjl.github.io/Network-Analysis-Made-Simple/04-advanced/02-linalg/
 [msg]: https://ericmjl.github.io/essays-on-data-science/machine-learning/message-passing/
 
-Because graphs are comprised of nodes and edges, we need to figure out a way of representing them individually.
+Because graphs are comprised of nodes and edges,
+we need to figure out a way of representing both of them as arrays.
 Coming up, we'll explore how this can be done.
 
 ### Representing nodes as arrays
@@ -314,7 +322,8 @@ What exactly is general here? Here's the answer:
 It can be learned or it can be provided _a priori_ and remain fixed throughout the neural network.
 You basically have the freedom to define any form of $A$ that you need!
 2. We need to have node feature matrices, $F$.
-3. For convenience, we usually transform our graphs' array representations $A$ and $F$ into a summary vector that then gets processed by a feed forward neural network.
+3. For convenience, we usually transform our graphs' array representations $A$ and $F$ into a summary vector
+that then gets processed by a feed forward neural network.
 
 Again, what remains relatively constant is the _structure_ of the model -
 some form of generalized message passing
@@ -427,7 +436,10 @@ but I'm finally glad to have it done!
 ## Further Reading
 
 - I wrote an essay on [how to efficiently represent message passing][mp].
-- Michael Bronstein
+- Others have also made attempts at explainin GNNs, including [The AI Summer][aisummer].
+- The [Awesome GNN Repository](https://github.com/GRAND-Lab/Awesome-Graph-Neural-Networks).
 
+(The literature is expanding way too quickly; it's going to be hard to keep up!)
 
 [mp]: https://ericmjl.github.io/essays-on-data-science/machine-learning/message-passing/
+[aisummer]: https://theaisummer.com/graph-convolutional-networks/
