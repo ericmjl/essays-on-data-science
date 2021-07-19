@@ -20,6 +20,6 @@ as well as shoutouts on every single essay that I put out.
 
 Also, I have a free monthly newsletter that I use as an outlet
 to share programming-oriented data science tips and tools.
-If you'd like to receive it, sign up on [TinyLetter][tinyletter]!
+If you'd like to receive it, sign up on [Substack][substack]!
 
-[tinyletter]: https://tinyletter.com/ericmjl
+[substack]: https://dspn.substack.com
