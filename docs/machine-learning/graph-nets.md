@@ -329,9 +329,26 @@ This can be framed in terms of predicting the entries of the graph adjacency mat
 ## Summary
 
 Here, we started with array representations of single graphs.
-Then, we covered the message passing operation, which is a key operation in graph neural networks.
-We explored how we can compose message passing, graph summarization, and feed forward neural networks to do graph-level property prediction.
-Finally, we did a quick tour through the general categories of graph learning tasks in which graph neural networks are used.
+Then, we covered the message passing operation,
+which is a key operation in graph neural networks.
+We explored how we can compose message passing, graph summarization,
+and feed forward neural networks to do graph-level property prediction.
+Finally, we did a quick tour through the general categories
+of graph learning tasks in which graph neural networks are used.
 
-It's taken me 2-3 months of procrastination, brainstorming, and more to write all of this down, and even then, I doubt I have comprehensively covered all of the fundamentals of graph deep learning.
-That said, I believe that in this essay, we've given ourselves a great starting point - you might even say, a launchpad - for delving into the vast swathe of literature out there.
+It's taken me 2-3 months of procrastination, brainstorming,
+and more to write all of this down, and even then,
+I doubt I have comprehensively covered
+all of the fundamentals of graph deep learning.
+That said, I believe that in this essay,
+we've given ourselves a great starting point -
+you might even say, a launchpad -
+for delving into the vast swathe of literature out there.
+
+## With Thanks
+
+I would like to give special thanks to my Patreon supporters,
+Alejandro, Rafael, Fazal, Brian, Hector, Carol, and Eddie.
+With the new kid, switching roles, and more of life hitting me in the face,
+it's taken a bit of time for me to get this essay out,
+but I'm finally glad to have it done!
