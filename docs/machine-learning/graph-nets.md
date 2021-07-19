@@ -94,8 +94,10 @@ in my opinion, is pretty elegant!
 Let's start by defining what message passing on a graph is.
 
 Message passing on a graph is kind of what you would intuit it to be:
-if I have a message on a node, we want to pass the message to other nodes on the graph.
-Our message can only travel along the edges, though - otherwise, the structure of the graph would be irrelevant.
+if I have a message on a node,
+we want to pass the message to other nodes on the graph.
+Our message can only travel along the edges,
+though - otherwise, the structure of the graph would be irrelevant.
 
 Here's an example that is really, really simplified.
 (We'll see the exact same ideas in action
@@ -153,7 +155,9 @@ I spent a few good weeks mulling the ideas I just described.
 
 ## Message Passing + Neural Networks
 
-We're now going to see how message passing gets embedded inside a neural network - a network that learns on network.
+We're now going to see how message passing
+gets embedded inside a neural network -
+a network that learns on network.
 (Pretty meta, if you ask me!)
 
 To anchor our understanding,
@@ -185,10 +189,12 @@ sample basis, we pass in one n-dimensional array at a time.
 
 ![](./graph-nets-figures/fig8-inductive-biases.png)
 
-What about graph neural networks, then - what exactly does the input look like,
+What about graph neural networks, then -
+what exactly does the input look like,
 and what is the general structure of such networks?
 To answer those questions,
-we're going to walk through three different kinds of graph neural network layers,
+we're going to walk through
+three different kinds of graph neural network layers,
 the three that I'm most familiar with,
 as specific examples of the general form of graph neural nets.
 By the end of us walking through them,
@@ -223,7 +229,8 @@ it might be desirable to have a vector representation of our graphs.
 But at the moment, we're stuck with two matrices -
 the adjacency matrix and the messaged-passed node feature matrix!
 Well, one canonical way of creating graph-level vector representations
-is to simply take a node-wise summation (or average) of the node feature matrix.
+is to simply take a node-wise summation (or average)
+of the node feature matrix.
 Summations express that the size of a graph matters,
 while averages express that size should not matter.
 What you choose will depend on your particular problem.
@@ -235,11 +242,15 @@ Regardless, let's call this layer a "graph summary layer".
 
 ![](./graph-nets-figures/fig10-graph-summary-layer.png)
 
-Once we have a vector-level representation of our graph, we can stick on classical feed forward neural network layers on top of the graph processing layers to obtain the thing we're trying to predict.
+Once we have a vector-level representation of our graph,
+we can stick classical feed forward neural network layers
+on top of the graph processing layers
+to obtain the thing we're trying to predict.
 
 ![](./graph-nets-figures/fig11-gnn-anatomy.png)
 
-And that, my friends, is how a classical message passing neural network works! Here's the framework I use to remember how GNNs work:
+And that, my friends, is how a classical message passing neural network works!
+Here's the framework I use to remember how GNNs work:
 
 1. Message passing operations, followed by
 2. Graph summarization operations, followed by
@@ -255,21 +266,40 @@ and everything else we discuss coming will become crystal clear!
 
 ### Graph Laplacian Networks
 
-So what's up with graph laplacian networks? Well, really, at its core is all that's been done here is to *replace each graph's adjacency matrix with their graph Laplacian matrix*.
-That's it! Every other operation that you see in the pictures above remain the same.
+So what's up with graph laplacian networks?
+Well, really, at its core is all that's been done here
+is to *replace each graph's adjacency matrix with their graph Laplacian matrix*.
+That's it!
+Every other operation that you see in the pictures above remain the same.
 
-But what is the graph Laplacian? At its core, it's a measure of the local _derivative_ of the graph, and we use it when we want to express that local differences in nodes matter to our graph-level property of interest.
-To explain this idea here any further would distract from our exploration of GNNs, so I would refer you to [the Wikipedia entry](https://en.wikipedia.org/wiki/Laplacian_matrix) for those of you who desire a deeper understanding of this category of graph matrices.
+But what is the graph Laplacian?
+At its core, it's a measure of the local _derivative_ of the graph,
+and we use it when we want to express that
+local differences in nodes matter to our graph-level property of interest.
+To explain this idea here any further
+would distract from our exploration of GNNs,
+so I would refer you to [the Wikipedia entry](https://en.wikipedia.org/wiki/Laplacian_matrix)
+for those of you who desire a deeper understanding
+of this category of graph matrices.
 
 ### Graph Attention Networks
 
-What about graph attention networks, then? Well, we know that the attention mechanism is nothing more than an operation that uses a neural network inside a neural network to learn weights of *some* kind.
-With graph attention networks, we use an embedded neural network to learn a per-graph adjacency-like matrix operator that we mask over with the adjacency matrix, which effectively gives us an edge attention matrix for message passing.
+What about graph attention networks, then?
+Well, we know that the attention mechanism
+is nothing more than an operation that uses
+a neural network inside a neural network to learn weights of *some* kind.
+With graph attention networks,
+we use an embedded neural network to learn
+a per-graph adjacency-like matrix operator
+that we mask over with the adjacency matrix,
+which effectively gives us an edge attention matrix for message passing.
 
 And that's it! Everything else about the model can stay constant.
 
-Graph attention layers give us the most general message, data-driven passing operator that we can imagine.
-Rather than fix the message passing operator _a priori_, we simply learn the operator in a data-driven fashion.
+Graph attention layers give us the most general message,
+data-driven passing operator that we can imagine.
+Rather than fix the message passing operator _a priori_,
+we simply learn the operator in a data-driven fashion.
 
 ### General form of graph neural networks
 
@@ -282,49 +312,86 @@ You basically have the freedom to define any form of $A$ that you need!
 2. We need to have node feature matrices, $F$.
 3. For convenience, we usually transform our graphs' array representations $A$ and $F$ into a summary vector that then gets processed by a feed forward neural network.
 
-Again, what remains relatively constant is the _structure_ of the model - some form of generalized message passing followed by some form of graph summarization followed by a top model.
-As long as you have some sort of semantically-meaningful square matrix $A$ and a semantically-meaningful node feature matrix $F$, you can follow the message passing -> summarization -> feed forward structure to build your GNN models.
+Again, what remains relatively constant is the _structure_ of the model -
+some form of generalized message passing
+followed by some form of graph summarization followed by a top model.
+As long as you have some sort of semantically-meaningful square matrix $A$
+and a semantically-meaningful node feature matrix $F$,
+you can follow the message passing -> summarization -> feed forward structure
+to build your GNN models.
 
 ## MPNNs and convolution operations
 
-When David taught me about graph neural networks, one idea really clicked: how message passing generalizes the grid convolution to graphs - which is why the "graph convolution" term shows up in the deep learning literature.
-Let's explore how this is the case by looking carefully at a simple grid convolution and a simple graph convolution.
+When David taught me about graph neural networks,
+one idea really clicked:
+how message passing generalizes the grid convolution to graphs -
+which is why the "graph convolution" term shows up
+in the deep learning literature.
+Let's explore how this is the case
+by looking carefully at a simple grid convolution
+and a simple graph convolution.
 
-Starting off with the simplest grid convolution, let's say we have a 5x5 pixel image with a 3x3 convolution operator comprised of $1$s everywhere except the middle cell.
-When using the convolution operation (with certain border settings), we get the following result:
+Starting off with the simplest grid convolution,
+let's say we have a 5x5 pixel image with a 3x3 convolution operator
+comprised of $1$s everywhere except the middle cell.
+When using the convolution operation (with certain border settings),
+we get the following result:
 
 ![](./graph-nets-figures/fig12-grid-convolution.png)
 
-We actually can re-represent the grid of values as a lattice graph and do a message passing operation to obtain the same result:
+We actually can re-represent the grid of values as a
+lattice graph and do a message passing operation to obtain the same result:
 
 ![](./graph-nets-figures/fig13-graph-convolution.png)
 
-And in doing so, we thus can see that the message passing operation using the adjacency matrix as our message passing operator is equivalent to convolution with a convolution filter of 1s surrounding a zero.
-Message passing on graphs more generally simple requires that we relax the condition that our graph be a lattice graph!
+And in doing so,
+we thus can see that the message passing operation
+using the adjacency matrix as our message passing operator
+is equivalent to a convolution
+with a filter of 1s surrounding a zero.
+Message passing on graphs more generally simply requires that
+we relax the condition that our graph be a lattice graph!
 
 ## Graph learning tasks
 
-Thus far, we explored how graph neural networks work in the context of a supervised machine learning problem where we want to build a model that links graphs as inputs to a property of the entire graph.
+Thus far, we explored how graph neural networks work
+in the context of a supervised machine learning problem
+where we want to build a model that links graphs as inputs
+to a property of the entire graph.
 Beyond this single learning task, though, there are other learning tasks.
-From a talk that my friend [Chris Lin](https://www.linkedin.com/in/chris522229197/) delivered, I learned that there are a few primary categories of graph learning tasks.
+From a talk that my friend [Chris Lin](https://www.linkedin.com/in/chris522229197/) delivered,
+I learned that there are a few primary categories of graph learning tasks.
 Here's a short overview of those learning tasks.
 
 ### Graph-level prediction
 
-This is the category of problem we leveraged above to explore the internals of graph neural networks.
+This is the category of problem we leveraged above
+to explore the internals of graph neural networks.
 Basically we frame the problem as "given graph, predict number".
 It assumes that we have a bunch of i.i.d.
 data that have a natural graph structure as its representation.
 
 ### Node labelling
 
-This category of problems typically deals with one large graph and its adjacency matrix, and our desired output is a label (or a suite of labels) that need to be annotated on nodes.
-Some of the nodes have labels while others don't; message passing could be handy here because it encodes the *homophily* assumption - that is, for problems where we expect that similar things will be linked together, we can encode this inductive bias into our models much more naturally than other structural equations.
+This category of problems typically deals
+with one large graph and its adjacency matrix,
+and our desired output is a label (or a suite of labels)
+that need to be annotated on nodes.
+Some of the nodes have labels while others don't;
+message passing could be handy here
+because it encodes the *homophily* assumption -
+that is, for problems where we expect
+that similar things will be linked together,
+we can encode this inductive bias into our models
+much more naturally than other structural equations.
 
 ### Edge presence/absence prediction
 
-This is another class of problems where usually we are given one large graph, and the desired output is either whether an edge ought to exist between two nodes.
-This can be framed in terms of predicting the entries of the graph adjacency matrix, for example.
+This is another class of problems where usually we are given one large graph,
+and the desired output is either whether
+an edge ought to exist between two nodes.
+This can be framed in terms of predicting
+the entries of the graph adjacency matrix, for example.
 
 ## Summary
 
