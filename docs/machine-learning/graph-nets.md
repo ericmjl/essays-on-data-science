@@ -268,7 +268,7 @@ and everything else we discuss coming will become crystal clear!
 
 So what's up with graph laplacian networks?
 Well, really, at its core is all that's been done here
-is to *replace each graph's adjacency matrix with their graph Laplacian matrix*.
+is to replace each graph's adjacency matrix with their graph Laplacian matrix.
 That's it!
 Every other operation that you see in the pictures above remain the same.
 
@@ -293,6 +293,10 @@ we use an embedded neural network to learn
 a per-graph adjacency-like matrix operator
 that we mask over with the adjacency matrix,
 which effectively gives us an edge attention matrix for message passing.
+(If you're feeling antsy and want to read an actual paper on this,
+check out the [graph attention networks paper][gat] paper.)
+
+[gat]: https://arxiv.org/abs/1710.10903
 
 And that's it! Everything else about the model can stay constant.
 
@@ -419,3 +423,11 @@ Alejandro, Rafael, Fazal, Brian, Hector, Carol, and Eddie.
 With the new kid, switching roles, and more of life hitting me in the face,
 it's taken a bit of time for me to get this essay out,
 but I'm finally glad to have it done!
+
+## Further Reading
+
+- I wrote an essay on [how to efficiently represent message passing][mp].
+- Michael Bronstein
+
+
+[mp]: https://ericmjl.github.io/essays-on-data-science/machine-learning/message-passing/
