@@ -8,8 +8,8 @@ dependencies:
   - python=3.8
   - conda
   - ipykernel
-  - jax
-  - jaxlib
+  - jax<=0.2.9
+  - jaxlib<=0.1.57
   - jupyter
   - jupyterlab
   - mamba
@@ -23,7 +23,7 @@ dependencies:
   - jupyter-lsp
   - jupyterlab-lsp
   - python-language-server
-  - jedi=0.17.2  # pinned because of one of the language server packages needing it
+  - jedi=0.17.2 # pinned because of one of the language server packages needing it
   - pip:
       - mkdocs
       - mkdocs-material
