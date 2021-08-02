@@ -75,9 +75,9 @@ extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML
   - https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js
 
-google_analytics:
-  - "UA-12498603-3"
-  - "auto"
+# google_analytics:
+#   - "UA-12498603-3"
+#   - "auto"
 
 repo_name: "ericmjl/essays-on-data-science"
 repo_url: "https://github.com/ericmjl/essays-on-data-science"
