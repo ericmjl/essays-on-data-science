@@ -292,6 +292,14 @@ is to replace each graph's adjacency matrix with their graph Laplacian matrix.
 That's it!
 Every other operation that you see in the pictures above remain the same.
 
+Edit: As Petar Veličković, a research scientist at DeepMind
+kindly pointed out to me on Twitter,
+in practice there are fancier forms of the graph Laplacian matrix
+that get used inside GNNs.
+Please see his tweet below.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A great overview with very nice figures! Thank you!<br><br>A comment on &#39;graph Laplacian networks&#39; -- their core ideas stretch way deeper than just replacing A with L, imho. Perhaps a better way to phrase it is that such methods _in practice_ often just end up as products with poly(L).</p>&mdash; Petar Veličković (@PetarV_93) <a href="https://twitter.com/PetarV_93/status/1422819126809088000?ref_src=twsrc%5Etfw">August 4, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 But what is the graph Laplacian?
 At its core, it's a measure of the local _derivative_ of the graph,
 and we use it when we want to express that
