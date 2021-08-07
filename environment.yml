@@ -8,8 +8,8 @@ dependencies:
   - python>=3.8
   - conda
   - ipykernel
-  - jax
-  - jaxlib
+  - jax<=0.2.9
+  - jaxlib<=0.1.60
   - jupyter
   - jupyterlab
   - mamba
