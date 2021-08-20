@@ -204,10 +204,21 @@ By the way, that term, in my opinion,
 is nothing more than a fancy way of saying that
 we encode prior knowledge of our data generating process
 into the mathematical model.
-In each case, though, on a per-i.i.d.
-sample basis, we pass in one n-dimensional array at a time.
+In each case, though, on a per-i.i.d. sample basis,
+we pass in one n-dimensional array at a time.
 
 ![](./graph-nets-figures/fig8-inductive-biases.png)
+
+To disambiguate a point, a friend of mine Jacob raised the point that
+autoregressive time series are not i.i.d.,
+for which he is definitely correct.
+However, if the definition of a sample is not one measurement in the series
+but one entire series,
+then we can have a collection of i.i.d. autoregressive timeseries measurements.
+My anchoring example is protein sequences;
+you can have long-range dependencies between positions in a sequence,
+so each position in a single protein sequence is not independent from others,
+but you can have a collection of i.i.d. protein sequences nonetheless.
 
 What about graph neural networks, then -
 what exactly does the input look like,
