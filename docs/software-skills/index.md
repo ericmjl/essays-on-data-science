@@ -39,6 +39,9 @@ when it goes into production.
 At some point, though, there is a high probability
 that you will end up writing code
 that someone else has to read and use.
+That _someone else_ is usually your future self
+but also teammates that may need to cover for you when you're out.
+(This applies especially if you're on a data science team.)
 The time invested in making the code read well _now_,
 even on code that does not have to be read by others,
 will reduce the learning curve pain
@@ -51,19 +54,3 @@ When the stakes are higher, being ready can only be helpful.
 
 Pick any one skill, say, refactoring, and work on it first.
 You can always add on more skills into your toolkit as you go along.
-
-## Thank you for reading!
-
-If you enjoyed this essay and would like to receive early-bird access to more,
-[please support me on Patreon][patreon]!
-A coffee a month sent my way gets you _early_ access to my essays
-on a private URL exclusively for my supporters
-as well as shoutouts on every single essay that I put out.
-
-[patreon]: https://patreon.com/ericmjl
-
-Also, I have a free monthly newsletter that I use as an outlet
-to share programming-oriented data science tips and tools.
-If you'd like to receive it, sign up on [TinyLetter][tinyletter]!
-
-[tinyletter]: https://tinyletter.com/ericmjl
