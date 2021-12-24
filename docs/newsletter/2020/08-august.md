@@ -105,21 +105,3 @@ everything is [freely available online](https://ericmjl.github.io/Network-Analys
 but if you'd like to support us (mostly by keeping us caffeinated)
 or would like an offline copy to keep that will be kept up-to-date for life,
 please consider purchasing a copy!
-
-## Thank you for reading!
-
-Alrighty, I shan't toot my own horn anymore.
-I hope you enjoyed this special SciPy curation edition of the programming-oriented data science newsletter!
-As always, let me know on [Twitter](twitter.com/ericmjl)
-if you've enjoyed the newsletter,
-and I'm always open to hearing about the new things you've learned from it.
-Next month, we resume regular scheduled, ahem, programming!
-
-Meanwhile, if you'd like to get early access to new written tutorials,
-essays, 1-on-1 consulting and complimentary access to the Skillshare workshops that I make,
-I'd appreciate your support on [Patreon](patreon.com/ericmjl)!
-
-Stay safe, stay indoors, and keep hacking!
-
-Cheers,
-Eric

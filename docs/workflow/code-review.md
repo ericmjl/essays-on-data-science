@@ -106,19 +106,3 @@ can be a way of being inclusive towards remote colleagues.
 If your firm is set up to use a version control system,
 then you probably have the facilities to do code review available.
 I hope this essay encourages you to give it a try.
-
-## Thank you for reading!
-
-If you enjoyed this essay and would like to receive early-bird access to more,
-[please support me on Patreon][patreon]!
-A coffee a month sent my way gets you _early_ access to my essays
-on a private URL exclusively for my supporters
-as well as shoutouts on every single essay that I put out.
-
-[patreon]: https://patreon.com/ericmjl
-
-Also, I have a free monthly newsletter that I use as an outlet
-to share programming-oriented data science tips and tools.
-If you'd like to receive it, sign up on [TinyLetter][tinyletter]!
-
-[tinyletter]: https://tinyletter.com/ericmjl

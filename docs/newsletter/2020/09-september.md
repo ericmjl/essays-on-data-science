@@ -83,19 +83,3 @@ The most important quality he possesses is consistent learning!
 If you're hiring for a Python developer in the Sydney,
 Australia area or remotely,
 do consider him on your list!
-
-## Thank you for reading!
-
-As always,
-let me know on [Twitter](twitter.com/ericmjl) if you've enjoyed the newsletter,
-and I'm always open to hearing about the new things you've learned from it.
-
-Meanwhile, if you'd like to get early access to new written tutorials,
-essays, 1-on-1 consulting
-and complimentary access to the Skillshare workshops that I make,
-I'd appreciate your support on [Patreon](patreon.com/ericmjl)!
-
-Stay safe, stay indoors, and keep hacking!
-
-Cheers,
-Eric

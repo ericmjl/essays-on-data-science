@@ -105,20 +105,3 @@ so if you appreciate the work, I’d love to hear from you on Patreon!
 Have you tried to unsubscribe from a email list and got the response that it can "take a few days"?
 Well... follow [this thread](https://twitter.com/Joe8Bit/status/1156312965265707013) to learn why!
 (I’d love it if you’d stay with this newsletter though!)
-
-## Thank you for reading!
-
-Hope you enjoyed this edition of the programmer-oriented data science newsletter!
-As always, let me know on [Twitter](twitter.com/ericmjl) if you've enjoyed the newsletter,
-and I'm always open to hearing about the new things you've learned from it.
-Next month will be a special SciPy 2020 edition,
-as I find time to carefully catch up and review the talks that have come by!
-
-Meanwhile, if you'd like to get early access to new written tutorials, essays,
-1-on-1 consulting and complimentary access to the Skillshare workshops that I make,
-I'd appreciate your support on [Patreon](patreon.com/ericmjl)!
-
-Stay safe, stay indoors, and keep hacking!
-
-Cheers,
-Eric

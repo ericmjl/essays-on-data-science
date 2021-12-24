@@ -149,19 +149,3 @@ makes it worthwhile to do refactoring at every chance.
 
 I hope this mini-essay demystifies the practice of code refactoring,
 and gives you some ideas on how to make it part of your workflow.
-
-## Thank you for reading!
-
-If you enjoyed this essay and would like to receive early-bird access to more,
-[please support me on Patreon][patreon]!
-A coffee a month sent my way gets you _early_ access to my essays
-on a private URL exclusively for my supporters
-as well as shoutouts on every single essay that I put out.
-
-[patreon]: https://patreon.com/ericmjl
-
-Also, I have a free monthly newsletter that I use as an outlet
-to share programming-oriented data science tips and tools.
-If you'd like to receive it, sign up on [TinyLetter][tinyletter]!
-
-[tinyletter]: https://tinyletter.com/ericmjl
