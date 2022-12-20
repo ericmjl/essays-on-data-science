@@ -1,4 +1,4 @@
-# Data Science Programming September 2020 Newsletter
+# 2020-09 September
 
 Hello fellow datanistas!
 

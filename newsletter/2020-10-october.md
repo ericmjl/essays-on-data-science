@@ -1,4 +1,4 @@
-# Data Science Programming October 2020 Newsletter
+# 2020-10 October
 
 Hello fellow datanistas!
 
