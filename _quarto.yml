@@ -13,3 +13,8 @@ format:
   html:
     theme: cosmo
     toc: true
+
+jupyter: essays-on-data-science
+execute:
+  freeze: auto # re-render only when source changes
+  cache: true
