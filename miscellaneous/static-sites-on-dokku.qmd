@@ -174,7 +174,6 @@ where you can see all of your rented computers.
     And because it's just someone else's computers,
     don't think of it as something magical.
 
-
 ## Setup Dokku on your Shiny Rented Machine
 
 Let's now go ahead and set up Dokku on your shiny new droplet.
@@ -244,7 +243,6 @@ on the [Docker daemon documentation][docker_daemon].
 Those steps will generally be the same as what's in the docs,
 though the specifics will change (e.g. your proxy server address).
 
-
 ## Configure domain names
 
 The allure of Heroku is that it gives your app a name:
@@ -297,7 +295,6 @@ This is all that is needed.
     Yes, "A" stands for "Address",
     and it is nothing more than a pointer that maps
     "string" address to IP address.
-
 
 ??? question "What then about the name `*`?"
 
@@ -568,7 +565,6 @@ web: streamlit run app.py
     To learn more, read about it on
     [Heroku](https://devcenter.heroku.com/articles/procfile).
 
-
 The _general_ syntax in the Procfile is:
 
 ```text
@@ -819,7 +815,6 @@ They have to go in that order, so that the first one is used for building, and t
     that you can build off.
     It's like having an opinionated Dockerfile that you can extend,
     except we extend it using declared configuration files in the repository instead.
-
 
 Thirdly, instead of a `Procfile`,
 we add an `app.json` file that contains the command

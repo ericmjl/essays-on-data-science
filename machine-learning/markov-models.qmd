@@ -4,7 +4,6 @@
 %config InlineBackend.figure_format = 'retina'
 ```
 
-
 ```python
 import pymc3 as pm
 ```
@@ -89,7 +88,6 @@ Keep this idea in your head, as we'll need it later.
 For now, just to keep things concrete,
 let's specify an initial distribution as a non-uniform probability vector.
 
-
 ```python
 import numpy as np
 p_init = np.array([0.1, 0.8, 0.1])
@@ -128,7 +126,6 @@ by assigning larger probability mass to the off-diagonal.
 
 Alrighty, enough with that now, let's initialize a transition matrix below.
 
-
 ```python
 p_transition = np.array(
     [[0.90, 0.05, 0.05],
@@ -140,15 +137,12 @@ p_transition
 
 
 
-
     array([[0.9 , 0.05, 0.05],
            [0.01, 0.9 , 0.09],
            [0.07, 0.03, 0.9 ]])
 
 
-
 And just to confirm with you that each row sums to one:
-
 
 ```python
 assert p_transition[0, :].sum() == 1
@@ -196,7 +190,6 @@ We're going to reuse `p_init` from above, but use a different `p_transition`
 to make the equilibrium distribution values distinct.
 This will make it easier for us to plot later.
 
-
 ```python
 p_transition_example = np.array(
     [[0.6,  0.2, 0.2],
@@ -209,7 +202,6 @@ To simulate the distribution of states in the next time step,
 we take the initial distribution `p_init`
 and matrix multiply it against the transition matrix.
 
-
 ```python
 p_next = p_init @ p_transition_example
 p_next
@@ -217,13 +209,10 @@ p_next
 
 
 
-
     array([0.11, 0.76, 0.13])
 
 
-
 We can do it again to simulate the distribution of states in the _next_ time step after:
-
 
 ```python
 p_next = p_next @ p_transition_example
@@ -232,13 +221,10 @@ p_next
 
 
 
-
     array([0.117, 0.732, 0.151])
 
 
-
 Let's now write a for-loop to automate the process.
-
 
 ```python
 p_state_t = [p_init]
@@ -249,14 +235,12 @@ for i in range(200):  # 200 time steps sorta, kinda, approximates infinite time 
 
 To make it easier for you to see what we've generated, let's make the `p_state_t` list into a pandas DataFrame.
 
-
 ```python
 import pandas as pd
 
 state_distributions = pd.DataFrame(p_state_t)
 state_distributions
 ```
-
 
 
 
@@ -356,21 +340,16 @@ state_distributions
 </div>
 
 
-
 Now, let's plot what the distributions look like.
-
 
 ```python
 import matplotlib.pyplot as plt
 state_distributions.plot();
 ```
 
-
 ![png](./markov-models-figures/output_20_0.png)
 
-
 If you're viewing this notebook on [Binder](https://mybinder.org/v2/gh/ericmjl/bayesian-analysis-recipes/master) or locally, go ahead and modify the initial state to convince yourself that it doesn't matter what the initial state will be: the equilibrium state distribution, which is the fraction of time the Markov chain is in that state over infinite time, will always be the same as long as the transition matrix stays the same.
-
 
 ```python
 print(p_state_t[-1])
@@ -378,9 +357,7 @@ print(p_state_t[-1])
 
     [0.13333333 0.66666667 0.2       ]
 
-
 As it turns out, there's also a way to solve for the equilibrium distribution analytically from the transition matrix. This involves solving a linear algebra problem, which we can do using Python. (Credit goes to [this blog post](https://towardsdatascience.com/markov-chain-analysis-and-simulation-using-python-4507cee0b06e) from which I modified the code to fit the variable naming here.)
-
 
 ```python
 def equilibrium_distribution(p_transition):
@@ -411,12 +388,10 @@ def equilibrium_distribution(p_transition):
     # Return last row
     return pinv.T[-1]
 
-
 print(equilibrium_distribution(p_transition_example))
 ```
 
     [0.13333333 0.66666667 0.2       ]
-
 
 ### Generating a Markov Sequence
 
@@ -444,7 +419,6 @@ so that we can practice getting familiar
 with probability distributions as objects.
 In Python code:
 
-
 ```python
 from scipy.stats import multinomial
 from typing import List
@@ -467,7 +441,6 @@ def markov_sequence(p_init: np.array, p_transition: np.array, sequence_length: i
 
 With this function in hand, let's generate a sequence of length 1000.
 
-
 ```python
 import seaborn as sns
 
@@ -480,9 +453,7 @@ plt.yticks([0, 1, 2])
 sns.despine()
 ```
 
-
 ![png](./markov-models-figures/output_28_0.png)
-
 
 As is pretty evident from the transition probabilities, once this Markov chain enters a state, it tends to maintain its current state rather than transitioning between states.
 
@@ -512,7 +483,6 @@ In terms of a graphical model, it would look something like this:
 
 Turns out, we can model this in Python code too!
 
-
 ```python
 from scipy.stats import norm
 
@@ -527,7 +497,6 @@ def gaussian_emissions(states: List[int], mus: List[float], sigmas: List[float])
 ```
 
 Let's see what the emissions look like.
-
 
 ```python
 gaussian_ems = gaussian_emissions(states, mus=[1, 0, -1], sigmas=[0.2, 0.5, 0.1])
@@ -544,9 +513,7 @@ def plot_emissions(states, emissions):
 plot_emissions(states, gaussian_ems)
 ```
 
-
 ![png](./markov-models-figures/output_33_0.png)
-
 
 ### Emission Distributions can be any valid distribution!
 
@@ -557,7 +524,6 @@ Let's try Poisson emissions. Here, then, the poisson rate $\lambda$ is given one
 1. State 1 gives us data $y_1 \sim Pois(\lambda=1)$
 1. State 2 gives us data $y_2 \sim Pois(\lambda=10)$
 1. State 3 gives us data $y_3 \sim Pois(\lambda=50)$
-
 
 
 
@@ -574,15 +540,12 @@ def poisson_emissions(states: List[int], lam: List[float]) -> List[int]:
 
 Once again, let's observe the emissions:
 
-
 ```python
 poisson_ems = poisson_emissions(states, lam=[1, 10, 50])
 plot_emissions(states, poisson_ems)
 ```
 
-
 ![png](./markov-models-figures/output_37_0.png)
-
 
 Hope the point is made:
 Take your favourite distribution
@@ -630,7 +593,6 @@ Here, $k$ is a multiplicative autoregressive coefficient that scales how the pre
 
 In Python code, we would model it this way:
 
-
 ```python
 def ar_gaussian_heteroskedastic_emissions(states: List[int], k: float, sigmas: List[float]) -> List[float]:
     emissions = []
@@ -642,42 +604,33 @@ def ar_gaussian_heteroskedastic_emissions(states: List[int], k: float, sigmas: L
     return emissions
 ```
 
-
 ```python
 ar_het_ems = ar_gaussian_heteroskedastic_emissions(states, k=1, sigmas=[0.5, 0.1, 0.01])
 plot_emissions(states, ar_het_ems)
 ```
 
-
 ![png](./markov-models-figures/output_41_0.png)
-
 
 Keep in mind, here, that given the way that we've defined the **autoregressive heteroskedastic Gaussian HMM**, it is the **variance** around the _heteroskedastic autoregressive emissions_ that gives us information about the state, _not_ the location. (To see this, notice how every time the system enters into state 2, the chain stops bouncing around much.)
 
 Contrast that against vanilla Gaussian emissions that are non-autoregressive:
 
-
 ```python
 plot_emissions(states, gaussian_ems)
 ```
 
-
 ![png](./markov-models-figures/output_43_0.png)
-
 
 ### How does the autoregressive coefficient $k$ affect the Markov chain emissions?
 
 As should be visible, the **structure** of autoregressiveness can really change how things look! What happens as $k$ changes?
-
 
 ```python
 ar_het_ems = ar_gaussian_heteroskedastic_emissions(states, k=1, sigmas=[0.5, 0.1, 0.01])
 plot_emissions(states, ar_het_ems)
 ```
 
-
 ![png](./markov-models-figures/output_45_0.png)
-
 
 
 ```python
@@ -685,9 +638,7 @@ ar_het_ems = ar_gaussian_heteroskedastic_emissions(states, k=0, sigmas=[0.5, 0.1
 plot_emissions(states, ar_het_ems)
 ```
 
-
 ![png](./markov-models-figures/output_46_0.png)
-
 
 Interesting stuff! As $k \rightarrow 0$, we approach a Gaussian centered exactly on zero, where only the variance of the observations, rather than the collective average location of the observations, give us information about the state.
 
@@ -698,7 +649,6 @@ What if we wanted instead the variance to remain the same, but desired instead t
 $$y_t \sim N(\mu=k y_{t-1} + \mu_{s_t}, \sigma=1)$$
 
 In Python code:
-
 
 ```python
 def ar_gaussian_homoskedastic_emissions(states: List[int], k: float, mus: List[float]) -> List[float]:
@@ -711,29 +661,23 @@ def ar_gaussian_homoskedastic_emissions(states: List[int], k: float, mus: List[f
     return emissions
 ```
 
-
 ```python
 ar_hom_ems = ar_gaussian_homoskedastic_emissions(states, k=1, mus=[-10, 0, 10])
 plot_emissions(states, ar_hom_ems)
 ```
 
-
 ![png](./markov-models-figures/output_50_0.png)
-
 
 The variance is too small relative to the scale of the data, so it looks like smooth lines.
 
 If we change $k$, however, we get interesting effects.
-
 
 ```python
 ar_hom_ems = ar_gaussian_homoskedastic_emissions(states, k=0.8, mus=[-10, 0, 10])
 plot_emissions(states, ar_hom_ems)
 ```
 
-
 ![png](./markov-models-figures/output_52_0.png)
-
 
 Notice how we get "smoother" transitions into each state. It's less jumpy. As mentioned earlier, this is extremely useful for modelling motion activity, for example, where people move into and out of states without having jumpy-switching. (We don't go from sitting to standing to walking by jumping frames, we ease into each.)
 
@@ -749,7 +693,6 @@ In equations: $y_t \sim N(\mu=f(x_t), \sigma)$, where $f(x_t)$ could be a simple
 
 What we can see here is that the mean gives us information about the state, but the scale doesn't.
 
-
 ```python
 def gaussian_homoskedastic_emissions(states: List[int], mus: List[float]) -> List[float]:
     emissions = []
@@ -762,15 +705,12 @@ def gaussian_homoskedastic_emissions(states: List[int], mus: List[float]) -> Lis
     return emissions
 ```
 
-
 ```python
 hom_ems = gaussian_homoskedastic_emissions(states, mus=[-10, 0, 10])
 plot_emissions(states, hom_ems)
 ```
 
-
 ![png](./markov-models-figures/output_56_0.png)
-
 
 As you might intuit from looking at the equations, this is nothing more than a special case of the Heteroskedastic Gaussian Emissions example shown much earlier above.
 
@@ -882,7 +822,6 @@ $$L(S) = P(s_1) P(s_2|s_1) P(s_3|s_2) ...$$
 
 More explicitly, $P(s_1)$ is nothing more than the probability of observing that state $s_1$ given an assumed initial (or equilibrium) distribution:
 
-
 ```python
 s1 = [0, 1, 0]  # assume we start in state 1 of {0, 1, 2}
 p_eq = equilibrium_distribution(p_transition)
@@ -892,13 +831,10 @@ prob_s1
 
 
 
-
     0.27896995708154565
 
 
-
 Then, $P(s_2)$ is nothing more than the probability of observing that state $s_2$ given the transition matrix entry for state $s_1$.
-
 
 ```python
 # assume we enter into state 2 of {0, 1, 2}
@@ -910,13 +846,10 @@ prob_s2
 
 
 
-
     0.09
 
 
-
 Their joint likelihood is given then by `prob_s1` times `prob_s2`.
-
 
 ```python
 prob_s1 * prob_s2
@@ -924,13 +857,10 @@ prob_s1 * prob_s2
 
 
 
-
     0.025107296137339107
 
 
-
 And because we operate in log space to avoid underflow, we do joint log-likelihoods instead:
-
 
 ```python
 np.log(prob_s1) + np.log(prob_s2)
@@ -938,15 +868,12 @@ np.log(prob_s1) + np.log(prob_s2)
 
 
 
-
     -3.6845967923219334
-
 
 
 Let's generalize this in a math function.
 
 Since $P(s_t|s_{t-1})$ is a **multinomial distribution**, then if we are given the log-likelihood of $\{s_1, s_2, s_3, ..., s_n\}$, we can calculate the log-likelihood over $\{s_2,... s_n\}$, which is given by the sum of the log probabilities:
-
 
 ```python
 def state_logp(states, p_transition):
@@ -964,13 +891,10 @@ state_logp(states, p_transition)
 
 
 
-
     -418.65677519562405
 
 
-
 We will also write a vectorized version of `state_logp`.
-
 
 ```python
 def state_logp_vect(states, p_transition):
@@ -984,9 +908,7 @@ state_logp_vect(states, p_transition)
 
 
 
-
     -418.6567751956279
-
 
 
 Now, there is a problem here: we also need the log likelihood of the first state.
@@ -994,7 +916,6 @@ Now, there is a problem here: we also need the log likelihood of the first state
 Remember that if we don't know what the initial distribution is supposed to be,
 one possible assumption we can make is that the Markov sequence began by drawing from the equilibrium distribution.
 Here is where equilibrium distribution calculation from before comes in handy!
-
 
 ```python
 def initial_logp(states, p_transition):
@@ -1011,13 +932,10 @@ initial_logp(states, p_transition)
 
 
 
-
     array(-1.16057901)
 
 
-
 Taken together, we get the following Markov chain log-likelihood:
-
 
 ```python
 def markov_state_logp(states, p_transition):
@@ -1031,9 +949,7 @@ markov_state_logp(states, p_transition)
 
 
 
-
     -419.81735420804523
-
 
 
 ### Markov Chain with Gaussian Emissions Log-Likelihood Calculation
@@ -1044,7 +960,6 @@ we can move on to the log-likelihood calculation for the emissions.
 Let's first assume that we have emissions that are non-autoregressive, and have a Gaussian likelihood.
 For the benefit of those who need it written out explicitly,
 here's the for-loop version:
-
 
 ```python
 def gaussian_logp(states, mus, sigmas, emissions):
@@ -1058,13 +973,10 @@ gaussian_logp(states, mus=[1, 0, -1], sigmas=[0.2, 0.5, 0.1], emissions=gaussian
 
 
 
-
     250.57996114495296
 
 
-
 And we'll also make a vectorized version of it:
-
 
 ```python
 def gaussian_logp_vect(states, mus, sigmas, emissions):
@@ -1077,13 +989,10 @@ gaussian_logp_vect(states, mus=np.array([1, 0, -1]), sigmas=np.array([0.2, 0.5, 
 
 
 
-
     250.5799611449528
 
 
-
 The joint log likelihood of the emissions and states are then given by their summation.
-
 
 ```python
 def gaussian_emission_hmm_logp(states, p_transition, mus, sigmas, emissions):
@@ -1094,9 +1003,7 @@ gaussian_emission_hmm_logp(states, p_transition, mus=np.array([1, 0, -1]), sigma
 
 
 
-
     -169.23739306309244
-
 
 
 If you're in a [Binder](https://mybinder.org/v2/gh/ericmjl/bayesian-analysis-recipes/master) or local Jupyter session, go ahead and tweak the values of `mus` and `sigmas`, and verify for yourself that the current values are the "maximum likelihood" values. After all, our Gaussian emission data were generated according to this exact set of parameters!
@@ -1111,7 +1018,6 @@ As an example, I will be using the Gaussian with:
 - Mean that is dependent on the previously emitted value
 
 This is the AR-HMM with data generated from the `ar_gaussian_heteroskedastic_emissions` function.
-
 
 ```python
 def ar_gaussian_heteroskedastic_emissions_logp(states, k, sigmas, emissions):
@@ -1129,13 +1035,10 @@ ar_gaussian_heteroskedastic_emissions_logp(states, k=1.0, sigmas=[0.5, 0.1, 0.01
 
 
 
-
     -18605.714303907385
 
 
-
 Now, we can write the full log likelihood of the entire AR-HMM:
-
 
 ```python
 def ar_gausian_heteroskedastic_hmm_logp(states, p_transition, k, sigmas, emissions):
@@ -1144,15 +1047,12 @@ def ar_gausian_heteroskedastic_hmm_logp(states, p_transition, k, sigmas, emissio
         + ar_gaussian_heteroskedastic_emissions_logp(states, k, sigmas, emissions)
     )
 
-
 ar_gausian_heteroskedastic_hmm_logp(states, p_transition, k=1.0, sigmas=[0.5, 0.1, 0.01], emissions=ar_het_ems)
 ```
 
 
 
-
     -19025.53165811543
-
 
 
 For those of you who are familiar with Bayesian inference, as soon as we have a joint log likelihood that we can calculate between our model priors and data, using the simple Bayes' rule equation, we can obtain posterior distributions easily through an MCMC sampler.
@@ -1170,7 +1070,6 @@ The key thing to notice in this section is **how the `logp` functions are define
 ### HMM States Distribution
 
 Let's first look at the HMM States distribution, which will give us a way to calculate the log probability of the states.
-
 
 ```python
 import pymc3 as pm
@@ -1218,7 +1117,6 @@ which is why we used the multinomial earlier on.
 
 Now, we stated earlier on that the transition matrix can be treated as a parameter to tweak, or else a random variable for which we want to infer its parameters. This means there is a natural fit for placing priors on them! Dirichlet distributions are great priors for probability vectors, as they are the generalization of Beta distributions.
 
-
 ```python
 def solve_equilibrium(n_states, p_transition):
     A = tt.dmatrix('A')
@@ -1226,7 +1124,6 @@ def solve_equilibrium(n_states, p_transition):
     p_equilibrium = pm.Deterministic("p_equilibrium", sla.solve(A.T, tt.ones(shape=(n_states))))
     return p_equilibrium
 ```
-
 
 ```python
 import warnings
@@ -1253,7 +1150,6 @@ with pm.Model() as model:
 
 Now let's fit the model!
 
-
 ```python
 with model:
     trace = pm.sample(2000)
@@ -1270,23 +1166,19 @@ with model:
     Sampling 4 chains, 0 divergences: 100%|██████████| 10000/10000 [00:08<00:00, 1192.11draws/s]
 
 
-
 ```python
 import arviz as az
 
 az.plot_forest(trace, var_names=["p_transition"]);
 ```
 
-
 ![png](./markov-models-figures/output_95_0.png)
-
 
 It looks like we were able to recover the original transitions!
 
 ### HMM with Gaussian Emissions
 
 Let's try out now an HMM model with Gaussian emissions.
-
 
 ```python
 class HMMGaussianEmissions(pm.Continuous):
@@ -1308,7 +1200,6 @@ class HMMGaussianEmissions(pm.Continuous):
         return tt.sum(pm.Normal.dist(mu=mu, sigma=sigma).logp(x))
 
 ```
-
 
 ```python
 n_states = 3
@@ -1342,7 +1233,6 @@ with pm.Model() as model:
     )
 ```
 
-
 ```python
 with model:
     trace = pm.sample(2000)
@@ -1357,32 +1247,25 @@ with model:
     The estimated number of effective samples is smaller than 200 for some parameters.
 
 
-
 ```python
 az.plot_trace(trace, var_names=["mu"]);
 ```
 
-
 ![png](./markov-models-figures/output_101_0.png)
-
 
 
 ```python
 az.plot_trace(trace, var_names=["sigma"]);
 ```
 
-
 ![png](./markov-models-figures/output_102_0.png)
-
 
 
 ```python
 az.plot_forest(trace, var_names=["sigma"]);
 ```
 
-
 ![png](./markov-models-figures/output_103_0.png)
-
 
 We are able to recover the parameters, but there is significant intra-chain homogeneity. That is fine, though one way to get around this is to explicitly instantiate prior distributions for each of the parameters instead.
 
@@ -1393,18 +1276,14 @@ The data we will use is the `ar_het_ems` data, which were generated by using a h
 
 As a reminder of what the data look like:
 
-
 ```python
 ar_het_ems = ar_gaussian_heteroskedastic_emissions(states, k=0.6, sigmas=[0.5, 0.1, 0.01])
 plot_emissions(states, ar_het_ems)
 ```
 
-
 ![png](./markov-models-figures/output_106_0.png)
 
-
 Let's now define the AR-HMM.
-
 
 ```python
 class ARHMMGaussianEmissions(pm.Continuous):
@@ -1428,7 +1307,6 @@ class ARHMMGaussianEmissions(pm.Continuous):
         boundary_like = pm.Normal.dist(mu=0, sigma=sigma[0]).logp(x[0])
         return ar_like + boundary_like
 ```
-
 
 ```python
 n_states = 3
@@ -1462,7 +1340,6 @@ with pm.Model() as model:
     )
 ```
 
-
 ```python
 with model:
     trace = pm.sample(2000)
@@ -1478,56 +1355,44 @@ with model:
     The rhat statistic is larger than 1.4 for some parameters. The sampler did not converge.
     The estimated number of effective samples is smaller than 200 for some parameters.
 
-
 Let's now take a look at the key parameters we might be interested in estimating:
 
 - $k$: the autoregressive coefficient, or how much previous emissions influence current emissions.
 - $\sigma$: the variance that belongs to each state.
 
-
 ```python
 az.plot_forest(trace, var_names=["k"]);
 ```
 
-
 ![png](./markov-models-figures/output_112_0.png)
-
 
 
 ```python
 az.plot_trace(trace, var_names=["k"]);
 ```
 
-
 ![png](./markov-models-figures/output_113_0.png)
 
-
 It looks like we were able to obtain the value of $k$ correctly!
-
 
 ```python
 az.plot_trace(trace, var_names=["sigma"]);
 ```
 
-
 ![png](./markov-models-figures/output_115_0.png)
-
 
 
 ```python
 az.plot_forest(trace, var_names=["sigma"]);
 ```
 
-
 ![png](./markov-models-figures/output_116_0.png)
-
 
 It also looks like we were able to obtain the correct sigma values too,
 except that the chains are mixed up.
 We would do well to take care when calculating means for each parameter on the basis of chains.
 
 How about the chain states? Did we get them right?
-
 
 ```python
 fig, ax = plt.subplots(figsize=(12, 4))
@@ -1536,9 +1401,7 @@ plt.plot(2 - np.array(states), label="inferred")
 plt.legend();
 ```
 
-
 ![png](./markov-models-figures/output_118_0.png)
-
 
 I had to flip the states because they were backwards relative to the original.
 

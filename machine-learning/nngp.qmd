@@ -31,7 +31,6 @@ why would one want to be interested in infinitely-wide neural networks
 as an applied topic?
 
 
-
 ### Practical implications for predictive modelling
 
 Putting aside the really fascinating theoretical connections
@@ -45,7 +44,6 @@ could save us deep learners from a wide swathe
 of Sisyphean hyperparameter tuning tasks,
 such as tuning learning rate, number of hidden nodes,
 number of epochs, and more.
-
 
 
 ### Curiosity surrounding kernels
@@ -67,14 +65,13 @@ at least in 1-D examples that I have seen.
 The dataset that we will focus on here is MoleculeNet's solubility dataset.
 
 
-```{python}
+```python
 %load_ext autoreload
 %autoreload 2
 %load_ext watermark
 ```
 
-
-```{python}
+```python
 import pandas as pd
 import janitor
 import janitor.chemistry
@@ -85,6 +82,10 @@ import seaborn as sns
 sns.set_context("talk")
 
 config.update("jax_enable_x64", True)
+
+import os
+
+os.environ["XLA_PYTHON_CLIENT_ALLOCATOR"] = "platform"
 ```
 
 The dataset is already well-cleaned;
@@ -94,7 +95,7 @@ while the target column is
 the "measured log solubility in mols per litre" column.
 
 
-```{python}
+```python
 # Reset index to guarantee contiguous indexing.
 # Will be useful later.
 data = pd.read_csv("https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/delaney-processed.csv").smiles2mol("smiles", "mol").reset_index(drop=True)
@@ -102,7 +103,116 @@ data.head()
 ```
 
 
-```{python}
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Compound ID</th>
+      <th>ESOL predicted log solubility in mols per litre</th>
+      <th>Minimum Degree</th>
+      <th>Molecular Weight</th>
+      <th>Number of H-Bond Donors</th>
+      <th>Number of Rings</th>
+      <th>Number of Rotatable Bonds</th>
+      <th>Polar Surface Area</th>
+      <th>measured log solubility in mols per litre</th>
+      <th>smiles</th>
+      <th>mol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Amigdalin</td>
+      <td>-0.974</td>
+      <td>1</td>
+      <td>457.432</td>
+      <td>7</td>
+      <td>3</td>
+      <td>7</td>
+      <td>202.32</td>
+      <td>-0.77</td>
+      <td>OCC3OC(OCC2OC(OC(C#N)c1ccccc1)C(O)C(O)C2O)C(O)...</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce6612a40&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Fenfuram</td>
+      <td>-2.885</td>
+      <td>1</td>
+      <td>201.225</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>42.24</td>
+      <td>-3.30</td>
+      <td>Cc1occc1C(=O)Nc2ccccc2</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce6612ab0&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>citral</td>
+      <td>-2.579</td>
+      <td>1</td>
+      <td>152.237</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>17.07</td>
+      <td>-2.06</td>
+      <td>CC(C)=CCCC(C)=CC(=O)</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce6612b20&gt;</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Picene</td>
+      <td>-6.618</td>
+      <td>2</td>
+      <td>278.354</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>-7.87</td>
+      <td>c1ccc2c(c1)ccc3c2ccc4c5ccccc5ccc43</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce6612b90&gt;</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Thiophene</td>
+      <td>-2.232</td>
+      <td>2</td>
+      <td>84.143</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>-1.33</td>
+      <td>c1ccsc1</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce6612c00&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+```python
 import jax.numpy as np
 morgans = data.morgan_fingerprint("mol", radius=3, nbits=2048)
 morgans = np.array(morgans)
@@ -110,7 +220,16 @@ morgans
 ```
 
 
-```{python}
+
+    Array([[0., 1., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.],
+           ...,
+           [0., 0., 0., ..., 0., 0., 0.],
+           [0., 1., 0., ..., 0., 0., 0.],
+           [0., 0., 0., ..., 0., 0., 0.]], dtype=float64)
+
+```python
 task = "SOLUBILITY"
 target_col_mapping = {
     "LIPO": "exp",
@@ -120,6 +239,8 @@ targets = data[target_col_mapping[task]]
 targets = np.array(targets).reshape(-1, 1)
 targets.shape
 ```
+
+    (1128, 1)
 
 ## Writing infinitely wide neural networks
 
@@ -142,7 +263,7 @@ with two hidden layers,
 each with 4096 hidden nodes.
 
 
-```{python}
+```python
 from jax import jit
 import neural_tangents as nt
 from neural_tangents import stax
@@ -165,12 +286,10 @@ For benchmarking purposes, we want to obtain the parameters at initialization
 in order to compare how the NNGP kernel conditioned on observed data
 compares against the initialized, unfitted model.
 
-
-```{python}
+```python
 from jax import random as rnd
 key = rnd.PRNGKey(71)
 input_shape, params = init_fn(key, input_shape=(2048,))
-
 ```
 
 ## Preprocessing of data
@@ -185,15 +304,13 @@ are nicely scaled to roughly the same magnitudes.
 (Something something good numerical behaviour.)
 
 
-```{python}
+```python
 from sklearn.preprocessing import StandardScaler
-
 
 def train_test_split(key, x, y, train_fraction=0.2):
     indices = rnd.shuffle(key, np.arange(len(x)))
     n_train = int(np.floor(len(x) * train_fraction))
     return indices, n_train
-
 
 train_fraction = 0.8
 indices, n_train = train_test_split(key, morgans, targets, train_fraction)
@@ -210,6 +327,9 @@ x_train = ss.fit_transform(x_train)
 x_test = ss.transform(x_test)
 ```
 
+    /home/ericmjl/anaconda/envs/essays-on-data-science/lib/python3.10/site-packages/jax/_src/random.py:400: FutureWarning: jax.random.shuffle is deprecated and will be removed in a future release. Use jax.random.permutation with independent=True.
+      warnings.warn(msg, FutureWarning)
+
 ### Obtaining the NNGP and NTK kernels
 
 Following the notebook examples released by the neural tangents team,
@@ -220,7 +340,7 @@ Yeah, I guess I waffled a bit here.
 I was copying and pasting code at this point.
 
 
-```{python}
+```python
 # We generate the prediction function
 # which is conditioned on the training data.
 predict_fn = nt.predict.gradient_descent_mse_ensemble(
@@ -240,8 +360,7 @@ nngp_mean, nngp_covariance = predict_fn(
 nngp_std = np.sqrt(np.diag(nngp_covariance))
 ```
 
-
-```{python}
+```python
 ntk_mean, ntk_covariance = predict_fn(
     x_test=x_test,
     get='ntk',
@@ -261,20 +380,33 @@ and a Gaussian Process Regressor,
 taken from our favourite standard machine learning library scikit-learn.
 
 
-```{python}
+```python
 from sklearn.ensemble import RandomForestRegressor
 
 rfr = RandomForestRegressor(n_estimators=200, n_jobs=-1)
 rfr.fit(x_train, y_train)
 ```
 
+    /tmp/ipykernel_277284/3912822998.py:4: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
+      rfr.fit(x_train, y_train)
 
-```{python}
+
+
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestRegressor(n_estimators=200, n_jobs=-1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor(n_estimators=200, n_jobs=-1)</pre></div></div></div></div></div>
+
+
+
+```python
 from sklearn.gaussian_process import GaussianProcessRegressor
 
 gpr = GaussianProcessRegressor()
 gpr.fit(x_train, y_train)
 ```
+
+
+
+<style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianProcessRegressor()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianProcessRegressor</label><div class="sk-toggleable__content"><pre>GaussianProcessRegressor()</pre></div></div></div></div></div>
+
 
 ## Drumroll please...
 
@@ -298,9 +430,10 @@ that is easily interpretable.
 [ve]: https://ericmjl.github.io/blog/2019/3/24/variance-explained/
 
 
-```{python}
+```python
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pyprojroot import here
 
 from sklearn.metrics import r2_score as r2 , explained_variance_score as evs
 
@@ -316,13 +449,12 @@ axes[0].set_title(f"Untrained: {score:.2f}")
 axes[0].set_xlabel("Actual")
 axes[0].set_ylabel("Predicted")
 
-axes[1].errorbar(y_test, ntk_mean, yerr=ntk_std * 3, marker="o", ls="", alpha=FIG_ALPHA, label="ntk")
+axes[1].errorbar(y_test.squeeze(), ntk_mean.squeeze(), yerr=ntk_std * 3, marker="o", ls="", alpha=FIG_ALPHA, label="ntk")
 score = SCOREFUNC(ntk_mean.squeeze(), y_test.squeeze())
 axes[1].set_title(f"NTK: {score:.2f}")
 axes[1].set_xlabel("Actual")
 
-
-axes[2].errorbar(y_test, nngp_mean, yerr=nngp_std * 3, marker="o", ls="", alpha=FIG_ALPHA, label="nngp")
+axes[2].errorbar(y_test.squeeze(), nngp_mean.squeeze(), yerr=nngp_std * 3, marker="o", ls="", alpha=FIG_ALPHA, label="nngp")
 score = SCOREFUNC(nngp_mean.squeeze(), y_test.squeeze())
 axes[2].set_title(f"NNGP: {score:.2f}")
 axes[2].set_xlabel("Actual")
@@ -339,7 +471,6 @@ score = SCOREFUNC(y_preds.squeeze(), y_test.squeeze())
 axes[4].set_title(f"sklearn GP: {score:.2f}")
 axes[4].set_xlabel("Actual")
 
-
 def get_x_eq_y(axes):
     minvals = []
     maxvals = []
@@ -351,14 +482,18 @@ def get_x_eq_y(axes):
         maxvals.append(maxval)
     return min(minvals), max(maxvals)
 
-
 minval, maxval = get_x_eq_y(axes)
 for ax in axes.flatten():
     ax.plot([minval, maxval], [minval, maxval], color="black", ls="--")
     ax.set_xticks(ax.get_yticks())
     sns.despine()
 plt.tight_layout()
+plt.savefig(here() / "machine-learning/nngp-figures/ntk-nngp-rf-gp.png", dpi=300)
 ```
+
+
+![](nngp-figures/nngp_20_0.png)
+
 
 In terms of raw performance,
 the scikit-learn random forest model performs the best,
@@ -406,14 +541,13 @@ It's just a hunch.
 Let me first set up some utility functions below to help out with coding later.
 
 
-```{python}
+```python
 # Some utility functions to help out
 
 import jax.numpy as np
 import neural_tangents as nt
 from neural_tangents import stax
 from jax import jit
-
 
 class NNGP:
     """sklearn-compatible NNGP class."""
@@ -442,7 +576,6 @@ class NNGP:
         mean = self.predict_fn(x_test=X, get="nngp", compute_cov=False)
         return mean
 
-
 def compute_mean_std(kernel_fn, x_train, y_train, x_test):
     """Function to compute mean and std function."""
     predict_fn = nt.predict.gradient_descent_mse_ensemble(
@@ -454,13 +587,11 @@ def compute_mean_std(kernel_fn, x_train, y_train, x_test):
     nngp_std = np.sqrt(np.diag(nngp_covariance))
     return nngp_mean, nngp_std
 
-
 def plot_results(SCOREFUNC, y_test, mean, std, ax, n_layers, n_hidden, FIG_ALPHA):
     """Helper plotting function."""
-    ax.errorbar(y_test, mean, yerr=std * 3, marker="o", ls="", alpha=FIG_ALPHA)
+    ax.errorbar(y_test.squeeze(), mean.squeeze(), yerr=std * 3, marker="o", ls="", alpha=FIG_ALPHA)
     score = SCOREFUNC(mean.squeeze(), y_test.squeeze())
     ax.set_title(f"Score: {score:.2f}, {n_layers} layers,\n{n_hidden} hidden nodes")
-
 
 def make_inf_nn(n_layers: int, n_hidden: int, nonlinearity=stax.Erf()):
     """Convenience function to make infinitely wide NN of different architectures."""
@@ -476,7 +607,6 @@ def make_inf_nn(n_layers: int, n_hidden: int, nonlinearity=stax.Erf()):
     apply_fn = jit(apply_fn)
     kernel_fn = jit(kernel_fn, static_argnums=(2,))
     return init_fn, apply_fn, kernel_fn
-
 ```
 
 ### Experiment setup
@@ -505,7 +635,7 @@ which I think is more than enough to see any patterns.
 Let's start with linear projections and see what happens.
 
 
-```{python}
+```python
 from itertools import product
 
 NUM_LAYERS = [1, 10, 20]
@@ -531,7 +661,12 @@ for ax in axes[-1, :]:
     ax.set_xlabel("Actual")
 
 plt.tight_layout()
+plt.savefig(here() / "machine-learning/nngp-figures/linear-nngp.png", dpi=300)
 ```
+
+
+![](nngp-figures/nngp_24_0.png)
+
 
 Apparently, with no pure linear projections, we:
 
@@ -545,7 +680,7 @@ which was the default activation function
 that the neural tangents demo notebooks use.
 
 
-```{python}
+```python
 fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(12, 12), sharex=True, sharey=True)
 
 for i, (n_layers, n_hidden) in enumerate(product(NUM_LAYERS, NUM_HIDDEN)):
@@ -566,7 +701,13 @@ for ax in axes[-1, :]:
     ax.set_xlabel("Actual")
 
 plt.tight_layout()
+plt.savefig(here() / "machine-learning/nngp-figures/erf-nngp.png", dpi=300)
+
 ```
+
+
+![](nngp-figures/nngp_26_0.png)
+
 
 We see here that the Erf non-linearity gives us poorer performance
 when compared to having no non-linearities as the activation function.
@@ -593,7 +734,7 @@ We should call these networks Dunning-Kruger networks.
 Let's now try a popular non-linearity, the Relu non-linearity.
 
 
-```{python}
+```python
 fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(12, 12), sharex=True, sharey=True)
 
 for i, (n_layers, n_hidden) in enumerate(product(NUM_LAYERS, NUM_HIDDEN)):
@@ -614,7 +755,13 @@ for ax in axes[-1, :]:
     ax.set_xlabel("Actual")
 
 plt.tight_layout()
+plt.savefig(here() / "machine-learning/nngp-figures/relu-nngp.png", dpi=300)
+
 ```
+
+
+![](nngp-figures/nngp_28_0.png)
+
 
 A really cool result shows up here:
 we have better performance using the Relu activation function!
@@ -626,7 +773,7 @@ The network becomes a Dunning-Kruger network.
 ## Try with Gelu nonlinearity
 
 
-```{python}
+```python
 fig, axes = plt.subplots(nrows=3, ncols=3, figsize=(12, 12), sharex=True, sharey=True)
 
 for i, (n_layers, n_hidden) in enumerate(product(NUM_LAYERS, NUM_HIDDEN)):
@@ -647,7 +794,13 @@ for ax in axes[-1, :]:
     ax.set_xlabel("Actual")
 
 plt.tight_layout()
+plt.savefig(here() / "machine-learning/nngp-figures/gelu-nngp.png", dpi=300)
+
 ```
+
+
+![](nngp-figures/nngp_30_0.png)
+
 
 The Gelu network is a highly interesting one!
 As the depth increases,
@@ -670,7 +823,6 @@ shallower nets have the best performance.
 This holds in general, with the Gelu network being the exception
 of the activation functions tested here.
 
-
 ### Activation functions
 
 Of the three tested inside the nt.stax library of nonlinearities,
@@ -684,7 +836,6 @@ and this was something out of expectation based on my stated prior beliefs.
 What the effect of activation functions are
 on the width of the posterior uncertainties
 is something we will investigate next.
-
 
 ### Number of hidden nodes
 
@@ -712,7 +863,7 @@ and compare directly.
 (Histograms are so 1950s!)
 
 
-```{python}
+```python
 from neural_tangents import stax
 nonlinearities = {
     "none": None,
@@ -723,11 +874,9 @@ nonlinearities = {
 
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(4, 4))
 
-
 def ecdf(data):
     x, y = np.sort(data), np.arange(1, len(data)+1) / len(data)
     return x, y
-
 
 for i, (name, nonlinearity) in enumerate(nonlinearities.items()):
     init_fn, apply_fn, kernel_fn = make_inf_nn(n_layers=1, n_hidden=1, nonlinearity=nonlinearity)
@@ -739,8 +888,13 @@ ax.set_ylabel("Cumulative Fraction")
 ax.set_title("Distribution\nof uncertainties")
 ax.legend()
 sns.despine()
+plt.savefig(here() / "machine-learning/nngp-figures/uncertainty-distribution.png", dpi=300)
 
 ```
+
+
+![](nngp-figures/nngp_32_0.png)
+
 
 What do we see here?
 Well, to begin with, infinitely wide neural networks with no nonlinearities
@@ -763,16 +917,14 @@ was highly likely to capture the true value,
 even if the expected value was off.
 
 
-```{python}
+```python
 def evaluate_uncertainty(mean: float, std: float, y_test: float):
     lt = y_test < mean + std * 3
     gt = y_test > mean - std * 3
     return np.logical_and(lt, gt)
-
 ```
 
-
-```{python}
+```python
 from jax import vmap
 
 results = dict()
@@ -783,8 +935,7 @@ for i, (name, nonlinearity) in enumerate(nonlinearities.items()):
     results[name] = result.squeeze()
 ```
 
-
-```{python}
+```python
 import pandas as pd
 
 pd.DataFrame(results).mean().plot(kind="bar", rot=45)
@@ -793,7 +944,13 @@ ax.set_xlabel("Activation")
 ax.set_ylabel("P(correct)")
 ax.set_ylim(0, 1)
 sns.despine()
+plt.savefig(here() / "machine-learning/nngp-figures/uncertainty-calibration.png", dpi=300)
+
 ```
+
+
+![](nngp-figures/nngp_36_0.png)
+
 
 As we can see above, the ReLu function has the best performing uncertainties,
 with 70% of the posteriors harbouring the correct value.
@@ -824,19 +981,17 @@ This is effectively evaluating the survival function,
 or `1 - CDF(threshold)`, of a Gaussian.
 
 
-```{python}
+```python
 test_indices = indices[n_train:]
 ```
 
-
-```{python}
+```python
 from jax.scipy.stats import norm
 def prob_above_threshold(mean: float, std: float, threshold: float):
     return 1 - norm.cdf(x=threshold, loc=mean, scale=std)
 ```
 
-
-```{python}
+```python
 from functools import partial
 prob_thresh = dict()
 for i, (name, nonlinearity) in enumerate(nonlinearities.items()):
@@ -858,15 +1013,191 @@ so we'll need to do some fancy indexing to get back to
 the indexing that is used in the original dataframe.
 
 
-```{python}
+```python
 prob_thresh_df = pd.DataFrame(prob_thresh).sort_values("ReLu", ascending=False).query("ReLu > 0.5")
 prob_thresh_df
 ```
 
 
-```{python}
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>none</th>
+      <th>ReLu</th>
+      <th>GeLu</th>
+      <th>Erf</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>133</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>1.000000</td>
+      <td>0.991346</td>
+      <td>0.999885</td>
+      <td>0.999994</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>1.000000</td>
+      <td>0.980182</td>
+      <td>0.920877</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>0.999974</td>
+      <td>0.538650</td>
+      <td>0.629214</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>1.000000</td>
+      <td>0.536250</td>
+      <td>0.007561</td>
+      <td>0.206573</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+```python
 test_samples.loc[test_indices[prob_thresh_df.index.values]]
 ```
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Compound ID</th>
+      <th>ESOL predicted log solubility in mols per litre</th>
+      <th>Minimum Degree</th>
+      <th>Molecular Weight</th>
+      <th>Number of H-Bond Donors</th>
+      <th>Number of Rings</th>
+      <th>Number of Rotatable Bonds</th>
+      <th>Polar Surface Area</th>
+      <th>measured log solubility in mols per litre</th>
+      <th>smiles</th>
+      <th>mol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>679</th>
+      <td>Glycerol</td>
+      <td>0.688</td>
+      <td>1</td>
+      <td>92.094</td>
+      <td>3</td>
+      <td>0</td>
+      <td>2</td>
+      <td>60.69</td>
+      <td>1.120</td>
+      <td>OCC(O)CO</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce6449620&gt;</td>
+    </tr>
+    <tr>
+      <th>785</th>
+      <td>Urea</td>
+      <td>0.832</td>
+      <td>1</td>
+      <td>60.056</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>69.11</td>
+      <td>0.960</td>
+      <td>NC(=O)N</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce644c510&gt;</td>
+    </tr>
+    <tr>
+      <th>298</th>
+      <td>Raffinose</td>
+      <td>0.496</td>
+      <td>1</td>
+      <td>504.438</td>
+      <td>11</td>
+      <td>3</td>
+      <td>8</td>
+      <td>268.68</td>
+      <td>-0.410</td>
+      <td>OCC1OC(CO)(OC2OC(COC3OC(CO)C(O)C(O)C3O)C(O)C(O...</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce643edc0&gt;</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>2-hydroxypteridine</td>
+      <td>-1.404</td>
+      <td>1</td>
+      <td>148.125</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>71.79</td>
+      <td>-1.947</td>
+      <td>Oc2ncc1nccnc1n2</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce643aa40&gt;</td>
+    </tr>
+    <tr>
+      <th>983</th>
+      <td>Ethanol</td>
+      <td>0.020</td>
+      <td>1</td>
+      <td>46.069</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>20.23</td>
+      <td>1.100</td>
+      <td>CCO</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7f1ce6451c40&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
 
 Hey, not bad! From what I know about chemistry,
 glycerol is highly soluble in water,
@@ -972,11 +1303,34 @@ The entire notebook runs from top to bottom in under two minutes.
 Take that, Transformers.
 
 
-```{python}
+```python
 %watermark
 ```
 
+    Last updated: 2022-12-20T10:26:32.842081-05:00
 
-```{python}
+    Python implementation: CPython
+    Python version       : 3.10.8
+    IPython version      : 8.7.0
+
+    Compiler    : GCC 10.4.0
+    OS          : Linux
+    Release     : 5.15.0-53-generic
+    Machine     : x86_64
+    Processor   : x86_64
+    CPU cores   : 8
+    Architecture: 64bit
+
+
+
+```python
 %watermark --iversions
 ```
+
+    matplotlib     : 3.6.2
+    janitor        : 0.23.1
+    jax            : 0.4.1
+    seaborn        : 0.12.1
+    neural_tangents: 0.6.1
+    sys            : 3.10.8 | packaged by conda-forge | (main, Nov 22 2022, 08:26:04) [GCC 10.4.0]
+    pandas         : 1.5.2

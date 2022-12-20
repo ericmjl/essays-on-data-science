@@ -131,7 +131,6 @@ I find that tying the learning process
 to the creation of "minimally complex examples"
 greatly accelerates my own learning process.
 
-
 ??? note "Minimally Complex Examples"
 
     These are examples that are simple to grok,
