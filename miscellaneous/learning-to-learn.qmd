@@ -80,7 +80,7 @@ In my conception, when I present material,
 I am tracing a path through the knowledge graph,
 while sprinkling in edges that branch off a main knowledge trunk.
 
-```mermaid
+```{mermaid}
 graph LR;
     A((A)) ==> B((B));
     A((A)) --> C((C));
