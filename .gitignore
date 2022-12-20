@@ -107,3 +107,4 @@ venv.bak/
 
 /.quarto/
 _site/
+*.jupyter_cache*
