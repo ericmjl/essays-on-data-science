@@ -502,7 +502,7 @@ Next up, we do the loop. Instead of writing an explicit for-loop, we are going t
 
 
 ```{python}
-from jax.experimental.optimizers import adam
+from jax.example_libraries.optimizers import adam
 
 init, update, get_params = adam(0.05)
 log_conc_start = random.normal(key)
