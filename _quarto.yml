@@ -1,0 +1,16 @@
+project:
+  type: website
+
+website:
+  title: "Essays on Data Science"
+  open-graph: true
+  sidebar:
+    style: "floating"
+    search: true
+    contents: auto
+
+format:
+  html:
+    theme: cosmo
+    # css: styles.css
+    toc: true

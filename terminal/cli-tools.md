@@ -2,11 +2,9 @@
 
 In this short essay,
 I would like to introduce you
-to a list of awesome command-line tools
-that I have found on the internet.
+to a list of excellent command-line tools I have found on the internet.
 
-Most of the tools listed here do one thing really well:
-they add visual clarity to the text that we are looking at.
+Most of the tools listed here really do one thing: they add visual clarity to the text we are looking at.
 This is mostly done by colorizing the terminal
 with syntax highlighting.
 
@@ -34,7 +32,7 @@ and use it effectively as a workspace manager between projects.
 
 ## `nanorc`
 
-If you're like me, and are accustomed to the `nano` text editor
+If you're like me and are accustomed to the `nano` text editor
 rather than `vim` or `emacs`,
 then [`nanorc`](https://github.com/scopatz/nanorc),
 a set of syntax highlighting configurations
