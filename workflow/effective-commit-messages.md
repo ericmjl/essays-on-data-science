@@ -79,12 +79,15 @@ effective commit messages act like documentation
 for our future selves and for others.
 Once again, the “social coding” paradigm comes back.
 
-??? question "Social coding?"
+::: {.callout-tip}
 
-    Social coding:
-    where we aren’t programming something alone,
-    but rather writing code in collaboration with others’ input.
-    OSS development is a wonderful example of this.
+## Social coding?
+
+Social coding:
+where we aren’t programming something alone,
+but rather writing code in collaboration with others’ input.
+OSS development is a wonderful example of this.
+:::
 
 ## `git` commit messages: examples in data science contexts
 
@@ -96,19 +99,26 @@ If we applied trivial changes,
 such as code formatting,
 rather than writing a message that read:
 
-???+ failure "Don't do this"
+::: {.callout-important}
+
+## "Don't do this"
 
     ```text
     black
     ```
+:::
 
-Perhaps a a more informative message might be:
+Perhaps a more informative message might be:
 
-???+ success "Do this"
+::: {.callout-tip}
 
-    ```text
-    Applied code formatting (make format).
-    ```
+## "Do this"
+
+```text
+Applied code formatting (make format).
+```
+
+:::
 
 We don’t need an extended message (unlike those we might see later), because it is a trivial change.
 
@@ -127,26 +137,33 @@ In those scenarios, putting in a WIP commit may be helpful.
 
 So instead of writing a commit message that reads:
 
-???+ failure "Don't do this"
+::: {.callout-important}
 
-    ```text
-    WIP loaded data
-    ```
+## Don't do this
 
+```text
+WIP loaded data
+```
+
+:::
 
 We instead can write a commit message that reads:
 
-???+ success "Do this"
+::: {.callout-tip}
 
-    ```text
-    WIP finished code that loads data into memory
+## Do this
 
-    We still need to do the following:
+```text
+WIP finished code that loads data into memory
 
-    - Check statistical covariation between columns
-            and remove correlated features.
-    - Identify the best predictors.
-    ```
+We still need to do the following:
+
+- Check statistical covariation between columns
+        and remove correlated features.
+- Identify the best predictors.
+```
+
+:::
 
 Now, when we look at the `git log`,
 we will see something that looks like this
@@ -178,33 +195,41 @@ by being a “final” (but not necessarily binding) message in the work log.
 
 An uninformative commit message for this would look like:
 
-???+ failure "Don't do this"
+::: {.callout-important}
 
-    ```text
-    Finally done with model building
-    ```
+## Don't do this
+
+```text
+Finally done with model building
+```
+
+:::
 
 By contrast, an informative one might look something like this:
 
-???+ success "Do this"
+::: {.callout-tip}
 
-    ```text
-    Model building (Issue #34) ready for review
+## Do this
 
-    Finished:
+```text
+Model building (Issue #34) ready for review
 
-    - Pipeline taking data from input (strings) to activity prediction.
-    - Custom code for data pipeline has been stored in custom package.
-        Tests and docs written.
-    - Notebooks documenting work are also written.
-        Static HTML version for archival also generated.
+Finished:
 
-    Not done:
+- Pipeline taking data from input (strings) to activity prediction.
+- Custom code for data pipeline has been stored in custom package.
+    Tests and docs written.
+- Notebooks documenting work are also written.
+    Static HTML version for archival also generated.
 
-    - Hyperparameter selection.
-        This is the logical next step,
-        and as agreed at last meeting, of highest priority.
-    ```
+Not done:
+
+- Hyperparameter selection.
+    This is the logical next step,
+    and as agreed at last meeting, of highest priority.
+```
+
+:::
 
 Admittedly, it can be tough to know when to write this one,
 and I think it’s because it _feels_ like
@@ -252,7 +277,10 @@ by [Chris Beams][chrisbeams].
 [git-chrisbeams]: https://chris.beams.io/posts/git-commit/
 [chrisbeams]: https://chris.beams.io/
 
-??? note "A note to Chris"
+::: {.callout-note}
 
-    Thank you for writing a wonderful article.
-    I'll be praying for a speedy recovery, Chris.
+## A note to Chris
+
+Thank you for writing a wonderful article.
+I'll be praying for a speedy recovery, Chris.
+:::
