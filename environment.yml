@@ -12,6 +12,8 @@ dependencies:
   - jaxlib
   - jupyter
   - jupyterlab
+  - jupyter-cache
+  - nbconvert
   - mamba
   - matplotlib
   - pip
@@ -29,3 +31,4 @@ dependencies:
       - proselint
       - neural-tangents
       - watermark
+      - tensorrt
