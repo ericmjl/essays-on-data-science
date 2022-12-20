@@ -138,10 +138,12 @@ but your support helps me make more of this kind of content!)
 Once you've signed up and logged into the DigitalOcean cloud dashboard,
 you can now set up a new Droplet.
 
-??? question "Droplets?"
+::: {.callout-note}
+## Droplets?
 
-    "Droplet" is nothing more than DO's fancy name for a cloud server,
-    or basically a computer that they're running.
+"Droplet" is nothing more than DO's fancy name for a cloud server,
+or basically a computer that they're running.
+:::
 
 [do_referral]: https://m.do.co/c/2832a2124e66
 
@@ -155,7 +157,7 @@ set up a Droplet with the following settings:
 5. Hostname: Give it something memorable.
 6. Backups: Highly recommended. Give yourself peace of mind that you can rollback anytime.
 
-[^ram]: I am paying for the $10/mo plan for the extra RAM seems to help.
+[^ram]: I am paying for the $10/mo plan, for the extra RAM seems to help.
 
 Once you're done with that,
 hit the big green "Create Droplet" button
@@ -166,13 +168,15 @@ you can go ahead and click on the "Manage \> Droplets" left menu item,
 and that will bring you to a place
 where you can see all of your rented computers.
 
-??? info "The Cloud"
+::: {.callout-tip}
+## The Cloud
 
-    FYI, that's all the cloud is:
-    renting someone else's computers.
-    It turns out to be a pretty lucrative business!
-    And because it's just someone else's computers,
-    don't think of it as something magical.
+FYI, that's all the cloud is:
+renting someone else's computers.
+It turns out to be a pretty lucrative business!
+And because it's just someone else's computers,
+don't think of it as something magical.
+:::
 
 ## Setup Dokku on your Shiny Rented Machine
 
@@ -204,12 +208,14 @@ These keys are important,
 as the are literally the _keys_
 to letting you push your app to your Dokku box!
 
-??? info "SSH Keys and Dokku"
+::: {.callout-tip}
+## SSH Keys and Dokku
 
-    More pedantically, these SSH keys identify your machine
-    as being "authorized" to push to the `git` server
-    that is running on your Dokku machine.
-    This is what allows you to `git push dokku master` later on!
+More pedantically, these SSH keys identify your machine
+as being "authorized" to push to the `git` server
+that is running on your Dokku machine.
+This is what allows you to `git push dokku master` later on!
+:::
 
 For those of you who have CentOS or other flavours of Linux,
 you will need to follow analogous instructions on the Dokku website.
@@ -287,45 +293,54 @@ The "name" should be `*`, literally just an asterisk.
 The IPv4 address should point to your Dokku machine.
 This is all that is needed.
 
-??? question "What is an 'A' record?"
 
-    The most comprehensive explainer I've seen is
-    at [dnsimple](https://support.dnsimple.com/articles/a-record/),
-    but the long story short is that it is an "Address" record.
-    Yes, "A" stands for "Address",
-    and it is nothing more than a pointer that maps
-    "string" address to IP address.
+::: {.callout-tip}
+## What is an 'A' record?
 
-??? question "What then about the name `*`?"
+The most comprehensive explainer I've seen is
+at [dnsimple](https://support.dnsimple.com/articles/a-record/),
+but the long story short is that it is an "Address" record.
+Yes, "A" stands for "Address",
+and it is nothing more than a pointer that maps
+"string" address to IP address.
+:::
 
-    What we just did up there was to say,
-    point everything `*.mydomain.com`
-    to to the Dokku box IP address.
-    How then do we get subdomains
-    if we don't configure them with our DNS?
-    Well, the secret here is that Dokku can help us with subdomains.
-    Read on for how configuration of your Dokku box!
+::: {.callout-tip}
+## What then about the name `*`?
+
+What we just did up there was to say,
+point everything `*.mydomain.com`
+to to the Dokku box IP address.
+How then do we get subdomains
+if we don't configure them with our DNS?
+Well, the secret here is that Dokku can help us with subdomains.
+Read on for how configuration of your Dokku box!
+:::
 
 To test whether your domain name is setup correctly,
 head over to the domain in your favourite browser.
 At this point, you should see the default NGINX landing page,
 as you have no apps deployed and no domains configured.
 
-??? question "How do you pronounce 'NGINX'?"
+::: {.callout-tip}
+## How do you pronounce "NGINX"?
 
-    The official way is "engine-X".
-    The wrong way is "en-jinx".
-    Don't get it wrong!
+The official way is "engine-X".
+The wrong way is "en-jinx".
+Don't get it wrong!
+:::
 
-??? question "And what is NGINX?"
+::: {.callout-tip}
+## And what is NGINX?"
 
-    From [Wikipedia](https://en.wikipedia.org/wiki/Nginx):
+From [Wikipedia](https://en.wikipedia.org/wiki/Nginx):
 
-    Nginx is a web server which can also be used as a reverse proxy,
-    load balancer, mail proxy and HTTP cache.
+Nginx is a web server which can also be used as a reverse proxy,
+load balancer, mail proxy and HTTP cache.
 
-    For our purposes, we treat it as a thing
-    that routes URLs to containers.
+For our purposes, we treat it as a thing
+that routes URLs to containers.
+:::
 
 ## Deploy a test app
 
@@ -356,7 +371,8 @@ git remote add dokku dokku@your-domain-name:python-getting-started
 
 Be sure to replace `your-domain-name` with your newfangled domain that you registered.
 
-??? info "App name"
+::: {.callout-info}
+ "App name"
 
     The `python-getting-started` after the colon
     is the "app name" that you will see at the command line
@@ -456,12 +472,14 @@ Now, you should be able to go to `http://python-getting-started.mydomain.com`,
 and the page that gets loaded should be
 the "Getting Started with Python on Heroku" landing page!
 
-??? question "So, what magic happened here?"
+::: {.callout-tip}
+### So, what magic happened here?
 
-    What's happening here is that NGINX resolving
-    subdomains to particular containers,
-    and mapping them to the appropriate container port
-    that is being exposed.
+What's happening here is that NGINX resolving
+subdomains to particular containers,
+and mapping them to the appropriate container port
+that is being exposed.
+:::
 
 If everything deployed correctly up till this point,
 you're good to go with deploying a data app on your Dokku machine!
@@ -557,13 +575,15 @@ Next, you need a Procfile in the project root directory:
 web: streamlit run app.py
 ```
 
-??? note "Procfile"
+::: {.callout-info}
+## Procfile
 
-    A quick note: It is `Procfile`, with no file extensions.
-    Don't save it as `Procfile.txt`,
-    because that will not get recognized by Dokku/Heroku.
-    To learn more, read about it on
-    [Heroku](https://devcenter.heroku.com/articles/procfile).
+A quick note: It is `Procfile`, with no file extensions.
+Don't save it as `Procfile.txt`,
+because that will not get recognized by Dokku/Heroku.
+To learn more, read about it on
+[Heroku](https://devcenter.heroku.com/articles/procfile).
+:::
 
 The _general_ syntax in the Procfile is:
 
@@ -576,19 +596,21 @@ and tells Dokku/Heroku what commands to execute in order to run the app.
 In our case, we simply execute the same command
 that we used to run the app locally for development purposes.
 
-??? note "More complex Procfile commands"
+::: {.callout-info}
+## More complex Procfile commands
 
-    You can have multiple bash commands in a single line,
-    though if it gets complicated,
-    you may want to extract the commands out
-    into a separate bash script that you execute instead, e.g.:
+You can have multiple bash commands in a single line,
+though if it gets complicated,
+you may want to extract the commands out
+into a separate bash script that you execute instead, e.g.:
 
-    ```
-    # dokku.sh
-    pip install -e .
-    export CONFIG_DIR="/path/to/config/files"
-    streamlit run app.py
-    ```
+```
+# dokku.sh
+pip install -e .
+export CONFIG_DIR="/path/to/config/files"
+streamlit run app.py
+```
+:::
 
 For the `process_type`, in the case of Dokku, is always "web".
 Heroku, on the other hand, can handle other process types.
@@ -807,14 +829,16 @@ https://github.com/dokku/buildpack-nginx.git
 
 They have to go in that order, so that the first one is used for building, and the second one is used for serving the site.
 
-??? question "What are 'buildpacks?"
+::: {.callout-tip}
+## What are 'buildpacks?"
 
-    Once again, Heroku's docs have [the most comprehensive explanation](https://devcenter.heroku.com/articles/buildpacks),
-    as they're the originators of the idea.
-    The short answer is that they are pre-built and configured "base" environments
-    that you can build off.
-    It's like having an opinionated Dockerfile that you can extend,
-    except we extend it using declared configuration files in the repository instead.
+Once again, Heroku's docs have [the most comprehensive explanation](https://devcenter.heroku.com/articles/buildpacks),
+as they're the originators of the idea.
+The short answer is that they are pre-built and configured "base" environments
+that you can build off.
+It's like having an opinionated Dockerfile that you can extend,
+except we extend it using declared configuration files in the repository instead.
+:::
 
 Thirdly, instead of a `Procfile`,
 we add an `app.json` file that contains the command
@@ -830,13 +854,15 @@ for building the static site.
 }
 ```
 
-??? question "Deployment tasks"
+::: {.callout-tip}
+## Deployment tasks
 
-    If you want to read more about this file,
-    as well as the custom "deployment tasks" bit of Dokku,
-    then check out the [docs pages here][deployment].)
+If you want to read more about this file,
+as well as the custom "deployment tasks" bit of Dokku,
+then check out the [docs pages here][deployment].)
 
-    [deployment]: http://dokku.viewdocs.io/dokku/advanced-usage/deployment-tasks/
+[deployment]: http://dokku.viewdocs.io/dokku/advanced-usage/deployment-tasks/
+:::
 
 OK, we just created a bunch of files,
 but I haven't explained how they're interacting with Dokku.
@@ -910,11 +936,11 @@ We'll now configure it:
 dokku config:set my-static-site NGINX_ROOT='site'
 ```
 
-???+ warning
-
-    You'll want to change `site`
-    to whatever the output directory is
-    for the static site generator you use!
+::: {.callout-warning}
+You'll want to change `site`
+to whatever the output directory is
+for the static site generator you use!
+:::
 
 Alrighty, go ahead and visit your static site to confirm that it's running!
 
