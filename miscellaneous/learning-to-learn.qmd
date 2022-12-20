@@ -131,18 +131,20 @@ I find that tying the learning process
 to the creation of "minimally complex examples"
 greatly accelerates my own learning process.
 
-??? note "Minimally Complex Examples"
+::: {.callout-note}
+## Minimally Complex Examples
 
-    These are examples that are simple to grok,
-    but not trivial.
-    For example, it's trivial to illustrate
-    sampling from a (multivariate) Gaussian distribution,
-    which is how [sampyl](https://github.com/mcleonard/sampyl)
-    illustrates MCMC sampling on its docs page.
-    However, it is non-trivial, and in fact quite illuminating,
-    to illustrate sampling from a joint distribution
-    of data, likelihood, and priors
-    involving a Gaussian and its parameters.
+These are examples that are simple to grok,
+but not trivial.
+For example, it's trivial to illustrate
+sampling from a (multivariate) Gaussian distribution,
+which is how [sampyl](https://github.com/mcleonard/sampyl)
+illustrates MCMC sampling on its docs page.
+However, it is non-trivial, and in fact quite illuminating,
+to illustrate sampling from a joint distribution
+of data, likelihood, and priors
+involving a Gaussian and its parameters.
+:::
 
 ## Seeking learning partners and teachers
 
