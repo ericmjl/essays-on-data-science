@@ -223,7 +223,7 @@ from model import gnn_model
 from params import make_gnn_params
 from losses import mse_loss
 from jax import grad
-from jax.experimental.optimizers import adam
+from jax.example_libraries.optimizers import adam
 
 def test_gnn_training():
     # Prepare training data
