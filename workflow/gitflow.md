@@ -38,17 +38,20 @@ can I think be of great utility to data scientists.
 It does, however, involve a bit of change in the common mode of working
 that data scientists use.
 
-??? question "Is GitFlow still confusing for you?"
+::: {.callout-tip}
 
-    If so, please check out [this article][GitFlow] on GitFlow.
-    It includes the appropriate graphics that will make it much clearer.
-    I felt that a detailed explanation here would be rather out of scope.
+## Is GitFlow still confusing for you?
 
-    That said, nothing beats trying it out to get a feel for it,
-    so if you're willing to pick it up,
-    I would encourage you to find a software developer in your organization
-    who has experience with GitFlow
-    and ask them to guide you on it.
+If so, please check out [this article][GitFlow] on GitFlow.
+It includes the appropriate graphics that will make it much clearer.
+I felt that a detailed explanation here would be rather out of scope.
+
+That said, nothing beats trying it out to get a feel for it,
+so if you're willing to pick it up,
+I would encourage you to find a software developer in your organization
+who has experience with GitFlow
+and ask them to guide you on it.
+:::
 
 ## GitFlow in a data science project
 
@@ -76,12 +79,15 @@ After all, one of the myths of data science
 is that we can
 ["stir the pile until the data start looking right"](https://xkcd.com/1838/).
 
-??? tip "About stirring the pot..."
+::: {.callout-tip}
 
-    If you didn't click the URL to go to XKCD,
-    here's the cartoon embedded below:
+## About stirring the pot
 
-    ![](https://imgs.xkcd.com/comics/machine_learning_2x.png)
+If you didn't click the URL to go to XKCD,
+here's the cartoon embedded below:
+
+![](https://imgs.xkcd.com/comics/machine_learning_2x.png)
+:::
 
 Once we are done with defining the analysis sketch in an issue,
 we follow the rest of GitFlow-based workflow:
@@ -99,12 +105,13 @@ but by submitting a formal pull request,
 our colleague can pull down our code
 and check that things have been done correctly on their computer.
 
-??? tip "Code review"
+::: {.callout-tip}
 
-    If you want to know more about code review,
-    please check out [another essay][code-review] in this collection.
+## Code review
 
-[code-review]: /workflow/code-review/
+If you want to know more about code review,
+please check out [another essay][code-review] in this collection.
+:::
 
 If your team has access to a [Binder]-like service,
 then review can be done in an even simpler fashion:
@@ -189,18 +196,22 @@ and that the framework is correct
 with respect to the applied problem that we are tackling.
 (See note below for more detail.)
 
-??? note "Note: statistical errors"
-    For example,
-    we need to get splitting done correctly in a time series setting,
-    which does not have i.i.d. samples,
-    compared to most other ML problems.
-    And in a cheminformatics setting,
-    random splits tend to over-estimate model performance
-    when compared to a real-world setting
-    where new molecules are often out-of-distribution.
+::: {.callout-info}
 
-    If we focused on getting a good model right from the get-go,
-    we may end up missing out on elementary details such as these.
+## Note: statistical errors
+
+For example,
+we need to get splitting done correctly in a time series setting,
+which does not have i.i.d. samples,
+compared to most other ML problems.
+And in a cheminformatics setting,
+random splits tend to over-estimate model performance
+when compared to a real-world setting
+where new molecules are often out-of-distribution.
+
+If we focused on getting a good model right from the get-go,
+we may end up missing out on elementary details such as these.
+:::
 
 Once we are done with this,
 we embark on the second phase,
@@ -223,14 +234,18 @@ search through model and parameter space.
 We can also guarantee delivering recommendations for improvement
 regardless of what model performance looks like.
 
-??? note "Note: Neutral forms of goals"
-    As expressed on Twitter before,
-    "the most scary scientist is one with a hypothesis to prove".
-    A data scientist who declares
-    that a high-performing model will be the goal
-    is probably being delusional.
-    I wish I knew where exactly I saw the quote,
-    and hence will not take credit for that.
+::: {.callout-info}
+
+## Note: Neutral forms of goals
+
+As expressed on Twitter before,
+"the most scary scientist is one with a hypothesis to prove".
+A data scientist who declares
+that a high-performing model will be the goal
+is probably being delusional.
+I wish I knew where exactly I saw the quote,
+and hence will not take credit for that.
+:::
 
 ### Endless ideation prototyping
 
