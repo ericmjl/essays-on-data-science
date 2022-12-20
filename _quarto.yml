@@ -5,7 +5,7 @@ website:
   title: "Essays on Data Science"
   open-graph: true
   sidebar:
-    style: "floating"
+    style: "docked"
     search: true
     contents: auto
 
@@ -18,3 +18,5 @@ jupyter: essays-on-data-science
 execute:
   freeze: auto # re-render only when source changes
   cache: true
+
+callout-appearance: simple
