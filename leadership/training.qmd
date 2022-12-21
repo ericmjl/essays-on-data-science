@@ -1,0 +1,51 @@
+# Training and Developing Data Scientists
+
+In _The Care and Feeding of Data Scientists_,
+the authors cite [a survey by Burtch Works][survey] that found that
+41% of data scientists surveyed cited
+challenging work and learning opportunities as factors that motivate them.
+To this end, our Talent Acquisition team suggested to us that
+we shouldn't necessarily hire someone who hits
+all of the required skills for that level,
+but rather someone who has a majority of the skills necessary
+and has shown the potential to learn those skills.
+
+[survey]: https://www.burtchworks.com/2018/06/18/survey-results-what-motivates-analytics-pros-data-scientists-to-change-jobs/
+
+To this end,
+the technical skills that I have strived to equip my teammates with include:
+
+- building probabilistic models that follow a lab experiment's design,
+- building custom deep learning model architectures,
+- digging through someone else's code and modifying it,
+- writing code that is easy to read and maintain,
+- writing documentation that gives the next person enough information to take productive action, and
+- writing tests that verify the correctness of their code.
+
+That list is a vast set of skills to learn.
+It's not easy to pick up everything within a year;
+indeed, I don't expect my teammates to have mastered all of these skills
+within a year of joining the team.
+Instead, this is a very long-term list of skills to develop;
+I don't tend to think short-term when it comes to training.
+
+How have we gone about this kind of training?
+This past year, I've done a few things, including:
+
+- running quarterly docathons where we write documentation for our code,
+- hosting workshops where we walk through the fundamentals of deep learning,
+- scouting out projects for my teammates where probabilistic modeling is needed, and
+- doing model reviews where we walk through implementing a probabilistic model.
+
+While I think these are great introductory ways of training,
+I also think we might be able to do more for systematic training.
+For example, once we know enough people have the desire to learn a skill,
+we could organize a multi-day workshop teaching that skill
+that also focuses on the application of that skill to a real problem.
+
+At the same time, I could have done a better job
+getting us to understand wet lab scientists' needs better.
+One way I think we can do this
+is to have days to shadow our wet lab collaborators.
+That way, we can better understand what they need
+and how our team can deliver what they need to advance their research efforts.
