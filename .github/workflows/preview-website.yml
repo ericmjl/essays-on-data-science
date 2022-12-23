@@ -17,6 +17,7 @@ jobs:
           channels: conda-forge
           environment-file: environment.yml
           use-mamba: true
+          activate-environment: essays-on-data-science
 
       - name: Build website
         run: |
