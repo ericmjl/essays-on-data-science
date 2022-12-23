@@ -10,15 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # See: https://github.com/marketplace/actions/setup-conda
-      - uses: s-weigand/setup-conda@v1
+      # https://github.com/marketplace/actions/setup-miniconda
+      - uses: conda-incubator/setup-miniconda@v2
         with:
-          conda-channels: "conda-forge"
-
-      - name: Build environment
-        run: |
-          conda install -c conda-forge mamba
-          mamba env create -f environment.yml
+          miniforge-variant: Mambaforge
+          channels: conda-forge
+          environment-file: environment.yml
+          use-mamba: true
 
       - name: Build website
         run: |
