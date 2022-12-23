@@ -20,8 +20,9 @@ jobs:
           activate-environment: essays-on-data-science
 
       - name: Build website
+        shell: bash -el {0}
         run: |
-          source activate essays-on-data-science
+          conda activate essays-on-data-science
           python -m ipykernel install --name essays-on-data-science --user
           mkdocs build --verbose --clean --strict
 
