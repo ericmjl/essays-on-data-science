@@ -56,7 +56,7 @@ which implements PyTorch-like APIs.
 
 - [`flax`](https://github.com/google/flax): A neural network library focused on flexibility.
 - [`haiku`](https://github.com/deepmind/dm-haiku): One developed by the fine folks at DeepMind, alongside their other JAX projects.
-- [`stax`](https://jax.readthedocs.io/en/latest/jax.experimental.stax.html?highlight=stax): JAX's internal experimental module for writing neural network models, which pairs well with its [`optimizers`](https://jax.readthedocs.io/en/latest/jax.experimental.optimizers.html) module!
+- [`stax`](https://jax.readthedocs.io/en/latest/jax.experimental.stax.html?highlight=stax): JAX's internal experimental module for writing neural network models, which pairs well with its [`optimizers`](https://jax.readthedocs.io/en/latest/jax.example_libraries.optimizers.html) module!
 - [`neural-tangents`](https://github.com/google/neural-tangents): Research that I have been following, one that provides "infinitely wide" versions of classical neural networks. It extends the `stax` API.
 
 The best part of these projects?
