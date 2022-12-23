@@ -2,15 +2,6 @@
 
 ## Computing
 
-### Reasoning about algorithmic complexity
-
-Basically covering
-"how to read your Python code
-to reason about algorithmic complexity".
-I would like to reference Ned Batchelder's talk and blog post
-on this topic:
-https://nedbatchelder.com/text/bigo.html
-
 ### Practical selection of appropriate data structures
 
 Basically covering

@@ -2,7 +2,7 @@
 date: 2022-12-20
 ---
 
-# Realistic Interviews
+# Hiring and Interviewing Data Scientists
 
 Last year in 2021, I hired two new teammates into my home team.
 While I had been involved in hiring data scientists in the past,
@@ -31,6 +31,19 @@ had sufficient humility to accept feedback,
 and were also courageous enough to challenge my views.
 The two whom we hired on the team fit these criteria perfectly,
 and have helped me expand my ways of thinking too.
+
+At the same time, our Talent Acquisition team suggested to us that
+we shouldn't necessarily hire someone who hits
+all of the required skills for that level,
+but rather someone who has a majority of the skills necessary
+and has shown the potential to learn the rest.
+Why?
+It's related to our psychology.
+Most of us are motivated when we see a positive delta in our abilities,
+receive affirmation that we are improving,
+and can see the fruits of our labor in a finished product.
+Hence, this advice ensures that our new hires
+are both able to hit the ground running while also staying motivated longer.
 
 ## Interviewing for Code Skill
 

@@ -1,4 +1,4 @@
-# A big thank you...
+# A big thank you
 
 ...to my Patreon supporters!
 

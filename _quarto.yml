@@ -1,6 +1,7 @@
 project:
   type: website
-
+  render:
+    - docs/
 website:
   title: "Essays on Data Science"
   open-graph: true
