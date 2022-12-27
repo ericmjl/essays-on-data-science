@@ -195,7 +195,7 @@ Then, I would use the following questions to evaluate their response.
 
 ## Coding Skills
 
-Coding skill is the final axis along which we assess candidates.
+Coding skill is another axis along which we assess candidates.
 Because ["data science can't be done in a GUI"][hadley],
 we need to ensure that our candidates can write
 both readable and maintainable code.

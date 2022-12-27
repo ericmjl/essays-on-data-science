@@ -37,7 +37,7 @@ nav:
       - Testing your code: software-skills/testing.md
   - People Skills:
       - Hiring and Interviewing Data Scientists: people-skills/hiring.md
-      - Training and Developing Data Scientists: people-skills/training.md
+      # - Training and Developing Data Scientists: people-skills/training.md
   - Terminal Hacks:
       - Tools and Upgrades for your CLI: terminal/cli-tools.md
       - Using pre-commit git hooks to automate code checks: terminal/pre-commits.md
