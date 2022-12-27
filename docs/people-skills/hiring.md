@@ -205,17 +205,26 @@ so that we can make the model useful.
 Hence, it is crucial to effectively asses a candidate's coding skills.
 
 How do we assess coding skills?
-I found one way to deeply evaluate a candidate's coding skills,
+If a candidate interests me,
+I will proactively look out for their profile on GitHub
+to see what kind of code they've put out there.
+One well-maintained codebase is a positive;
+not having one is **not** a negative,
+as I understand not everybody has the privilege of time to maintain a codebase.
+
+I have found one way to deeply evaluate a candidate's coding skills,
 which I would like to share here.
-First, I would ask the candidate to
-bring a piece of code they are particularly proud of to the interview.
+In this interview question,
+I would ask the candidate to bring a piece of code
+they are particularly proud of to the interview.
 We would then go through the code together, code-review style.
 
 We intentionally ask candidates to pick the code they are proud of,
 which gives them a home-court advantage.
 They should be able to explain their code better than anyone else.
 They also won't need to live up to an imagined standard of excellence.
-Additionally, because this is their best work, we gain a glimpse into what standards of excellence they hold themselves to.
+Additionally, because this is their best work,
+we gain a glimpse into what standards of excellence they hold themselves to.
 
 During the code review,
 I would ask the candidate questions about the code.
@@ -237,9 +246,9 @@ That said, even a "yes" answer with superficial or scant details
 betrays a lack of thought into the code.
 Even if the code is, in my own eyes, very well-written,
 I would still expect the candidate to have some ideas
-on where the code could be extended for a logical expansion of use cases,
+on **where** the code could be extended for a logical expansion of use cases,
 refactored, or better tested.
-If the candidate cannot provide these ideas,
+If the candidate cannot provide details on these ideas,
 it would betray their shallow thinking
 about the problem for which they wrote the code.
 
