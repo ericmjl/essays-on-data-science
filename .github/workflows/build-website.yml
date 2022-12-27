@@ -16,21 +16,17 @@ jobs:
     name: "Build website"
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-
-      # https://github.com/marketplace/actions/setup-miniconda
-      - uses: conda-incubator/setup-miniconda@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          miniforge-variant: Mambaforge
-          channels: conda-forge
-          environment-file: environment.yml
-          use-mamba: true
+          python-version: "3.10"
+          cache: pip
+
+      - name: Install dependencies
+        run: python3 -m pip install -r requirements.txt
 
       - name: Build website
-        run: |
-          source activate essays-on-data-science
-          python -m ipykernel install --name essays-on-data-science --user
-          mkdocs build --verbose --clean --strict
+        run: mkdocs build --verbose --clean --strict
 
       - name: Deploy Website
         uses: peaceiris/actions-gh-pages@v3
