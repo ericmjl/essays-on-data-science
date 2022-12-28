@@ -588,7 +588,7 @@ more polished in their communication skills,
 and possess greater depth and breadth of domain knowledge.
 On the other hand,
 Fellows need to be concerned with technical leadership,
-have a firm grasp of the impact to research productivity,
+have a firm grasp of our work's impact to research productivity,
 and be able to mentor and coach others on effective work practices.
 
 When it comes to coding skills,
