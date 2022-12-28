@@ -55,9 +55,10 @@ for a role for which they are _not_ a perfect fit!
 The broad categories of traits we were looking for include:
 
 1. People skills
-2. Scientific knowledge
-3. Coding skills
-4. Modelling skills
+2. Communication skills
+3. Scientific knowledge
+4. Coding skills
+5. Modelling skills
 
 (Later on in this essay, we will go through those in more detail.)
 
@@ -100,7 +101,7 @@ Here, then, is a set of questions that I would use to evaluate the story.
 
 ### People Skills Rubric
 
-???+ question "Was the situation sufficiently non-trivial to handle?"
+??? question "Was the situation sufficiently non-trivial to handle?"
 
     Trivial situations are neither interesting nor revealing.
     If the candidate can offer up a non-trivial situation they handled
@@ -110,7 +111,7 @@ Here, then, is a set of questions that I would use to evaluate the story.
     then there is a chance they may not have sufficient battle scars
     to act maturely when faced with a non-trivial situation.
 
-???+ question "How much verifiable detail did the candidate provide in the story?"
+??? question "How much verifiable detail did the candidate provide in the story?"
 
     Details indicate ownership over the situation,
     and verifiability means we can check the details for truthfulness.
@@ -121,7 +122,7 @@ Here, then, is a set of questions that I would use to evaluate the story.
     Additionally, if the details are self-consistent,
     that's a plus sign too!
 
-???+ question "Did the candidate reveal generally desirable qualities, such as humility, courage, resilience, and empathy? Which specific details revealed these qualities?"
+??? question "Did the candidate reveal generally desirable qualities, such as humility, courage, resilience, and empathy? Which specific details revealed these qualities?"
 
     We can gain an accurate picture of the candidate's character
     as long as the candidate provides details.
@@ -129,12 +130,65 @@ Here, then, is a set of questions that I would use to evaluate the story.
     Additionally, the qualities mentioned above
     are what we want to see in our teammates.
 
-???+ question "Apart from these qualities, what other positive qualities did the candidate reveal? Or did they reveal negative qualities instead that may turn out to be orange or red flags? What specific details revealed these qualities?"
+??? question "Apart from these qualities, what other positive qualities did the candidate reveal? Or did they reveal negative qualities instead that may turn out to be orange or red flags? What specific details revealed these qualities?"
 
     These are the qualities that we want to avoid in our teammates.
     If the candidate reveals negative attributes,
     we need to assess whether they are red or orange flags
     or whether cultural differences led to the negative perception.
+
+## Communication Skills
+
+Communication skills matter.
+Our work is irrelevant if our collaborators do not understand it.
+Hence, we need to ensure that our candidates can communicate effectively
+to a wide range of audiences - from the technical to the non-technical,
+from junior members to senior leadership,
+and from the scientific to the business.
+
+To assess communication skills, we often use a seminar format.
+Here, we ask the candidate to present a data science project they have worked on.
+Sometimes it is their thesis work;
+at other times, it is a project they have worked on in their current role.
+Usually, there is a 30-40 minute presentation
+followed by additional time, interleaved or at the end, for Q&A.
+When assessing a candidate's communication skills,
+this is the rubric that I usually go for.
+
+### Communication Skills Rubric
+
+??? question "Based on the presented material, am I able to summarize the candidate's problem statement, methodology, and key findings in 3 bullet points?"
+
+    This question places the onus on me to put in
+    a best-faith effort at understanding the candidate's presentation.
+    If I can summarize the candidate's presentation in 3 bullet points,
+    that's an immediate positive sign.
+    That said, even if I can't summarize the presentation in 3 bullet points,
+    I can use follow-up questions to attempt to understand the presentation better.
+    If, after a good-faith follow-up,
+    the candidate still cannot explain their work in a way that I can understand,
+    only then do we have a red flag.
+
+??? question "How engaged were the audience during the candidate's presentation?"
+
+    High engagement is a positive aggregate sign;
+    while it doesn't necessarily reveal specific traits,
+    it usually means the candidate is able to hold the audience's attention
+    through a combination of:
+
+    1. A clear and compelling problem statement that resonates,
+    2. A methodlogy that may be non-trivial but still logical,
+    3. A conclusion that is _interesting_ and potentially _relevant_ to the audience, and
+    4. Effective visual storytelling by the candidate themselves.
+
+??? question "What were aesthetically pleasing aspects of the presentation, if any?"
+
+    This question is subjective, but is of at least second order importance to me.
+    I would like to work with individuals who have a good sense of design
+    and, more importantly, have the capability to execute on that design.
+    Having a pleasant presentation aesthetic,
+    such as having pixel-perfectly aligned shapes,
+    is a second order indicator of attention to detail.
 
 ## Scientific Knowledge
 
@@ -167,7 +221,7 @@ Then, I would use the following questions to evaluate their response.
 
 ### Scientific Knowledge Rubric
 
-???+ question "How much backing theory for the experiment did the candidate reveal?"
+??? question "How much backing theory for the experiment did the candidate reveal?"
 
     The candidate should be able to connect the experiment to the theory.
     As a trivial example, if the experiment contains a polymerase chain reaction (PCR) step,
@@ -176,7 +230,7 @@ Then, I would use the following questions to evaluate their response.
     An alternative example would be a synthesis of knowledge,
     where a candidate describes a follow-up experiment to one that someone else designed.
 
-???+ question "How much detail did the candidate provide about the experiment?"
+??? question "How much detail did the candidate provide about the experiment?"
 
     This question checks a candidate's proficiency in experiment design.
     The presence of detail helps us build confidence that the candidate actually participated in the experiment design.
@@ -185,7 +239,7 @@ Then, I would use the following questions to evaluate their response.
     various axes of variation in the experiment (such as time or temperature)
     and how we expect these axes to affect the outcome of the experiment.
 
-???+ question "Did the candidate highlight particular limitations of the experiment design?"
+??? question "Did the candidate highlight particular limitations of the experiment design?"
 
     No experiment will give us the answers we need for scientific inquiry.
     As such, the candidate should offer up the limitations of the experiment.
@@ -256,14 +310,14 @@ In the next section, I'll describe my rubric for assessing coding skills.
 
 ### Coding Skills Rubric
 
-???+ question "Did the candidate offer aforementioned details without prompting?"
+??? question "Did the candidate offer aforementioned details without prompting?"
 
     This is a sign of experience;
     they know how to handle a code review, which we often do,
     and are usually confident in their knowledge of
     their code's strengths and weaknesses.
 
-???+ question "How well-organized was the code? Does it reflect idiomatic domain knowledge, and if so, how?"
+??? question "How well-organized was the code? Does it reflect idiomatic domain knowledge, and if so, how?"
 
     Organizing code logically is a sign of
     thoroughly thinking through the problem domain.
@@ -275,7 +329,7 @@ In the next section, I'll describe my rubric for assessing coding skills.
     a well-organized library of code will be easily reusable by others,
     thereby giving our team a leverage multiplier in the long run.
 
-???+ question "How well-documented was the code? In what ways does the documentation enable reusability of the code?"
+??? question "How well-documented was the code? In what ways does the documentation enable reusability of the code?"
 
     Documentation is a sign of thoughtfulness.
     In executing our projects,
@@ -286,7 +340,7 @@ In the next section, I'll describe my rubric for assessing coding skills.
     future colleagues would have difficulty understanding the code
     and how to use it.
 
-???+ question "Did the candidate exhibit defensive behaviors during the code review?"
+??? question "Did the candidate exhibit defensive behaviors during the code review?"
 
     A positive answer to this question is a red flag for us.
     We want to hire people who are confident in their skills
@@ -294,7 +348,7 @@ In the next section, I'll describe my rubric for assessing coding skills.
     Defensive behaviors shut down feedback,
     leading to a poor environment for learning and improvement.
 
-???+ question "How strong were reasons for certain design choices over others?"
+??? question "How strong were reasons for certain design choices over others?"
 
     This question gives us a sense of the candidate's thought process.
     Are they thorough in their thinking, or do they rush to a solution?
@@ -348,7 +402,7 @@ in order to tease out the necessary details to assess modeling skills.
 
 ### Modeling Skills Rubric
 
-???+ question "What alternative models or modeling approaches did the candidate consider, and why were they not chosen?"
+??? question "What alternative models or modeling approaches did the candidate consider, and why were they not chosen?"
 
     If the candidate can provide a solid and logical reason for their final model choice
     while contrasting it against other choices,
@@ -365,7 +419,7 @@ in order to tease out the necessary details to assess modeling skills.
     Finally, if the candidate can't explain why they chose a particular model,
     that is a red flag, and I would be wary of their modeling skills.
 
-???+ question "If applicable, how clear was the candidate in mapping the parameters of the model onto explainable aspects of the problem?"
+??? question "If applicable, how clear was the candidate in mapping the parameters of the model onto explainable aspects of the problem?"
 
     If the model involved was an explicit model of a system,
     such as a hidden Markov model or a linear model,
@@ -374,7 +428,7 @@ in order to tease out the necessary details to assess modeling skills.
     For example, what does the slope parameter in a linear model mean for this problem?
     How do we interpret the transition matrix in an HMM?
 
-???+ question "If the candidate presented a neural network model, can the candidate explain the model architecture in detail without jargon? Can they articulate the inductive biases of the model and contrast those biases' suitability for the problem at hand?"
+??? question "If the candidate presented a neural network model, can the candidate explain the model architecture in detail without jargon? Can they articulate the inductive biases of the model and contrast those biases' suitability for the problem at hand?"
 
     In particular, I would expect the candidate to explain
     how they arrived at their preferred model architecture
@@ -401,7 +455,7 @@ and in which dimensions we expect a candidate to be well-equipped.
 
 Here is an example of a set of questions I would ask myself about a candidate.
 
-???+ question "Am I capable of coaching them something new?"
+??? question "Am I capable of coaching them something new?"
 
     I'm more inclined to coach on coding skills than modeling skills,
     so I would expect a candidate to come in with a robust modeling skillset;
@@ -412,7 +466,7 @@ Here is an example of a set of questions I would ask myself about a candidate.
     but less on domain knowledge,
     so I expect a candidate to come in knowing their science fundamentals well.
 
-???+ question "Does the candidate come equipped with special modeling skills that are complementary to the team's current skill sets?"
+??? question "Does the candidate come equipped with special modeling skills that are complementary to the team's current skill sets?"
 
     Beyond the role's requirements,
     we would also like to bring additional skill sets to the team.
@@ -422,7 +476,7 @@ Here is an example of a set of questions I would ask myself about a candidate.
     and crucially, build a more resilient team,
     especially if one of our team members leaves.
 
-???+ question "Will the candidate work well with other teammates and collaborators?"
+??? question "Will the candidate work well with other teammates and collaborators?"
 
     For example, are they able to communicate well with others?
     Do they leave others feeling more confused than clear?
