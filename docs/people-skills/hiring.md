@@ -88,6 +88,20 @@ Let's explore these dimensions in a bit more detail below.
 
 ## People Skills
 
+??? summary
+
+    The people skills dimension in an assessment process involves
+    evaluating a candidate's ability to handle difficult situations.
+    This can be done by asking the candidate to describe
+    a difficult situation they faced and how they handled it.
+    The interviewer should look for several things in the candidate's story,
+    including whether the situation was non-trivial and required handling,
+    whether the candidate provided verifiable details about the situation,
+    and whether they demonstrated desirable qualities such as
+    humility, courage, resilience, and empathy.
+    It is also important to consider any negative qualities
+    that the candidate may have revealed, as they may be red or orange flags.
+
 In assessing the people dimension,
 we were looking for stories highlighting
 a candidate's ability to handle testing situations.
@@ -138,6 +152,23 @@ Here, then, is a set of questions that I would use to evaluate the story.
     or whether cultural differences led to the negative perception.
 
 ## Communication Skills
+
+??? summary
+
+    Communication skills are important in our roles
+    because effective communication is necessary
+    for collaborating with others
+    and ensuring that one's work is understood.
+    To assess communication skills,
+    candidates may be asked to present
+    a data science project they have worked on,
+    with the presentation followed by a question and answer session.
+    During the presentation,
+    we consider
+
+    1. whether we can summarize the candidate's problem statement, methodology, and key findings in a few bullet points,
+    2. how engaged the audience was during the presentation, and
+    3. any aesthetically pleasing aspects of the presentation.
 
 Communication skills matter.
 Our work is irrelevant if our collaborators do not understand it.
@@ -191,6 +222,24 @@ this is the rubric that I usually go for.
     is a second order indicator of attention to detail.
 
 ## Scientific Knowledge
+
+??? summary
+
+    Scientific knowledge is important in our roles
+    because it lubricates communication with scientists
+    and enables us to follow along in scientific discussions.
+    For junior candidates,
+    this may mean having a solid understanding of at least one domain of science,
+    while senior candidates should have knowledge of multiple domains.
+    Familiarity with the experiment design process is also important,
+    as data scientists in some fields may need to work with experimental scientists.
+    To assess scientific knowledge,
+    an interviewer might ask a candidate to describe
+    a scientific experiment they helped to design
+    and evaluate their response using a rubric that considers
+    the candidate's understanding of the backing theory for the experiment,
+    the level of detail provided about the experiment,
+    and the limitations of the experiment design.
 
 Because we are a team that works with scientists,
 we also need to ensure that our candidates can communicate with scientists,
@@ -248,6 +297,26 @@ Then, I would use the following questions to evaluate their response.
     and how they would address those limitations in a future experiment?
 
 ## Coding Skills
+
+??? summary
+
+    Coding skills are important in our work
+    because we expect code that is both readable and maintainable.
+    To assess coding skills,
+    an interviewer might ask the candidate to bring
+    a piece of code they are proud of to the interview
+    and review it code-review style.
+    During the code review,
+    the interviewer may ask the candidate
+    questions about the purpose of the code,
+    how it is organized,
+    and any tradeoffs made in the code organization.
+    They may also ask the candidate about any dissatisfaction with the code
+    and how they would improve it in the future.
+    The interviewer should consider
+    whether the candidate offered details about the code without prompting,
+    how well-organized and well-documented the code is,
+    and whether the code reflects idiomatic domain knowledge.
 
 Coding skill is another axis along which we assess candidates.
 Because ["data science can't be done in a GUI"][hadley],
@@ -359,6 +428,26 @@ In the next section, I'll describe my rubric for assessing coding skills.
     then it means we will need to spend time and effort coaching this habit.
 
 ## Modeling Skills
+
+??? summary
+
+    Modeling skills are an important part of our roles.
+    Modeling involves the ability to pick and build
+    computational or mathematical models to solve problems.
+    This can involve using explicit mathematical models,
+    such as differential equations or state space models,
+    which I call "physics-style" mechanistic modeling.
+    To assess a candidate's modeling skills,
+    we can use presentations or seminars,
+    during which the candidate presents a problem they are working on
+    and explains their modeling approach.
+    Questions can be asked about the modeling process,
+    such as the candidate's ability to consider alternative models
+    and mapping the parameters of the model onto explainable aspects of the problem.
+    When evaluating a candidate who presents a neural network model,
+    the ability to explain the model architecture in detail
+    and understand the inductive biases of the model
+    and their suitability for the problem at hand is important.
 
 The final aspect of our roles as data scientists
 is picking and building computational or mathematical models
