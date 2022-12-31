@@ -6,8 +6,9 @@ In 2023, I will be _potentially_ hiring for four more positions
 While I had helped hire data scientists in the past,
 2021 was the first time I was primarily responsible for the role.
 So when I first joined,
-I thought I would have time to ease into the team lead part of the role.
-But by day 2, July 21,
+I thought I would have some time, say, half a year or so,
+to ease into the team lead part of the role.
+But by day 2, the 21st of July,
 my manager Andrew sent me an MS Teams message saying,
 "Hey, two positions for you are approved. Merry Christmas!"
 I was both surprised and excited at the time.
@@ -29,12 +30,12 @@ that I would enjoy working with bright individuals who were:
 4. had sufficient humility to accept feedback, and
 5. were courageous enough to challenge my views.
 
-The two we hired on the team fit these criteria perfectly.
-
-At the same time, our Talent Acquisition team suggested that
-we shouldn't necessarily hire someone who hits
-all of the required technical skills for that level
-but rather someone who has a majority of the skills necessary
+I also had to specify the exact skill requirements.
+I came up with a list of skills that I believed were needed for the job.
+One thing our Talent Acquisition team suggested surprised me.
+They suggested that we shouldn't hire someone
+who hits _all_ of the required technical skills for that level.
+Instead, we should hire someone who has a majority of the skills necessary
 and has shown the potential to learn the rest.
 
 Why?
@@ -52,7 +53,9 @@ This news should encourage those
 who would otherwise be discouraged from applying
 for a role for which they are _not_ a perfect fit!
 
-The broad categories of traits we were looking for include:
+What about skills and knowledge, though?
+What are we looking for in our candidates?
+Here are the broad categories that we assess:
 
 1. People skills
 2. Communication skills
@@ -60,58 +63,48 @@ The broad categories of traits we were looking for include:
 4. Coding skills
 5. Modelling skills
 
-(Later on in this essay, we will go through those in more detail.)
+Later in this essay, I will go through them in more detail.
+Before we go on, though, let's talk about the hiring process.
 
 ## Team Interviews
 
-We interview as a team, just as I experienced interviewing at Verily and NIBR
+We interview candidates in a "team-based" interview;
+this aligns with my experiences interviewing at Verily and
+the Novartis Institutes for BioMedical Research (NIBR)
 when I interviewed for my first data science role.
-The team also serves as the hiring committee,
-making a go/no-go recommendation to the hiring manager,
-who makes the final call on whether to hire a candidate or to continue searching.
-(Other companies may have a different practice.)
-
-Interviewing as a team helps ensure that we cover a wide range of perspectives
-and can cover a rich set of questions
-covering both the technical skill and people dimensions.
 As the hiring manager, I assemble the committee
 and decide what aspect each hiring committee member will be interviewing.
 Usually, I would pick potential close collaborators as interviewers,
 which makes sense given the nature of our team's work being collaborative.
+
+Interviewing as a team helps ensure that we cover a wide range of perspectives
+and can cover a rich set of questions
+covering both the technical skill and people dimensions.
 
 I was most comfortable interviewing for technical skills,
 so I assigned the people dimension to my colleagues.
 Because we are a team that works with scientists,
 I also asked my colleagues to assess
 the candidates' scientific knowledge within the interviewers' domain.
-Let's explore these dimensions in a bit more detail below.
+The hiring committee makes a go/no-go recommendation to the hiring manager,
+who makes the final call on whether to hire a candidate or to continue searching.
+(Other companies may have a different practice.)
+
+With the hiring process described,
+let's explore those five (broad) criteria in more detail below.
 
 ## People Skills
 
-??? summary
-
-    The people skills dimension in an assessment process involves
-    evaluating a candidate's ability to handle difficult situations.
-    This can be done by asking the candidate to describe
-    a difficult situation they faced and how they handled it.
-    The interviewer should look for several things in the candidate's story,
-    including whether the situation was non-trivial and required handling,
-    whether the candidate provided verifiable details about the situation,
-    and whether they demonstrated desirable qualities such as
-    humility, courage, resilience, and empathy.
-    It is also important to consider any negative qualities
-    that the candidate may have revealed, as they may be red or orange flags.
-
 In assessing the people dimension,
 we were looking for stories highlighting
-a candidate's ability to handle testing situations.
-So, why not ask for stories of their strengths?
-Because adversity is one of the best ways of revealing character.
-In adverse conditions, one's best (or worst) version of oneself gets unveiled.
-
+a candidate's ability to handle testing situations and,
+more importantly,
+how they turned these testing situations around for the better
+and what lessons they've learned for the future.
 When doing the interview, I would ask the candidate to tell me about a time
 when they were in a difficult situation and how they handled it.
-Here, then, is a set of questions that I would use to evaluate the story.
+
+Here, then, is a set of questions that I would use to evaluate the candidate.
 
 ### People Skills Rubric
 
@@ -136,7 +129,19 @@ Here, then, is a set of questions that I would use to evaluate the story.
     Additionally, if the details are self-consistent,
     that's a plus sign too!
 
-??? question "Did the candidate reveal generally desirable qualities, such as humility, courage, resilience, and empathy? Which specific details revealed these qualities?"
+??? question "If applicable, how did the candidate turn around the situation for the better?"
+
+    We are looking for tangible "how"s here.
+    I would pay attention to **how** the candidate re-established rapport,
+    worked to restore trust,
+    and guide the team towards a productive outcome.
+    With these details,
+    we can get a sense of a candidate's toolbox for handling tough situations.
+    Equipped with this people skills toolbox,
+    I have a strong prior that they would also
+    handle day-to-day situations productively.
+
+??? question "Did the candidate reveal generally desirable qualities, such as humility, courage, resilience, and empathy? Or did they reveal other positive traits? Which specific details revealed these qualities?"
 
     We can gain an accurate picture of the candidate's character
     as long as the candidate provides details.
@@ -144,31 +149,17 @@ Here, then, is a set of questions that I would use to evaluate the story.
     Additionally, the qualities mentioned above
     are what we want to see in our teammates.
 
-??? question "Apart from these qualities, what other positive qualities did the candidate reveal? Or did they reveal negative qualities instead that may turn out to be orange or red flags? What specific details revealed these qualities?"
+??? question "Did they reveal negative qualities instead that may turn out to be orange or red flags? What specific details revealed these qualities?"
 
-    These are the qualities that we want to avoid in our teammates.
+    We need to be on the lookout for potentially negative qualities.
     If the candidate reveals negative attributes,
     we need to assess whether they are red or orange flags
     or whether cultural differences led to the negative perception.
+    This is another reason why I believe a hiring committee is worth the time tradeoff;
+    we can reduce the bias from our own cultural upbringing
+    when interpreting a candidate's story.
 
 ## Communication Skills
-
-??? summary
-
-    Communication skills are important in our roles
-    because effective communication is necessary
-    for collaborating with others
-    and ensuring that one's work is understood.
-    To assess communication skills,
-    candidates may be asked to present
-    a data science project they have worked on,
-    with the presentation followed by a question and answer session.
-    During the presentation,
-    we consider
-
-    1. whether we can summarize the candidate's problem statement, methodology, and key findings in a few bullet points,
-    2. how engaged the audience was during the presentation, and
-    3. any aesthetically pleasing aspects of the presentation.
 
 Communication skills matter.
 Our work is irrelevant if our collaborators do not understand it.
@@ -176,6 +167,9 @@ Hence, we need to ensure that our candidates can communicate effectively
 to a wide range of audiences - from the technical to the non-technical,
 from junior members to senior leadership,
 and from the scientific to the business.
+Additionally, communication skills are essential in
+a senior-level candidate's ability to mentor junior team members,
+which is important for developing the team's capabilities.
 
 To assess communication skills, we often use a seminar format.
 Here, we ask the candidate to present a data science project they have worked on.
@@ -191,16 +185,16 @@ this is the rubric that I usually go for.
 ??? question "Based on the presented material, am I able to summarize the candidate's problem statement, methodology, and key findings in 3 bullet points?"
 
     This question places the onus on me to put in
-    a best-faith effort at understanding the candidate's presentation.
+    a best-faith effort to understand the candidate's presentation.
     If I can summarize the candidate's presentation in 3 bullet points,
     that's an immediate positive sign.
     That said, even if I can't summarize the presentation in 3 bullet points,
-    I can use follow-up questions to attempt to understand the presentation better.
+    I can use follow-up questions to attempt to understand the work better.
     If, after a good-faith follow-up,
     the candidate still cannot explain their work in a way that I can understand,
     only then do we have a red flag.
 
-??? question "How engaged were the audience during the candidate's presentation?"
+??? question "How engaged was the audience during the candidate's presentation?"
 
     High engagement is a positive aggregate sign;
     while it doesn't necessarily reveal specific traits,
@@ -208,38 +202,32 @@ this is the rubric that I usually go for.
     through a combination of:
 
     1. A clear and compelling problem statement that resonates,
-    2. A methodlogy that may be non-trivial but still logical,
+    2. A methodology that is logical and, even better, exciting to the audience,
     3. A conclusion that is _interesting_ and potentially _relevant_ to the audience, and
-    4. Effective visual storytelling by the candidate themselves.
+    4. Effective visual storytelling employed by the candidate.
 
-??? question "What were aesthetically pleasing aspects of the presentation, if any?"
+??? question "Did I learn something new that was technical? Alternatively, did I see a new way of explaining an existing thing I already understood?"
 
-    This question is subjective, but is of at least second order importance to me.
-    I would like to work with individuals who have a good sense of design
-    and, more importantly, have the capability to execute on that design.
-    Having a pleasant presentation aesthetic,
-    such as having pixel-perfectly aligned shapes,
-    is a second order indicator of attention to detail.
+    This is especially important for senior candidates
+    and speaks to the candidate's potential to mentor junior team members.
+    If the candidate can teach me something new
+    or present it in a novel way that is also effective,
+    they likely can teach others too.
+
+??? question "What were the aesthetically pleasing aspects of the presentation, if any?"
+
+    This question is subjective but important to me.
+    I want to work with individuals who have a good sense of design
+    and, more importantly, can execute and bring that design to life.
+    Good aesthetics is a marker of excellence!
+    A pleasant presentation aesthetic,
+    such as pixel-perfectly aligned shapes,
+    harmonized colors across all figures,
+    and a consistent font and font size,
+    are second-order indicators of attention to detail,
+    which is a general quality we want in our teammates.
 
 ## Scientific Knowledge
-
-??? summary
-
-    Scientific knowledge is important in our roles
-    because it lubricates communication with scientists
-    and enables us to follow along in scientific discussions.
-    For junior candidates,
-    this may mean having a solid understanding of at least one domain of science,
-    while senior candidates should have knowledge of multiple domains.
-    Familiarity with the experiment design process is also important,
-    as data scientists in some fields may need to work with experimental scientists.
-    To assess scientific knowledge,
-    an interviewer might ask a candidate to describe
-    a scientific experiment they helped to design
-    and evaluate their response using a rubric that considers
-    the candidate's understanding of the backing theory for the experiment,
-    the level of detail provided about the experiment,
-    and the limitations of the experiment design.
 
 Because we are a team that works with scientists,
 we also need to ensure that our candidates can communicate with scientists,
@@ -263,12 +251,45 @@ all while articulating the limitations of that experiment.
 A data scientist in our domain who has those qualities
 will be able to win the trust of our wet lab scientist colleagues.
 
-To assess scientific knowledge, particularly experimental design knowledge,
+Alternatively, if the candidate has not worked on experiments before,
+they should be able to articulate how they would work within the "design-make-test-analyze" cycle of machine-learning-guided experimentation.
+Prior experience using machine learning methods to impact any of these steps
+would significantly enhance their candidacy.
+
+To assess scientific knowledge,
+if the candidate presents a seminar with a strong science flavor,
+we will typically use the seminar topic to evaluate their scientific knowledge.
+Usually, we do this by asking detailed follow-up questions.
+If not, I would ask them to teach me a scientific topic of their choosing.
+To assess experimental design knowledge,
 I would ask the candidate to describe a scientific experiment they helped to design
 and see how well they could articulate the details of the experiment.
 Then, I would use the following questions to evaluate their response.
 
 ### Scientific Knowledge Rubric
+
+??? question "How much scientific detail can the candidate provide?
+
+    The candidate should be able to provide
+    a high-level overview of their scientific domain
+    and be ready to field questions on any relevant details.
+
+    For example, if the candidate is speaking on
+    finetuning AlphaFold for protein design,
+    they should be able to answer questions about how proteins fold,
+    the different levels of structure,
+    and common patterns of how mutations affect a protein's structure, and so on.
+    If the candidate does _not_ have a biochemistry background,
+    that's even better!
+    Being able to field such questions indicates their ability to learn quickly.
+
+    As another example,
+    if the candidate is speaking on the use of machine learning models
+    to prioritize molecule candidates based on an assay
+    and can talk fluently about the experiment design, caveats,
+    and even go as far as to identify where the assay is particularly laborious,
+    then that is an immensely positive sign of a candidate's ability to learn
+    and to empathize with experimental scientists.
 
 ??? question "How much backing theory for the experiment did the candidate reveal?"
 
@@ -279,7 +300,7 @@ Then, I would use the following questions to evaluate their response.
     An alternative example would be a synthesis of knowledge,
     where a candidate describes a follow-up experiment to one that someone else designed.
 
-??? question "How much detail did the candidate provide about the experiment?"
+??? question "How much detail did the candidate provide about the experiment? Did they highlight limitations of the experiment?"
 
     This question checks a candidate's proficiency in experiment design.
     The presence of detail helps us build confidence that the candidate actually participated in the experiment design.
@@ -288,8 +309,6 @@ Then, I would use the following questions to evaluate their response.
     various axes of variation in the experiment (such as time or temperature)
     and how we expect these axes to affect the outcome of the experiment.
 
-??? question "Did the candidate highlight particular limitations of the experiment design?"
-
     No experiment will give us the answers we need for scientific inquiry.
     As such, the candidate should offer up the limitations of the experiment.
     For example, did they highlight limitations of the controls,
@@ -297,26 +316,6 @@ Then, I would use the following questions to evaluate their response.
     and how they would address those limitations in a future experiment?
 
 ## Coding Skills
-
-??? summary
-
-    Coding skills are important in our work
-    because we expect code that is both readable and maintainable.
-    To assess coding skills,
-    an interviewer might ask the candidate to bring
-    a piece of code they are proud of to the interview
-    and review it code-review style.
-    During the code review,
-    the interviewer may ask the candidate
-    questions about the purpose of the code,
-    how it is organized,
-    and any tradeoffs made in the code organization.
-    They may also ask the candidate about any dissatisfaction with the code
-    and how they would improve it in the future.
-    The interviewer should consider
-    whether the candidate offered details about the code without prompting,
-    how well-organized and well-documented the code is,
-    and whether the code reflects idiomatic domain knowledge.
 
 Coding skill is another axis along which we assess candidates.
 Because ["data science can't be done in a GUI"][hadley],
@@ -379,7 +378,7 @@ In the next section, I'll describe my rubric for assessing coding skills.
 
 ### Coding Skills Rubric
 
-??? question "Did the candidate offer aforementioned details without prompting?"
+??? question "Did the candidate offer the details mentioned above without prompting?"
 
     This is a sign of experience;
     they know how to handle a code review, which we often do,
@@ -428,26 +427,6 @@ In the next section, I'll describe my rubric for assessing coding skills.
     then it means we will need to spend time and effort coaching this habit.
 
 ## Modeling Skills
-
-??? summary
-
-    Modeling skills are an important part of our roles.
-    Modeling involves the ability to pick and build
-    computational or mathematical models to solve problems.
-    This can involve using explicit mathematical models,
-    such as differential equations or state space models,
-    which I call "physics-style" mechanistic modeling.
-    To assess a candidate's modeling skills,
-    we can use presentations or seminars,
-    during which the candidate presents a problem they are working on
-    and explains their modeling approach.
-    Questions can be asked about the modeling process,
-    such as the candidate's ability to consider alternative models
-    and mapping the parameters of the model onto explainable aspects of the problem.
-    When evaluating a candidate who presents a neural network model,
-    the ability to explain the model architecture in detail
-    and understand the inductive biases of the model
-    and their suitability for the problem at hand is important.
 
 The final aspect of our roles as data scientists
 is picking and building computational or mathematical models
@@ -665,7 +644,9 @@ Here, the Senior and Principal ranks are generally for
 existing data scientists with a track record of accomplishment in a prior industry role,
 regardless of prior educational training.
 "Fellow" ranks are for highly skilled and experienced individuals
-who bring technical, domain, and people leadership skills to the table.
+who bring technical, domain, and people leadership skills to the table,
+with a focus on technical strategy.
+Think "Staff Engineer" for an analogy.
 (Thought leadership is the summary term for all three.)
 
 We calibrate our expectations for each level.
@@ -677,8 +658,20 @@ more polished in their communication skills,
 and possess greater depth and breadth of domain knowledge.
 On the other hand,
 Fellows need to be concerned with technical leadership,
+partner with our Digital business partners to align the team's work with research needs,
 have a firm grasp of our work's impact to research productivity,
 and be able to mentor and coach others on effective work practices.
+
+Summarizing my take on the expectations in a table:
+
+| Level                | Research Associate               | Data Scientist                               | Fellow                                                   |
+|----------------------|----------------------------------|----------------------------------------------|----------------------------------------------------------|
+| People Skills        | Good                             | Excellent                                    | Excellent                                                |
+| Communication Skills | Great                            | Polished                                     | TED-style :)                                             |
+| Scientific Knowledge | Single discipline                | Multi-disciplinary                           | Multi-disciplinary & tied to business                    |
+| Coding Skills        | Writes organized code that works | Develops & maintains project codebases       | Sets technical standards for team                        |
+| Modeling Skills      | Knows how to apply models        | Can develop new mathematical models          | Sets modeling strategy for the team                      |
+| Leadership           | Owns individual problems         | Owns and directs a related suite of projects | Evangelizes new methods and technologies across business |
 
 When it comes to coding skills,
 I think we recognize that most of our candidates fresh from academia
@@ -720,7 +713,7 @@ I have tried asking questions, such as:
 - How do you learn a new technical skill?
 - What is your process for learning a new topic?
 
-However, I tend to get generic answers, such as:-
+However, I tend to get generic answers, such as:
 
 - Asking other people.
 - Reading papers.
@@ -730,7 +723,32 @@ None of those answers really get to the heart of what I'm trying to ask:
 how does the candidate master a new skill _quickly_?
 I probably need a better way to ask the question.
 
-## Summary
+## Q&A
+
+???+ question "How does conducting a simulated code review compare against other common data science hiring practices, such as live coding, completing a data challenge or a Leetcode challenge?"
+
+    Leetcode challenges are
+    (1) gameable through practice and
+    (2) don't correspond to a real day-to-day activity in our work.
+
+    Data challenges, on the other hand, are
+    (1) potentially unfair to candidates who have families, and
+    (2) take a lot of effort to evaluate.
+
+    While I have successfully run a data challenge
+    and recruited an intern candidate before,
+    I don't think it's a scalable way to hire full-timers.
+
+    Live coding also does not reflect how we work -
+    we usually do things independently first and then get the work reviewed later.
+    Hence, live coding is irrelevant to us,
+    and I choose not to evaluate candidates based on it.
+    Moreover, for candidates who have never done live coding before,
+    it can be stressful and may lead to a poor candidate interview experience,
+    which will reflect poorly on us
+    and impact our ability to recruit talented individuals.
+
+## Conclusions
 
 This essay is the culmination of reflecting on my hiring experiences
 since I joined the industry in 2017.
@@ -756,6 +774,13 @@ Likewise, if you've found the essay useful,
 please consider sharing it with your peers,
 and let me know your thoughts and questions on the [discussion forum][discussion].
 
+## Acknowledgments
+
+I want to thank my NIBR colleague [William J. Godinez][william]
+for his feedback on the essay.
+
 [hadley]: https://www.youtube.com/watch?v=cpbtcsGE0OA
 
 [discussion]: https://github.com/ericmjl/essays-on-data-science/discussions
+
+[william]: https://www.linkedin.com/in/william-j-godinez/
