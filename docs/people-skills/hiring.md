@@ -49,22 +49,20 @@ can hit the ground running while staying motivated longer.
 Hiring takes time and is expensive;
 the longer we can retain high-quality individuals within the team,
 the better it is for continuity, morale, productivity, and the bottom line.
-This news should encourage those
-who would otherwise be discouraged from applying
-for a role for which they are _not_ a perfect fit!
+This news should actually encourage those who think they're not a perfect fit for the role!
 
 What about skills and knowledge, though?
 What are we looking for in our candidates?
-Here are the broad categories that we assess:
+Well, here are the broad categories that I assess:
 
 1. People skills
 2. Communication skills
 3. Scientific knowledge
 4. Coding skills
-5. Modelling skills
+5. Modeling skills
 
-Later in this essay, I will go through them in more detail.
-Before we go on, though, let's talk about the hiring process.
+Later on, I will go through them in more detail.
+Before we discuss those, though, let's talk about the hiring process.
 
 ## Team Interviews
 
@@ -72,14 +70,14 @@ We interview candidates in a "team-based" interview;
 this aligns with my experiences interviewing at Verily and
 the Novartis Institutes for BioMedical Research (NIBR)
 when I interviewed for my first data science role.
-As the hiring manager, I assemble the committee
-and decide what aspect each hiring committee member will be interviewing.
+As the hiring manager, I get to assemble the committee
+and decide what aspect each hiring committee member will be interviewing for.
 Usually, I would pick potential close collaborators as interviewers,
 which makes sense given the nature of our team's work being collaborative.
 
 Interviewing as a team helps ensure that we cover a wide range of perspectives
-and can cover a rich set of questions
-covering both the technical skill and people dimensions.
+and a rich set of questions
+covering both the technical and people dimensions.
 
 I was most comfortable interviewing for technical skills,
 so I assigned the people dimension to my colleagues.
@@ -99,8 +97,9 @@ In assessing the people dimension,
 we were looking for stories highlighting
 a candidate's ability to handle testing situations and,
 more importantly,
-how they turned these testing situations around for the better
-and what lessons they've learned for the future.
+how they turned these testing situations around for the better.
+Taken together, I'm always curious to hear
+what lessons candidates have learned for the future.
 When doing the interview, I would ask the candidate to tell me about a time
 when they were in a difficult situation and how they handled it.
 
@@ -268,7 +267,7 @@ Then, I would use the following questions to evaluate their response.
 
 ### Scientific Knowledge Rubric
 
-??? question "How much scientific detail can the candidate provide?
+??? question "How much scientific detail can the candidate delve into?
 
     The candidate should be able to provide
     a high-level overview of their scientific domain
@@ -291,16 +290,7 @@ Then, I would use the following questions to evaluate their response.
     then that is an immensely positive sign of a candidate's ability to learn
     and to empathize with experimental scientists.
 
-??? question "How much backing theory for the experiment did the candidate reveal?"
-
-    The candidate should be able to connect the experiment to the theory.
-    As a trivial example, if the experiment contains a polymerase chain reaction (PCR) step,
-    they should be ready to answer questions about how PCR works at some level,
-    with a greater expectation of detail for candidates for higher seniority levels.
-    An alternative example would be a synthesis of knowledge,
-    where a candidate describes a follow-up experiment to one that someone else designed.
-
-??? question "How much detail did the candidate provide about the experiment? Did they highlight limitations of the experiment?"
+??? question "How much detail did the candidate provide about an experiment they designed? Did they highlight any limitations of the experiment?"
 
     This question checks a candidate's proficiency in experiment design.
     The presence of detail helps us build confidence that the candidate actually participated in the experiment design.
@@ -330,7 +320,7 @@ How do we assess coding skills?
 If a candidate interests me,
 I will proactively look out for their profile on GitHub
 to see what kind of code they've put out there.
-One well-maintained codebase is a positive;
+One well-maintained codebase is a positive sign;
 not having one is **not** a negative,
 as I understand not everybody has the privilege of time to maintain a codebase.
 
