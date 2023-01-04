@@ -10,11 +10,10 @@ as well as essays specially written for the broader Python community.
 If you find this collection of essays useful,
 please [star the repository on GitHub](https://github.com/ericmjl/essays-on-data-science)!
 
-If you enjoyed this essay collection and would like to receive early-bird access to more,
+If you enjoyed this essay collection,
 [please support me on Patreon][patreon]!
-A coffee a month sent my way gets you _early_ access to my essays
-on a private URL exclusively for my supporters
-as well as shoutouts on every single essay that I put out.
+It's a tangible way of telling me that
+you appreciate my work and find it valuable.
 
 [patreon]: https://patreon.com/ericmjl
 

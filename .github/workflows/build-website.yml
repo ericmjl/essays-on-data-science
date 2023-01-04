@@ -16,24 +16,17 @@ jobs:
     name: "Build website"
     runs-on: ubuntu-18.04
     steps:
-      - uses: actions/checkout@v2
-
-      # See: https://github.com/marketplace/actions/setup-conda
-      - uses: s-weigand/setup-conda@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
-          conda-channels: "conda-forge"
+          python-version: "3.10"
+          cache: pip
 
-      - name: Build environment
-        # if: steps.cache-environment.outputs.cache-hit != 'true'
-        run: |
-          conda install -c conda-forge mamba
-          mamba env create -f environment.yml
+      - name: Install dependencies
+        run: python3 -m pip install -r requirements.txt
 
       - name: Build website
-        run: |
-          source activate essays-on-data-science
-          python -m ipykernel install --name essays-on-data-science --user
-          mkdocs build --verbose --clean --strict
+        run: mkdocs build --verbose --clean --strict
 
       - name: Deploy Website
         uses: peaceiris/actions-gh-pages@v3

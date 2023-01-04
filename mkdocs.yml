@@ -16,11 +16,11 @@ nav:
   - Machine Learning:
       - An Introduction to Probability and Computational Bayesian Statistics: machine-learning/computational-bayesian-stats.md
       - Markov Models From The Bottom Up, with Python: machine-learning/markov-models.md
-      - Dirichlet Processes and Hidden Markov Model Transition Matrices: machine-learning/generating-markov-chains-dirichlet.ipynb
+      - Dirichlet Processes and Hidden Markov Model Transition Matrices: machine-learning/generating-markov-chains-dirichlet.md
       - Computational Representations of Message Passing: machine-learning/message-passing.md
       - Reimplementing and Testing Deep Learning Models: machine-learning/reimplementing-models.md
       - Differential Computing Explained: machine-learning/differential-computing-jax.md
-      - Infinitely Wide Neural Networks: machine-learning/nngp.ipynb
+      - Infinitely Wide Neural Networks: machine-learning/nngp.md
       - An Attempt at Demystifying Graph Deep Learning: machine-learning/graph-nets.md
   - Miscellaneous:
       - A Review of the Python Data Science Dashboarding Landscape in 2019: miscellaneous/dashboarding-landscape.md
@@ -35,6 +35,9 @@ nav:
       - A Data Scientist's Guide to Environment Variables: software-skills/environment-variables.md
       - Refactoring your code: software-skills/refactoring.md
       - Testing your code: software-skills/testing.md
+  - People Skills:
+      - Hiring and Interviewing Data Scientists: people-skills/hiring.md
+      # - Training and Developing Data Scientists: people-skills/training.md
   - Terminal Hacks:
       - Tools and Upgrades for your CLI: terminal/cli-tools.md
       - Using pre-commit git hooks to automate code checks: terminal/pre-commits.md
@@ -50,7 +53,7 @@ plugins:
       lang:
         - en
   - mknotebooks:
-      execute: true
+      execute: false
       timeout: 600
       binder: true
       binder_service_name: "gh"

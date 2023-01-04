@@ -1,3 +1,4 @@
+# Used only for building the docs
 mkdocs-minify-plugin
 pymdown-extensions
 mknotebooks
