@@ -504,8 +504,8 @@ in order to tease out the necessary details to assess modeling skills.
 
 As hiring managers,
 we have tradeoffs to consider
-when evaluating the candidate along the four dimensions above.
-It is exceedingly rare to find a candidate who is strong in all four dimensions.
+when evaluating the candidate along the dimensions above.
+It is exceedingly rare to find a candidate who is strong in all dimensions.
 Beyond raw execution ability,
 complementarity with the rest of the team also matters.
 Therefore, we must decide which dimensions we are most willing to coach on
