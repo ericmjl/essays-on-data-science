@@ -267,7 +267,7 @@ Then, I would use the following questions to evaluate their response.
 
 ### Scientific Knowledge Rubric
 
-??? question "How much scientific detail can the candidate delve into?
+??? question "How much scientific detail can the candidate delve into?"
 
     The candidate should be able to provide
     a high-level overview of their scientific domain
@@ -651,17 +651,18 @@ Fellows need to be concerned with technical leadership,
 partner with our Digital business partners to align the team's work with research needs,
 have a firm grasp of our work's impact to research productivity,
 and be able to mentor and coach others on effective work practices.
+Their credibility for such leadership comes from their battle-tested experience.
 
 Summarizing my take on the expectations in a table:
 
-| Level                | Research Associate               | Data Scientist                               | Fellow                                                   |
-|----------------------|----------------------------------|----------------------------------------------|----------------------------------------------------------|
-| People Skills        | Good                             | Excellent                                    | Excellent                                                |
-| Communication Skills | Great                            | Polished                                     | TED-style :)                                             |
-| Scientific Knowledge | Single discipline                | Multi-disciplinary                           | Multi-disciplinary & tied to business                    |
-| Coding Skills        | Writes organized code that works | Develops & maintains project codebases       | Sets technical standards for team                        |
-| Modeling Skills      | Knows how to apply models        | Can develop new mathematical models          | Sets modeling strategy for the team                      |
-| Leadership           | Owns individual problems         | Owns and directs a related suite of projects | Evangelizes new methods and technologies across business |
+| Level                | Research Associate               | Data Scientist                               | Fellow                                               |
+|----------------------|----------------------------------|----------------------------------------------|------------------------------------------------------|
+| People Skills        | Good                             | Excellent                                    | Excellent                                            |
+| Communication Skills | Great                            | Polished                                     | TED-style :)                                         |
+| Scientific Knowledge | Single discipline                | Multi-disciplinary                           | Multi-disciplinary & tied to business                |
+| Coding Skills        | Writes organized code that works | Develops & maintains project codebases       | Sets technical standards for team                    |
+| Modeling Skills      | Knows how to apply models        | Can develop new mathematical models          | Sets modeling strategy for the team, invents methods |
+| Leadership           | Owns individual problems         | Owns and directs a related suite of projects | Evangelizes new technologies across business         |
 
 When it comes to coding skills,
 I think we recognize that most of our candidates fresh from academia
