@@ -1,6 +1,9 @@
 # Hiring and Interviewing Data Scientists
 
-Last year in 2021, I hired two new teammates for my home team.
+Back in 2021, I hired two new teammates for my home team,
+the Data Science and Artificial Intelligence (Research) team at Moderna.
+As indicated by the "(Research)" label,
+our main collaborators are other research scientists within the company.
 In 2023, I will be _potentially_ hiring for four more positions
 (as long as the business situation doesn't change).
 While I had helped hire data scientists in the past,
@@ -27,10 +30,10 @@ that I would enjoy working with bright individuals who were:
 1. quick to learn,
 2. thorough in thinking through problems,
 3. capable of going deep into technical details,
-4. had sufficient humility to accept feedback, and
-5. were courageous enough to challenge my views.
+4. sufficiently humble to accept feedback, and
+5. courageous enough to challenge my views.
 
-I also had to specify the exact skill requirements.
+I also had to specify the exact skill requirements for the new roles.
 I came up with a list of skills that I believed were needed for the job.
 One thing our Talent Acquisition team suggested surprised me.
 They suggested that we shouldn't hire someone
@@ -95,7 +98,7 @@ let's explore those five (broad) criteria in more detail below.
 
 In assessing the people dimension,
 we were looking for stories highlighting
-a candidate's ability to handle testing situations and,
+a candidate's ability to handle difficult interpersonal situations and,
 more importantly,
 how they turned these testing situations around for the better.
 Taken together, I'm always curious to hear
@@ -261,9 +264,22 @@ we will typically use the seminar topic to evaluate their scientific knowledge.
 Usually, we do this by asking detailed follow-up questions.
 If not, I would ask them to teach me a scientific topic of their choosing.
 To assess experimental design knowledge,
-I would ask the candidate to describe a scientific experiment they helped to design
+I would ask the candidate to describe a scientific experiment they helped design
 and see how well they could articulate the details of the experiment.
 Then, I would use the following questions to evaluate their response.
+
+??? note "Scientific Domain Knowledge"
+
+    While I write extensively about the need for scientific training here,
+    that is borne out of our role as a data science team working with scientists and engineers.
+    For other data science roles at Moderna that _don't_ work closely with scientists and engineers,
+    this is not as important.
+    The same may hold true at other companies.
+    As a hiring manager, I believe it's vital for us to ask ourselves critically
+    how much domain knowledge we expect a candidate to come in with
+    and how much we are willing to coach.
+    Some domains are easier to pick up through shallow osmosis;
+    others need deep immersion in the field.
 
 ### Scientific Knowledge Rubric
 
@@ -311,10 +327,10 @@ Coding skill is another axis along which we assess candidates.
 Because ["data science can't be done in a GUI"][hadley],
 we need to ensure that our candidates can write
 both readable and maintainable code.
-After all, even though our primary value add is modeling skill,
+After all, even though our primary value-add is our modeling skills,
 we still need to write code that surrounds the model
 so that we can make the model useful.
-Hence, it is crucial to effectively asses a candidate's coding skills.
+Hence, it is crucial to assess a candidate's coding skills.
 
 How do we assess coding skills?
 If a candidate interests me,
@@ -345,7 +361,7 @@ These are some of the questions that I would cover:
 1. What's the purpose of the code?
 2. How is it organized? Are there other plausible ways of organizing the code?
 3. What tradeoffs did the candidate make in choosing that particular code organization?
-4. Are there parts of the code that remain dissatisfactory, and if so, how would you improve it for the future?
+4. Are there parts of the code that remain dissatisfactory, and if so, how would you improve it in the future?
 
 That 4th question is particularly revealing.
 No code is going to be perfect, even my own.
@@ -448,13 +464,15 @@ what needs to be abstracted while translating that into code.
     or other forms of mechanistic modeling.
 
 Now, how do we assess modeling skills?
-Usually, we do this through a seminar or presentation.
-First, the candidate would present a problem they are working on
-and then explain how they are modeling the problem.
-Then, during the seminar,
+Usually, we do this through their seminar or presentation,
+which is a standard part of our interview process.
+Usually, a candidate will present a problem they are working on,
+how they solved it, and its impact on their colleagues
+and the business they are part of.
+During the seminar,
 we would ask questions about the modeling process
 and use the candidates' answers to assess their modeling skills.
-While handy, I think presentations may be insufficient alone;
+While handy, I think the seminars may be insufficient alone;
 often, I have found that we need to dig deeper during the 1:1 sessions
 in order to tease out the necessary details to assess modeling skills.
 
@@ -598,11 +616,13 @@ What does this mean for candidates?
 First, it can mean that even though you're thoroughly qualified for a role,
 you might not be the final choice because of the local context of a team.
 
-For example, a hiring manager may be willing to coach you on skills you're already strong in,
-which means they would not be as great for you as a professional development coach.
+For example, a hiring manager may be willing to coach you
+on skills you're already strong in,
+which means they would not be as great for you
+as a professional development coach.
 (This is an essential expectation for you to have for your manager!)
 Therefore, from this perspective only,
-it would be to your benefit to _not_ be accepted for the role
+it would be to your benefit _not_ to be accepted for the role
 and to continue searching elsewhere.
 
 Or it could mean that your skillsets were an excellent match,
@@ -617,21 +637,21 @@ and continue to search for a team to which you can be a special sauce contributo
 That will give you the confidence to know that you possess something special for the team
 and will be valued accordingly.
 
-### Expectations mapped to level
+### Expectations mapped to technical level
 
 Where I work, we have three broad levels of technical folks, in increasing order:
 
 1. Research Associates (3 levels, including Senior and Principal)
-2. Data scientists (3 levels, including Senior and Principal)
+2. Data Scientists (3 levels, including Senior and Principal)
 3. Fellows (3 levels, including Senior and Distinguished)
 
-Research Associate ranks are usually for fresh graduates out of Bachelors' or Masters' programs,
+Research Associate ranks are usually for fresh graduates out of Bachelor's or Master's programs,
 with the Senior and Principal ranks for longer industry experiences.
-Data scientists are for those newly graduated from Ph.D. programs
+Data Scientists are for those newly graduated from Ph.D. programs
 or just finishing their post-doc training without industry experience
 or Master's graduates with prior industry experience in a related role.
 Here, the Senior and Principal ranks are generally for
-existing data scientists with a track record of accomplishment in a prior industry role,
+existing Data Scientists with a track record of accomplishment in a prior industry role,
 regardless of prior educational training.
 "Fellow" ranks are for highly skilled and experienced individuals
 who bring technical, domain, and people leadership skills to the table,
@@ -648,7 +668,7 @@ more polished in their communication skills,
 and possess greater depth and breadth of domain knowledge.
 On the other hand,
 Fellows need to be concerned with technical leadership,
-partner with our Digital business partners to align the team's work with research needs,
+partner with our Digital Business Partners to align the team's work with research needs,
 have a firm grasp of our work's impact to research productivity,
 and be able to mentor and coach others on effective work practices.
 Their credibility for such leadership comes from their battle-tested experience.
@@ -672,7 +692,7 @@ I picked up software development skills during my graduate school days,
 thanks to my involvement in the open-source community.
 However, most of my peers did not have the same experience,
 and I am seeing the same situation six years after graduation.
-Therefore, at the time of writing (December 2022),
+Therefore, at the time of writing (January 2023),
 I consider any demonstrated software development skill
 to be a differentiating attribute for a candidate.
 Finally, with increasing seniority,
@@ -686,7 +706,7 @@ to be well-trained in a few modeling techniques
 (especially those taught in regular university curricula),
 know where to apply those models, and compare and contrast their use cases.
 On the other hand,
-data scientists should be able to apply a broader range of modeling techniques
+Data Scientists should be able to apply a broader range of modeling techniques
 (covering both mechanistic and data-driven models),
 and they should be able to dive into the math behind them.
 With increasing seniority,
@@ -739,6 +759,20 @@ I probably need a better way to ask the question.
     which will reflect poorly on us
     and impact our ability to recruit talented individuals.
 
+???+ question "Are interviews done remotely? If so, how do you assess engagement?"
+
+    Interviews can be done remotely or in person.
+    I usually assess audience engagement by looking at
+    the quality of questions that the audience asks.
+    If the audience is engaged,
+    you'll hear lots of questions that probe the speaker's thought process.
+    It's an aggregate sign that
+    the candidate is matching their message to the audience well.
+    On the other hand, lots of _basic_ questions means that
+    the candidate is missing crucial information in their presentation.
+    Finally, a low-engagement audience will usually be bored by the presentation
+    and not too many questions.
+
 ## Conclusions
 
 This essay is the culmination of reflecting on my hiring experiences
@@ -768,10 +802,13 @@ and let me know your thoughts and questions on the [discussion forum][discussion
 ## Acknowledgments
 
 I want to thank my NIBR colleague [William J. Godinez][william]
-for his feedback on the essay.
+and `pyjanitor` core developer [Hector E. Muñoz][hector]
+for their feedback on the essay.
 
 [hadley]: https://www.youtube.com/watch?v=cpbtcsGE0OA
 
 [discussion]: https://github.com/ericmjl/essays-on-data-science/discussions
 
 [william]: https://www.linkedin.com/in/william-j-godinez/
+
+[hector]: https://www.linkedin.com/in/hectoremunoz/
