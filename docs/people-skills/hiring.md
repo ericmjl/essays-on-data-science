@@ -806,6 +806,7 @@ and `pyjanitor` core developer [Hector E. Muñoz][hector]
 for their feedback on the essay.
 
 I would also like to thank my Patreon sponsors for their support!
+If you find my work valuable, please consider sponsoring [here][patreon]!
 
 ??? info "Sponsors"
 
@@ -818,3 +819,5 @@ I would also like to thank my Patreon sponsors for their support!
 [william]: https://www.linkedin.com/in/william-j-godinez/
 
 [hector]: https://www.linkedin.com/in/hectoremunoz/
+
+[patreon]: https://www.patreon.com/ericmjl
