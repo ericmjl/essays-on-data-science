@@ -805,6 +805,12 @@ I want to thank my NIBR colleague [William J. Godinez][william]
 and `pyjanitor` core developer [Hector E. Muñoz][hector]
 for their feedback on the essay.
 
+I would also like to thank my Patreon sponsors for their support!
+
+??? info "Sponsors"
+
+    Thank you, Ahmed, Daniel, Sat, Robert, Rafael, Fazal, Hector, Carol, and Eddie!
+
 [hadley]: https://www.youtube.com/watch?v=cpbtcsGE0OA
 
 [discussion]: https://github.com/ericmjl/essays-on-data-science/discussions
