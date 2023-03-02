@@ -404,7 +404,6 @@ VSCode has the ability [to open any repository inside a "development container"]
 I've test-driven this on some projects that I work on,
 including `pyjanitor`, notes on causal inference, Network Analysis Made Simple, and more.
 
-
 ### Which Integrated Development Environment (IDE) and/or text editor should I use?
 
 Which IDE/text editor you use is personal, but the general idea here is to “learn one really well, and be dangerous enough with 2-3 more.” Here’s a partial list you can think about:
