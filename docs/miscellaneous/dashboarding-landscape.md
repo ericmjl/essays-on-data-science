@@ -1,5 +1,10 @@
 # A Review of the Python Data Science Dashboarding Landscape in 2019
 
+???+ note
+
+    There is an updated essay by Sophia Yang that I would highly recommend checking out!
+    Please find it [here](https://towardsdatascience.com/python-dashboarding-ecosystem-and-landscape-cc055b50c668).
+
 ## Introduction
 
 As Pythonista data scientists,
