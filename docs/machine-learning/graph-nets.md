@@ -65,14 +65,14 @@ and four hydrogens joined in the following fashion:
 ![](./graph-nets-figures/fig2-ethanoic-acid.png)
 
 Each atom is a node, and edges are bonds between the atoms.
-Each atom, or node, carries *properties* or *features*
+Each atom, or node, carries _properties_ or _features_
 which can be represented on the array.
 For example, there's the atomic mass
 (a floating point number, or integer if you desire to round it off).
 There's the valence of the atom as well.
 And many more!
 To keep things simple, I'll stick to just these two for now.
-As you can see, you'll end up with a *vector of features* per node.
+As you can see, you'll end up with a _vector of features_ per node.
 If we stack them up together,
 we get what we call a node feature matrix, which will become handy later.
 
@@ -92,13 +92,13 @@ It'll look something like this:
 If we wanted to, though, we could get really granular!
 We could have on adjacency matrix that shows us all of the single bonds,
 and another adjacency matrix that shows all of the double bonds.
-Or we could have an adjacency matrix that is *weighted*
+Or we could have an adjacency matrix that is _weighted_
 based on the number of bonds between two atoms.
 
 ![](./graph-nets-figures/fig5-ethanoic-acid-weighted-adjacency.png)
 
-Those are all *perfectly valid representations* of the edges of a graph,
-each with their own semantic meaning *and* tradeoffs
+Those are all _perfectly valid representations_ of the edges of a graph,
+each with their own semantic meaning _and_ tradeoffs
 for whatever modelling problem you might have.
 
 ## Message Passing
@@ -199,7 +199,7 @@ We know that neural networks are composed of chains of math functions.
 Feed forward neural networks chain together dot products;
 convolutional neural networks add in n-dimensional convolutions in the mix;
 meanwhile, recurrent neural networks have lag as part of its structure.
-Each of these provide *inductive biases*.
+Each of these provide _inductive biases_.
 By the way, that term, in my opinion,
 is nothing more than a fancy way of saying that
 we encode prior knowledge of our data generating process
@@ -288,9 +288,9 @@ Here's the framework I use to remember how GNNs work:
 3. Feed forward networks to predict output.
 
 In the broader machine learning framework of "model, loss, optimizer",
-all we've worked on here is to design a *model*
+all we've worked on here is to design a _model_
 that fits the kind of data that we have.
-You get to keep constant the *loss* and the *optimizer*.
+You get to keep constant the _loss_ and the _optimizer_.
 Keep this framework memorized,
 and use MPNNs as the anchoring minimally complex example,
 and everything else we discuss coming will become crystal clear!
@@ -326,7 +326,7 @@ of this category of graph matrices.
 What about graph attention networks, then?
 Well, we know that the attention mechanism
 is nothing more than an operation that uses
-a neural network inside a neural network to learn weights of *some* kind.
+a neural network inside a neural network to learn weights of _some_ kind.
 With graph attention networks,
 we use an embedded neural network to learn
 a per-graph adjacency-like matrix operator
@@ -426,7 +426,7 @@ and our desired output is a label (or a suite of labels)
 that need to be annotated on nodes.
 Some of the nodes have labels while others don't;
 message passing could be handy here
-because it encodes the *homophily* assumption -
+because it encodes the _homophily_ assumption -
 that is, for problems where we expect
 that similar things will be linked together,
 we can encode this inductive bias into our models
