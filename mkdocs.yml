@@ -22,6 +22,7 @@ nav:
       - Differential Computing Explained: machine-learning/differential-computing-jax.md
       - Infinitely Wide Neural Networks: machine-learning/nngp.md
       - An Attempt at Demystifying Graph Deep Learning: machine-learning/graph-nets.md
+      - A Developer-First Guide to LLM APIs: machine-learning/llm-dev-guide.md
   - Miscellaneous:
       - A Review of the Python Data Science Dashboarding Landscape in 2019: miscellaneous/dashboarding-landscape.md
       - How I Learned to Learn: miscellaneous/learning-to-learn.md
