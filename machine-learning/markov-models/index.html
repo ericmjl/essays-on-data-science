@@ -1,0 +1,2871 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../computational-bayesian-stats/">
+      
+      
+        <link rel="next" href="../generating-markov-chains-dirichlet/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.8">
+    
+    
+      
+        <title>Markov Models From The Bottom Up, with Python - Essays on Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#markov-models-from-the-bottom-up-with-python" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Essays on Data Science" class="md-header__button md-logo" aria-label="Essays on Data Science" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Essays on Data Science
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Markov Models From The Bottom Up, with Python
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ericmjl/essays-on-data-science" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ericmjl/essays-on-data-science
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Essays on Data Science" class="md-nav__button md-logo" aria-label="Essays on Data Science" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Essays on Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ericmjl/essays-on-data-science" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ericmjl/essays-on-data-science
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Computing
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Computing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../computing/recursion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Recursion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../computational-bayesian-stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Introduction to Probability and Computational Bayesian Statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Markov Models From The Bottom Up, with Python
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Markov Models From The Bottom Up, with Python
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#markov-models-what-they-are-with-mostly-plain-english-and-some-math" class="md-nav__link">
+    Markov Models: What they are, with mostly plain English and some math
+  </a>
+  
+    <nav class="md-nav" aria-label="Markov Models: What they are, with mostly plain English and some math">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initializing-a-markov-chain" class="md-nav__link">
+    Initializing a Markov chain
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelling-transitions-between-states" class="md-nav__link">
+    Modelling transitions between states
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equilibrium-or-stationary-distribution" class="md-nav__link">
+    Equilibrium or Stationary Distribution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-markov-sequence" class="md-nav__link">
+    Generating a Markov Sequence
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emissions-when-markov-chains-not-only-produce-states-but-also-observable-data" class="md-nav__link">
+    Emissions: When Markov chains not only produce "states", but also observable data
+  </a>
+  
+    <nav class="md-nav" aria-label="Emissions: When Markov chains not only produce "states", but also observable data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gaussian-emissions-when-markov-chains-emit-gaussian-distributed-data" class="md-nav__link">
+    Gaussian Emissions: When Markov chains emit Gaussian-distributed data.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emission-distributions-can-be-any-valid-distribution" class="md-nav__link">
+    Emission Distributions can be any valid distribution!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoregressive-emissions" class="md-nav__link">
+    Autoregressive Emissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heteroskedastic-autoregressive-emissions" class="md-nav__link">
+    Heteroskedastic Autoregressive Emissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-the-autoregressive-coefficient-kk-affect-the-markov-chain-emissions" class="md-nav__link">
+    How does the autoregressive coefficient kk affect the Markov chain emissions?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homoskedastic-autoregressive-emissions" class="md-nav__link">
+    Homoskedastic Autoregressive Emissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-autoregressive-homoskedastic-emissions" class="md-nav__link">
+    Non-Autoregressive Homoskedastic Emissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-framework" class="md-nav__link">
+    The Framework
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bayesian-inference-on-markov-models" class="md-nav__link">
+    Bayesian Inference on Markov Models
+  </a>
+  
+    <nav class="md-nav" aria-label="Bayesian Inference on Markov Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#markov-chain-log-likelihood-calculation" class="md-nav__link">
+    Markov Chain Log-Likelihood Calculation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markov-chain-with-gaussian-emissions-log-likelihood-calculation" class="md-nav__link">
+    Markov Chain with Gaussian Emissions Log-Likelihood Calculation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markov-chain-with-autoregressive-gaussian-emissions-log-likelihood-calculation" class="md-nav__link">
+    Markov Chain with Autoregressive Gaussian Emissions Log-Likelihood Calculation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hmm-distributions-in-pymc3" class="md-nav__link">
+    HMM Distributions in PyMC3
+  </a>
+  
+    <nav class="md-nav" aria-label="HMM Distributions in PyMC3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hmm-states-distribution" class="md-nav__link">
+    HMM States Distribution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmm-with-gaussian-emissions" class="md-nav__link">
+    HMM with Gaussian Emissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoregressive-hmms-with-gaussian-emissions" class="md-nav__link">
+    Autoregressive HMMs with Gaussian Emissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-notes" class="md-nav__link">
+    Concluding Notes
+  </a>
+  
+    <nav class="md-nav" aria-label="Concluding Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nothing-in-statistics-makes-sense" class="md-nav__link">
+    Nothing in statistics makes sense...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-structure-is-important" class="md-nav__link">
+    Model structure is important
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keep-learning" class="md-nav__link">
+    Keep learning
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    Acknowledgements
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generating-markov-chains-dirichlet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dirichlet Processes and Hidden Markov Model Transition Matrices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../message-passing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Computational Representations of Message Passing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reimplementing-models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimplementing and Testing Deep Learning Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../differential-computing-jax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Differential Computing Explained
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nngp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infinitely Wide Neural Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph-nets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Attempt at Demystifying Graph Deep Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-dev-guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Developer-First Guide to LLM APIs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/dashboarding-landscape/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Review of the Python Data Science Dashboarding Landscape in 2019
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/learning-to-learn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How I Learned to Learn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/pydata-landscape/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Opinionated and Unofficial Guide to the PyData Ecosystem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/static-sites-on-dokku/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Static Sites and Apps On Your Own Dokku Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/code-style-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Style Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Software Skills
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Software Skills
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/code-formatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formatting your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documenting your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/environment-variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Data Scientist's Guide to Environment Variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/refactoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Refactoring your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    People Skills
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            People Skills
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../people-skills/hiring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hiring and Interviewing Data Scientists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Terminal Hacks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Terminal Hacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminal/cli-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Upgrades for your CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminal/pre-commits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using pre-commit git hooks to automate code checks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Workflow
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/code-review/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practicing Code Review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/effective-commit-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Effective Git Commits in Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/gitflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Principled Git-based Workflow in Collaborative Data Science Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../supporters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supporters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#markov-models-what-they-are-with-mostly-plain-english-and-some-math" class="md-nav__link">
+    Markov Models: What they are, with mostly plain English and some math
+  </a>
+  
+    <nav class="md-nav" aria-label="Markov Models: What they are, with mostly plain English and some math">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initializing-a-markov-chain" class="md-nav__link">
+    Initializing a Markov chain
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modelling-transitions-between-states" class="md-nav__link">
+    Modelling transitions between states
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#equilibrium-or-stationary-distribution" class="md-nav__link">
+    Equilibrium or Stationary Distribution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generating-a-markov-sequence" class="md-nav__link">
+    Generating a Markov Sequence
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#emissions-when-markov-chains-not-only-produce-states-but-also-observable-data" class="md-nav__link">
+    Emissions: When Markov chains not only produce "states", but also observable data
+  </a>
+  
+    <nav class="md-nav" aria-label="Emissions: When Markov chains not only produce "states", but also observable data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gaussian-emissions-when-markov-chains-emit-gaussian-distributed-data" class="md-nav__link">
+    Gaussian Emissions: When Markov chains emit Gaussian-distributed data.
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emission-distributions-can-be-any-valid-distribution" class="md-nav__link">
+    Emission Distributions can be any valid distribution!
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoregressive-emissions" class="md-nav__link">
+    Autoregressive Emissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#heteroskedastic-autoregressive-emissions" class="md-nav__link">
+    Heteroskedastic Autoregressive Emissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-the-autoregressive-coefficient-kk-affect-the-markov-chain-emissions" class="md-nav__link">
+    How does the autoregressive coefficient kk affect the Markov chain emissions?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#homoskedastic-autoregressive-emissions" class="md-nav__link">
+    Homoskedastic Autoregressive Emissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-autoregressive-homoskedastic-emissions" class="md-nav__link">
+    Non-Autoregressive Homoskedastic Emissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-framework" class="md-nav__link">
+    The Framework
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bayesian-inference-on-markov-models" class="md-nav__link">
+    Bayesian Inference on Markov Models
+  </a>
+  
+    <nav class="md-nav" aria-label="Bayesian Inference on Markov Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#markov-chain-log-likelihood-calculation" class="md-nav__link">
+    Markov Chain Log-Likelihood Calculation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markov-chain-with-gaussian-emissions-log-likelihood-calculation" class="md-nav__link">
+    Markov Chain with Gaussian Emissions Log-Likelihood Calculation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markov-chain-with-autoregressive-gaussian-emissions-log-likelihood-calculation" class="md-nav__link">
+    Markov Chain with Autoregressive Gaussian Emissions Log-Likelihood Calculation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hmm-distributions-in-pymc3" class="md-nav__link">
+    HMM Distributions in PyMC3
+  </a>
+  
+    <nav class="md-nav" aria-label="HMM Distributions in PyMC3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hmm-states-distribution" class="md-nav__link">
+    HMM States Distribution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hmm-with-gaussian-emissions" class="md-nav__link">
+    HMM with Gaussian Emissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#autoregressive-hmms-with-gaussian-emissions" class="md-nav__link">
+    Autoregressive HMMs with Gaussian Emissions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concluding-notes" class="md-nav__link">
+    Concluding Notes
+  </a>
+  
+    <nav class="md-nav" aria-label="Concluding Notes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nothing-in-statistics-makes-sense" class="md-nav__link">
+    Nothing in statistics makes sense...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-structure-is-important" class="md-nav__link">
+    Model structure is important
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#keep-learning" class="md-nav__link">
+    Keep learning
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgements" class="md-nav__link">
+    Acknowledgements
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">load_ext</span> <span class="n">autoreload</span>
+<span class="o">%</span><span class="n">autoreload</span> <span class="mi">2</span>
+<span class="o">%</span><span class="n">config</span> <span class="n">InlineBackend</span><span class="o">.</span><span class="n">figure_format</span> <span class="o">=</span> <span class="s1">&#39;retina&#39;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+</code></pre></div>
+<h1 id="markov-models-from-the-bottom-up-with-python">Markov Models From The Bottom Up, with Python</h1>
+<p>Markov models are a useful class of models for sequential-type of data.
+Before recurrent neural networks (which can be thought of as an upgraded Markov model) came along,
+Markov Models and their variants were <em>the in thing</em> for processing time series and biological data.</p>
+<p>Just recently, I was involved in a project with a colleague, Zach Barry,
+where we thought the use of autoregressive hidden Markov models (AR-HMMs) might be a useful thing.
+Apart from our hack session one afternoon, it set off a series of self-study that culminated in this essay.
+By writing this down for my own memory, my hope is that it gives you a resource to refer back to as well.</p>
+<p>You'll notice that I don't talk about inference (i.e. inferring parameters from data) until the end: this is intentional.
+As I've learned over the years doing statistical modelling and machine learning,
+nothing makes sense without first becoming deeply familiar with the "generative" story of each model,
+i.e. the algorithmic steps that let us generate data.
+It's a very Bayesian-influenced way of thinking that I hope you will become familiar with too.</p>
+<h2 id="markov-models-what-they-are-with-mostly-plain-english-and-some-math">Markov Models: What they are, with mostly plain English and some math</h2>
+<p>The simplest Markov models assume that we have a <em>system</em> that contains a finite set of states,
+and that the <em>system</em> transitions between these states with some probability at each time step <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span>,
+thus generating a sequence of states over time.
+Let's call these states <span class="arithmatex"><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span>, where</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">S = \{s_1, s_2, ..., s_n\}</div>
+<script type="math/tex; mode=display">S = \{s_1, s_2, ..., s_n\}</script>
+</div>
+<p>To keep things simple, let's start with three states:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">S = \{s_1, s_2, s_3\}</div>
+<script type="math/tex; mode=display">S = \{s_1, s_2, s_3\}</script>
+</div>
+<p>A Markov model generates a sequence of states, with one possible realization being:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">\{s_1, s_1, s_1, s_3, s_3, s_3, s_2, s_2, s_3, s_3, s_3, s_3, s_1, ...\}</div>
+<script type="math/tex; mode=display">\{s_1, s_1, s_1, s_3, s_3, s_3, s_2, s_2, s_3, s_3, s_3, s_3, s_1, ...\}</script>
+</div>
+<p>And generically, we represent it as a sequence of states <span class="arithmatex"><span class="MathJax_Preview">x_t, x_{t+1}... x_{t+n}</span><script type="math/tex">x_t, x_{t+1}... x_{t+n}</script></span>. (We have chosen a different symbol to not confuse the "generic" state with the specific realization. Graphically, a plain and simple Markov model looks like the following:</p>
+<p><img alt="" src="../markov-models-figures/01-markov-chain-example.png" /></p>
+<h3 id="initializing-a-markov-chain">Initializing a Markov chain</h3>
+<p>Every Markov chain needs to be initialized.
+To do so, we need an <strong>initial state probability vector</strong>,
+which tells us what the distribution of initial states will be.
+Let's call the vector <span class="arithmatex"><span class="MathJax_Preview">p_S</span><script type="math/tex">p_S</script></span>, where the subscript <span class="arithmatex"><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span> indicates that it is for the "states".</p>
+<div class="arithmatex">
+<div class="MathJax_Preview"> p_{init} =
+\begin{pmatrix} p_1 &amp; p_2 &amp; p_3
+\end{pmatrix}
+</div>
+<script type="math/tex; mode=display"> p_{init} =
+\begin{pmatrix} p_1 & p_2 & p_3
+\end{pmatrix}
+</script>
+</div>
+<p>Semantically, they allocate the probabilities of starting the sequence at a given state.
+For example, we might assume a discrete uniform distribution, which in Python would look like:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">p_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mf">3.</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mf">3.</span><span class="p">])</span>
+</code></pre></div>
+<p>Alternatively, we might assume a fixed starting point, which can be expressed as the <span class="arithmatex"><span class="MathJax_Preview">p_S</span><script type="math/tex">p_S</script></span> array:</p>
+<div class="highlight"><pre><span></span><code><span class="n">p_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+</code></pre></div>
+<p>Alternatively, we might assign non-zero probabilities to each in a non-uniform fashion:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># State 0: 0.1 probability</span>
+<span class="c1"># State 1: 0.8 probability</span>
+<span class="c1"># State 2: 0.1 probability</span>
+<span class="n">p_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+</code></pre></div>
+<p>Finally, we might assume that the system was long-running before we started observing the sequence of states,
+and as such the initial state was drawn as one realization of some equilibrated distribution of states.
+Keep this idea in your head, as we'll need it later.</p>
+<p>For now, just to keep things concrete,
+let's specify an initial distribution as a non-uniform probability vector.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">p_init</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+</code></pre></div>
+<h3 id="modelling-transitions-between-states">Modelling transitions between states</h3>
+<p>To know how a system transitions between states, we now need a <strong>transition matrix</strong>.
+The transition matrix describes the probability of transitioning from one state to another.
+(The probability of staying in the same state is semantically equivalent to transitioning to the same state.)</p>
+<p>By convention, transition matrix rows correspond to the state at time <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span>,
+while columns correspond to state at time <span class="arithmatex"><span class="MathJax_Preview">t+1</span><script type="math/tex">t+1</script></span>.
+Hence, row probabilities sum to one,
+because the probability of transitioning to the next state depends on only the current state,
+and all possible states are known and enumerated.</p>
+<p>Let's call the transition matrix <span class="arithmatex"><span class="MathJax_Preview">P_{transition}</span><script type="math/tex">P_{transition}</script></span>.
+The symbol etymology, which usually gets swept under the rug in mathematically-oriented papers, are as follows:</p>
+<ul>
+<li><span class="arithmatex"><span class="MathJax_Preview">transition</span><script type="math/tex">transition</script></span> doesn't refer to time but simply indicates that it is for transitioning states,</li>
+<li><span class="arithmatex"><span class="MathJax_Preview">P</span><script type="math/tex">P</script></span> is used because it is a probability matrix.</li>
+</ul>
+<div class="arithmatex">
+<div class="MathJax_Preview"> P_{transition} =
+\begin{pmatrix}
+    p_{11} &amp; p_{12} &amp; p_{13}\\
+    p_{21} &amp; p_{22} &amp; p_{23}\\
+    p_{31} &amp; p_{32} &amp; p_{33}\\
+\end{pmatrix}
+</div>
+<script type="math/tex; mode=display"> P_{transition} =
+\begin{pmatrix}
+    p_{11} & p_{12} & p_{13}\\
+    p_{21} & p_{22} & p_{23}\\
+    p_{31} & p_{32} & p_{33}\\
+\end{pmatrix}
+</script>
+</div>
+<p>Using the transition matrix, we can express that the system likes to stay in the state that it enters into,
+by assigning larger probability mass to the diagonals.
+Alternatively, we can express that the system likes to transition out of states that it enters into,
+by assigning larger probability mass to the off-diagonal.</p>
+<p>Alrighty, enough with that now, let's initialize a transition matrix below.</p>
+<div class="highlight"><pre><span></span><code><span class="n">p_transition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.90</span><span class="p">,</span> <span class="mf">0.09</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">0.07</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]]</span>
+<span class="p">)</span>
+<span class="n">p_transition</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>array([[0.9 , 0.05, 0.05],
+       [0.01, 0.9 , 0.09],
+       [0.07, 0.03, 0.9 ]])
+</code></pre></div>
+
+<p>And just to confirm with you that each row sums to one:</p>
+<div class="highlight"><pre><span></span><code><span class="k">assert</span> <span class="n">p_transition</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="n">p_transition</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="k">assert</span> <span class="n">p_transition</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span>
+</code></pre></div>
+<h3 id="equilibrium-or-stationary-distribution">Equilibrium or Stationary Distribution</h3>
+<p>Now, do you remember how above we talked about
+the Markov chain being in some "equilibrated" state?
+Well, the stationary or equilibrium distribution of a Markov chain
+is the distribution of observed states at infinite time.</p>
+<p>An interesting property is that regardless of what the initial state is,
+the equilibrium distribution will always be the same,
+as the equilibrium distribution only depends on the transition matrix.</p>
+<p>Here's how to think about the equilibrium:
+if you were to imagine instantiating a thousand Markov chains
+using the initial distribution</p>
+<div class="arithmatex">
+<div class="MathJax_Preview"> p_{init} =
+\begin{pmatrix} 0.1 &amp; 0.8 &amp; 0.1
+\end{pmatrix}
+</div>
+<script type="math/tex; mode=display"> p_{init} =
+\begin{pmatrix} 0.1 & 0.8 & 0.1
+\end{pmatrix}
+</script>
+</div>
+<ul>
+<li>10% would start out in state 1</li>
+<li>80% would start out in state 2</li>
+<li>10% would start out in state 3</li>
+</ul>
+<p>However, if you ran each of the systems to a large number of time steps
+(say, 1 million time steps, to exaggerate the point)
+then how the states were distributed initially wouldn't matter,
+as how they transition from time step to time step
+begins to dominate.</p>
+<p>We could simulate this explicitly in Python,
+but as it turns out, there is a mathematical shortcut
+that involves simple dot products.
+Let's check it out.</p>
+<p>Assume we have an initial state and a transition matrix.
+We're going to reuse <code>p_init</code> from above, but use a different <code>p_transition</code>
+to make the equilibrium distribution values distinct.
+This will make it easier for us to plot later.</p>
+<div class="highlight"><pre><span></span><code><span class="n">p_transition_example</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mf">0.6</span><span class="p">,</span>  <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span>  <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]]</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>To simulate the distribution of states in the next time step,
+we take the initial distribution <code>p_init</code>
+and matrix multiply it against the transition matrix.</p>
+<div class="highlight"><pre><span></span><code><span class="n">p_next</span> <span class="o">=</span> <span class="n">p_init</span> <span class="o">@</span> <span class="n">p_transition_example</span>
+<span class="n">p_next</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>array([0.11, 0.76, 0.13])
+</code></pre></div>
+
+<p>We can do it again to simulate the distribution of states in the <em>next</em> time step after:</p>
+<div class="highlight"><pre><span></span><code><span class="n">p_next</span> <span class="o">=</span> <span class="n">p_next</span> <span class="o">@</span> <span class="n">p_transition_example</span>
+<span class="n">p_next</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>array([0.117, 0.732, 0.151])
+</code></pre></div>
+
+<p>Let's now write a for-loop to automate the process.</p>
+<div class="highlight"><pre><span></span><code><span class="n">p_state_t</span> <span class="o">=</span> <span class="p">[</span><span class="n">p_init</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>  <span class="c1"># 200 time steps sorta, kinda, approximates infinite time :)</span>
+    <span class="n">p_state_t</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p_state_t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">@</span> <span class="n">p_transition_example</span><span class="p">)</span>
+</code></pre></div>
+<p>To make it easier for you to see what we've generated, let's make the <code>p_state_t</code> list into a pandas DataFrame.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">state_distributions</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">p_state_t</span><span class="p">)</span>
+<span class="n">state_distributions</span>
+</code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.100000</td>
+      <td>0.800000</td>
+      <td>0.10000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.110000</td>
+      <td>0.760000</td>
+      <td>0.13000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.117000</td>
+      <td>0.732000</td>
+      <td>0.15100</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.121900</td>
+      <td>0.712400</td>
+      <td>0.16570</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.125330</td>
+      <td>0.698680</td>
+      <td>0.17599</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>196</th>
+      <td>0.133333</td>
+      <td>0.666667</td>
+      <td>0.20000</td>
+    </tr>
+    <tr>
+      <th>197</th>
+      <td>0.133333</td>
+      <td>0.666667</td>
+      <td>0.20000</td>
+    </tr>
+    <tr>
+      <th>198</th>
+      <td>0.133333</td>
+      <td>0.666667</td>
+      <td>0.20000</td>
+    </tr>
+    <tr>
+      <th>199</th>
+      <td>0.133333</td>
+      <td>0.666667</td>
+      <td>0.20000</td>
+    </tr>
+    <tr>
+      <th>200</th>
+      <td>0.133333</td>
+      <td>0.666667</td>
+      <td>0.20000</td>
+    </tr>
+  </tbody>
+</table>
+<p>201 rows × 3 columns</p>
+</div>
+
+<p>Now, let's plot what the distributions look like.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">state_distributions</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_20_0.png" /></p>
+<p>If you're viewing this notebook on <a href="https://mybinder.org/v2/gh/ericmjl/bayesian-analysis-recipes/master">Binder</a> or locally, go ahead and modify the initial state to convince yourself that it doesn't matter what the initial state will be: the equilibrium state distribution, which is the fraction of time the Markov chain is in that state over infinite time, will always be the same as long as the transition matrix stays the same.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">p_state_t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>[0.13333333 0.66666667 0.2       ]
+</code></pre></div>
+
+<p>As it turns out, there's also a way to solve for the equilibrium distribution analytically from the transition matrix. This involves solving a linear algebra problem, which we can do using Python. (Credit goes to <a href="https://towardsdatascience.com/markov-chain-analysis-and-simulation-using-python-4507cee0b06e">this blog post</a> from which I modified the code to fit the variable naming here.)</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">equilibrium_distribution</span><span class="p">(</span><span class="n">p_transition</span><span class="p">):</span>
+    <span class="n">n_states</span> <span class="o">=</span> <span class="n">p_transition</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">arr</span><span class="o">=</span><span class="n">p_transition</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_states</span><span class="p">),</span>
+        <span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_states</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_states</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="n">p_eq</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">),</span>
+        <span class="n">b</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">p_eq</span>
+
+<span class="c1"># alternative</span>
+<span class="k">def</span> <span class="nf">equilibrium_distribution</span><span class="p">(</span><span class="n">p_transition</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This implementation comes from Colin Carroll, who kindly reviewed the notebook&quot;&quot;&quot;</span>
+    <span class="n">n_states</span> <span class="o">=</span> <span class="n">p_transition</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="n">arr</span><span class="o">=</span><span class="n">p_transition</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_states</span><span class="p">),</span>
+        <span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n_states</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+    <span class="c1"># Moore-Penrose pseudoinverse = (A^TA)^{-1}A^T</span>
+    <span class="n">pinv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">pinv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="c1"># Return last row</span>
+    <span class="k">return</span> <span class="n">pinv</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">equilibrium_distribution</span><span class="p">(</span><span class="n">p_transition_example</span><span class="p">))</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>[0.13333333 0.66666667 0.2       ]
+</code></pre></div>
+
+<h3 id="generating-a-markov-sequence">Generating a Markov Sequence</h3>
+<p>Generating a Markov sequence means we "forward" simulate the chain by:</p>
+<p>(1) Optionally drawing an initial state from <span class="arithmatex"><span class="MathJax_Preview">p_S</span><script type="math/tex">p_S</script></span> (let's call that <span class="arithmatex"><span class="MathJax_Preview">s_{t}</span><script type="math/tex">s_{t}</script></span>). This is done by drawing from a <strong>multinomial</strong> distribution:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">s_t \sim Multinomial(1, p_S)</div>
+<script type="math/tex; mode=display">s_t \sim Multinomial(1, p_S)</script>
+</div>
+<p>If we assume (and keep in mind that we don't have to) that the system was equilibrated before we started observing its state sequence,
+then the initial state distribution is equivalent to the equilibrium distribution.
+All this means that we don't necessarily have to specify the initial distribution explicitly.</p>
+<p>(2) Drawing the next state by indexing into the transition matrix <span class="arithmatex"><span class="MathJax_Preview">p_T</span><script type="math/tex">p_T</script></span>, and drawing a new state based on the Multinomial distribution:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">s_{t+1} \sim Multinomial(1, p_{T_i})</div>
+<script type="math/tex; mode=display">s_{t+1} \sim Multinomial(1, p_{T_i})</script>
+</div>
+<p>where <span class="arithmatex"><span class="MathJax_Preview">i</span><script type="math/tex">i</script></span> is the index of the state.</p>
+<p>I previously wrote about <a href="https://ericmjl.github.io/essays-on-data-science/machine-learning/computational-bayesian-stats/">what probability distributions are</a>,
+leveraging the SciPy probability distributions library.
+We're going to use that extensively here,
+as opposed to NumPy's <code>random</code> module,
+so that we can practice getting familiar
+with probability distributions as objects.
+In Python code:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">multinomial</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="k">def</span> <span class="nf">markov_sequence</span><span class="p">(</span><span class="n">p_init</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">sequence_length</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a Markov sequence based on p_init and p_transition.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">p_init</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">p_init</span> <span class="o">=</span> <span class="n">equilibrium_distribution</span><span class="p">(</span><span class="n">p_transition</span><span class="p">)</span>
+    <span class="n">initial_state</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">multinomial</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">p_init</span><span class="p">))</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">initial_state</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sequence_length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">p_tr</span> <span class="o">=</span> <span class="n">p_transition</span><span class="p">[</span><span class="n">states</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="n">new_state</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">multinomial</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">p_tr</span><span class="p">))</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">states</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_state</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">states</span>
+</code></pre></div>
+<p>With this function in hand, let's generate a sequence of length 1000.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">states</span> <span class="o">=</span> <span class="n">markov_sequence</span><span class="p">(</span><span class="n">p_init</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">,</span> <span class="n">sequence_length</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time step&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;state&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_28_0.png" /></p>
+<p>As is pretty evident from the transition probabilities, once this Markov chain enters a state, it tends to maintain its current state rather than transitioning between states.</p>
+<p>If you've opened up this notebook in <a href="https://mybinder.org/v2/gh/ericmjl/bayesian-analysis-recipes/master">Binder</a> or locally, feel free to modify the transition probabilities and initial state probabilities above to see how the Markov sequence changes.</p>
+<p>If a "Markov sequence" feels abstract at this point, one example to help you anchor your understanding would be human motion. The three states can be "stationary", "walking", and "running". We transition between the three states with some probability throughout the day, moving from "stationary" (sitting at my desk) to "walking" (to get water) to "stationary" (because I'm pouring water), to "walking" (out the door) to finally "running" (for exercise).</p>
+<h2 id="emissions-when-markov-chains-not-only-produce-states-but-also-observable-data">Emissions: When Markov chains not only produce "states", but also observable data</h2>
+<p>So as you've seen above, a Markov chain can produce "states". If we are given direct access to the "states", then a problem that we may have is inferring the transition probabilities given the states.</p>
+<p>A more common scenario, however, is that the states are <strong>latent</strong>, i.e. we cannot directly observe them. Instead, the latent states generate data that are given by some distribution conditioned on the state. We call these <strong>Hidden Markov Models</strong>.</p>
+<p>That all sounds abstract, so let's try to make it more concrete.</p>
+<h3 id="gaussian-emissions-when-markov-chains-emit-gaussian-distributed-data">Gaussian Emissions: When Markov chains emit Gaussian-distributed data.</h3>
+<p>With a three state model, we might say that the emissions are Gaussian distributed, but the location (<span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span>) and scale (<span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span>) vary based on which state we are in. In the simplest case:</p>
+<ol>
+<li>State 1 gives us data <span class="arithmatex"><span class="MathJax_Preview">y_1 \sim N(\mu=1, \sigma=0.2)</span><script type="math/tex">y_1 \sim N(\mu=1, \sigma=0.2)</script></span></li>
+<li>State 2 gives us data <span class="arithmatex"><span class="MathJax_Preview">y_2 \sim N(\mu=0, \sigma=0.5)</span><script type="math/tex">y_2 \sim N(\mu=0, \sigma=0.5)</script></span></li>
+<li>State 3 gives us data <span class="arithmatex"><span class="MathJax_Preview">y_3 \sim N(\mu=-1, \sigma=0.1)</span><script type="math/tex">y_3 \sim N(\mu=-1, \sigma=0.1)</script></span></li>
+</ol>
+<p>In terms of a graphical model, it would look something like this:</p>
+<p><img alt="" src="../markov-models-figures/02-gaussian-emissions.png" /></p>
+<p>Turns out, we can model this in Python code too!</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+
+<span class="k">def</span> <span class="nf">gaussian_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">mus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">sigmas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+        <span class="n">loc</span> <span class="o">=</span> <span class="n">mus</span><span class="p">[</span><span class="n">state</span><span class="p">]</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">sigmas</span><span class="p">[</span><span class="n">state</span><span class="p">]</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+        <span class="n">emissions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">emissions</span>
+</code></pre></div>
+<p>Let's see what the emissions look like.</p>
+<div class="highlight"><pre><span></span><code><span class="n">gaussian_ems</span> <span class="o">=</span> <span class="n">gaussian_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">mus</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">sigmas</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">emissions</span><span class="p">):</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;States&quot;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">emissions</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Emissions&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">();</span>
+
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">gaussian_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_33_0.png" /></p>
+<h3 id="emission-distributions-can-be-any-valid-distribution">Emission Distributions can be any valid distribution!</h3>
+<p>Nobody said we have to use Gaussian distributions for emissions; we can, in fact, have a ton of fun and start simulating data using other distributions!</p>
+<p>Let's try Poisson emissions. Here, then, the poisson rate <span class="arithmatex"><span class="MathJax_Preview">\lambda</span><script type="math/tex">\lambda</script></span> is given one per state. In our example below:</p>
+<ol>
+<li>State 1 gives us data <span class="arithmatex"><span class="MathJax_Preview">y_1 \sim Pois(\lambda=1)</span><script type="math/tex">y_1 \sim Pois(\lambda=1)</script></span></li>
+<li>State 2 gives us data <span class="arithmatex"><span class="MathJax_Preview">y_2 \sim Pois(\lambda=10)</span><script type="math/tex">y_2 \sim Pois(\lambda=10)</script></span></li>
+<li>State 3 gives us data <span class="arithmatex"><span class="MathJax_Preview">y_3 \sim Pois(\lambda=50)</span><script type="math/tex">y_3 \sim Pois(\lambda=50)</script></span></li>
+</ol>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">poisson</span>
+<span class="k">def</span> <span class="nf">poisson_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">lam</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+        <span class="n">rate</span> <span class="o">=</span> <span class="n">lam</span><span class="p">[</span><span class="n">state</span><span class="p">]</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">poisson</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span>
+        <span class="n">emissions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">emissions</span>
+</code></pre></div>
+<p>Once again, let's observe the emissions:</p>
+<div class="highlight"><pre><span></span><code><span class="n">poisson_ems</span> <span class="o">=</span> <span class="n">poisson_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">poisson_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_37_0.png" /></p>
+<p>Hope the point is made:
+Take your favourite distribution
+and use it as the emission distribution,
+as long as it can serve as a useful model
+for the data that you observe!</p>
+<h3 id="autoregressive-emissions">Autoregressive Emissions</h3>
+<p>Autoregressive emissions make things even more interesting and flexible!
+They show up, for example,
+when we're trying to model "motion states" of people or animals:
+that's because people and animals don't <em>abruptly</em>
+change from one state to another,
+but gradually transition in.</p>
+<p>The "autoregressive" component thus helps us model that
+the emission value does not only depend on the current state, but also on previous state(s),
+which is what motion data, for example, might look like.</p>
+<p>How, though, can we enforce this dependency structure? Well, as implied by the term "structure", it means we have some set of equations that relate the parameters of the emission distribution to the value of the previous emission.</p>
+<p>In terms of a generic graphical model, it is represented as follows:</p>
+<p><img alt="" src="../markov-models-figures/03-autoregressive-emissions.png" /></p>
+<h3 id="heteroskedastic-autoregressive-emissions">Heteroskedastic Autoregressive Emissions</h3>
+<p>Here's a "simple complex" example, where the location <span class="arithmatex"><span class="MathJax_Preview">\mu_t</span><script type="math/tex">\mu_t</script></span> of the emission distribution at time <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span> depends on <span class="arithmatex"><span class="MathJax_Preview">y_{t-1}</span><script type="math/tex">y_{t-1}</script></span>, and the scale <span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span> depends only on the current state <span class="arithmatex"><span class="MathJax_Preview">s_t</span><script type="math/tex">s_t</script></span>.</p>
+<p>A place where this model might be useful is when we believe that
+noise is the only thing that depends on state,
+while the location follows a random walk.
+(Stock markets might be an applicable place for this.)</p>
+<p>In probabilistic notation:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">y_t \sim N(\mu=k y_{t-1}, \sigma=\sigma_{s_t})</div>
+<script type="math/tex; mode=display">y_t \sim N(\mu=k y_{t-1}, \sigma=\sigma_{s_t})</script>
+</div>
+<p>Here, <span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span> is a multiplicative autoregressive coefficient that scales how the previous emission affects the location <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> of the current emission. We might also assume that the initial location <span class="arithmatex"><span class="MathJax_Preview">\mu=0</span><script type="math/tex">\mu=0</script></span>. Because the scale <span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span> varies with state, the emissions are called <strong>heteroskedastic</strong>, which means "of non-constant variance". In the example below:</p>
+<ol>
+<li>State 1 gives us <span class="arithmatex"><span class="MathJax_Preview">\sigma=0.5</span><script type="math/tex">\sigma=0.5</script></span> (kind of small variance).</li>
+<li>State 2 gives us <span class="arithmatex"><span class="MathJax_Preview">\sigma=0.1</span><script type="math/tex">\sigma=0.1</script></span> (smaller variance).</li>
+<li>State 3 gives us <span class="arithmatex"><span class="MathJax_Preview">\sigma=0.01</span><script type="math/tex">\sigma=0.01</script></span> (very small varaince).</li>
+</ol>
+<p>In Python code, we would model it this way:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ar_gaussian_heteroskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">prev_loc</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">k</span> <span class="o">*</span> <span class="n">prev_loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">sigmas</span><span class="p">[</span><span class="n">state</span><span class="p">])</span>
+        <span class="n">emissions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">prev_loc</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">emissions</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">ar_het_ems</span> <span class="o">=</span> <span class="n">ar_gaussian_heteroskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">ar_het_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_41_0.png" /></p>
+<p>Keep in mind, here, that given the way that we've defined the <strong>autoregressive heteroskedastic Gaussian HMM</strong>, it is the <strong>variance</strong> around the <em>heteroskedastic autoregressive emissions</em> that gives us information about the state, <em>not</em> the location. (To see this, notice how every time the system enters into state 2, the chain stops bouncing around much.)</p>
+<p>Contrast that against vanilla Gaussian emissions that are non-autoregressive:</p>
+<div class="highlight"><pre><span></span><code><span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">gaussian_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_43_0.png" /></p>
+<h3 id="how-does-the-autoregressive-coefficient-kk-affect-the-markov-chain-emissions">How does the autoregressive coefficient <span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span> affect the Markov chain emissions?</h3>
+<p>As should be visible, the <strong>structure</strong> of autoregressiveness can really change how things look! What happens as <span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span> changes?</p>
+<div class="highlight"><pre><span></span><code><span class="n">ar_het_ems</span> <span class="o">=</span> <span class="n">ar_gaussian_heteroskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">ar_het_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_45_0.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="n">ar_het_ems</span> <span class="o">=</span> <span class="n">ar_gaussian_heteroskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">ar_het_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_46_0.png" /></p>
+<p>Interesting stuff! As <span class="arithmatex"><span class="MathJax_Preview">k \rightarrow 0</span><script type="math/tex">k \rightarrow 0</script></span>, we approach a Gaussian centered exactly on zero, where only the variance of the observations, rather than the collective average location of the observations, give us information about the state.</p>
+<h3 id="homoskedastic-autoregressive-emissions">Homoskedastic Autoregressive Emissions</h3>
+<p>What if we wanted instead the variance to remain the same, but desired instead that the emission location <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> gives us information about the state while still being autoregressive? Well, we can bake that into the equation structure!</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">y_t \sim N(\mu=k y_{t-1} + \mu_{s_t}, \sigma=1)</div>
+<script type="math/tex; mode=display">y_t \sim N(\mu=k y_{t-1} + \mu_{s_t}, \sigma=1)</script>
+</div>
+<p>In Python code:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ar_gaussian_homoskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">mus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">prev_loc</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">k</span> <span class="o">*</span> <span class="n">prev_loc</span> <span class="o">+</span> <span class="n">mus</span><span class="p">[</span><span class="n">state</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">emissions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">prev_loc</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">emissions</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">ar_hom_ems</span> <span class="o">=</span> <span class="n">ar_gaussian_homoskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mus</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">ar_hom_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_50_0.png" /></p>
+<p>The variance is too small relative to the scale of the data, so it looks like smooth lines.</p>
+<p>If we change <span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span>, however, we get interesting effects.</p>
+<div class="highlight"><pre><span></span><code><span class="n">ar_hom_ems</span> <span class="o">=</span> <span class="n">ar_gaussian_homoskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">mus</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">ar_hom_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_52_0.png" /></p>
+<p>Notice how we get "smoother" transitions into each state. It's less jumpy. As mentioned earlier, this is extremely useful for modelling motion activity, for example, where people move into and out of states without having jumpy-switching. (We don't go from sitting to standing to walking by jumping frames, we ease into each.)</p>
+<h3 id="non-autoregressive-homoskedastic-emissions">Non-Autoregressive Homoskedastic Emissions</h3>
+<p>With non-autoregressive homoskedastic Gaussian emissions, the mean <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> depends only on the hidden state at time <span class="arithmatex"><span class="MathJax_Preview">t</span><script type="math/tex">t</script></span>, and not on the previous hidden state or the previous emission value.</p>
+<p>In equations: <span class="arithmatex"><span class="MathJax_Preview">y_t \sim N(\mu=f(x_t), \sigma)</span><script type="math/tex">y_t \sim N(\mu=f(x_t), \sigma)</script></span>, where <span class="arithmatex"><span class="MathJax_Preview">f(x_t)</span><script type="math/tex">f(x_t)</script></span> could be a simple mapping:</p>
+<ol>
+<li>If <span class="arithmatex"><span class="MathJax_Preview">x_t = 1</span><script type="math/tex">x_t = 1</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\mu = -10</span><script type="math/tex">\mu = -10</script></span>,</li>
+<li>If <span class="arithmatex"><span class="MathJax_Preview">x_t = 2</span><script type="math/tex">x_t = 2</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\mu = 0</span><script type="math/tex">\mu = 0</script></span>,</li>
+<li>If <span class="arithmatex"><span class="MathJax_Preview">x_t = 3</span><script type="math/tex">x_t = 3</script></span>, <span class="arithmatex"><span class="MathJax_Preview">\mu = 10</span><script type="math/tex">\mu = 10</script></span>.</li>
+</ol>
+<p>What we can see here is that the mean gives us information about the state, but the scale doesn't.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">gaussian_homoskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">mus</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="n">emissions</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">prev_loc</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">states</span><span class="p">:</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">mus</span><span class="p">[</span><span class="n">state</span><span class="p">],</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">emissions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+        <span class="n">prev_loc</span> <span class="o">=</span> <span class="n">e</span>
+    <span class="k">return</span> <span class="n">emissions</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">hom_ems</span> <span class="o">=</span> <span class="n">gaussian_homoskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">mus</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">hom_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_56_0.png" /></p>
+<p>As you might intuit from looking at the equations, this is nothing more than a special case of the Heteroskedastic Gaussian Emissions example shown much earlier above.</p>
+<h2 id="the-framework">The Framework</h2>
+<p>There's the plain old <strong>Markov Model</strong>, in which we might generate a sequence of states <span class="arithmatex"><span class="MathJax_Preview">S</span><script type="math/tex">S</script></span>, which are generated from some initial distribution and transition matrix.</p>
+<div class="arithmatex">
+<div class="MathJax_Preview"> p_S =
+\begin{pmatrix} p_1 &amp; p_2 &amp; p_3
+\end{pmatrix}
+</div>
+<script type="math/tex; mode=display"> p_S =
+\begin{pmatrix} p_1 & p_2 & p_3
+\end{pmatrix}
+</script>
+</div>
+<div class="arithmatex">
+<div class="MathJax_Preview"> p_T =
+\begin{pmatrix}
+    p_{11} &amp; p_{12} &amp; p_{13}\\
+    p_{21} &amp; p_{22} &amp; p_{23}\\
+    p_{31} &amp; p_{32} &amp; p_{33}\\
+\end{pmatrix}
+</div>
+<script type="math/tex; mode=display"> p_T =
+\begin{pmatrix}
+    p_{11} & p_{12} & p_{13}\\
+    p_{21} & p_{22} & p_{23}\\
+    p_{31} & p_{32} & p_{33}\\
+\end{pmatrix}
+</script>
+</div>
+<div class="arithmatex">
+<div class="MathJax_Preview">S = \{s_t, s_{t+1}, ... s_{t+n}\}</div>
+<script type="math/tex; mode=display">S = \{s_t, s_{t+1}, ... s_{t+n}\}</script>
+</div>
+<p>Graphically:</p>
+<p><img alt="" src="../markov-models-figures/01-markov-chain-example.png" /></p>
+<p>Then there's the <strong>"Hidden" Markov Model</strong>,
+in which we don't observe the states
+but rather the <em>emissions</em> generated from the states
+(according to some assumed distribution).
+Now, there's not only the initial distribution
+and transition matrix to worry about,
+but also the distribution of the emissions
+conditioned on the state.
+The general case is when we have some distribution
+e.g., the Gaussian or the Poisson or the Chi-Squared -
+whichever fits the likelihood of your data best.
+Usually, we would pick a parametric distribution
+both because of modelling convenience
+and because we think it would help us interpret our data.</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">y_t|s_t \sim Dist(\theta_{t})</div>
+<script type="math/tex; mode=display">y_t|s_t \sim Dist(\theta_{t})</script>
+</div>
+<p>Where <span class="arithmatex"><span class="MathJax_Preview">\theta_t</span><script type="math/tex">\theta_t</script></span> refers to the parameters for the generic distribution <span class="arithmatex"><span class="MathJax_Preview">Dist</span><script type="math/tex">Dist</script></span> that are indexed by the state <span class="arithmatex"><span class="MathJax_Preview">s_t</span><script type="math/tex">s_t</script></span>. (Think back to "state 1 gives me <span class="arithmatex"><span class="MathJax_Preview">N(-10, 1)</span><script type="math/tex">N(-10, 1)</script></span>, while state 2 gives me <span class="arithmatex"><span class="MathJax_Preview">N(0, 1)</span><script type="math/tex">N(0, 1)</script></span>", etc...) Your distributions probably generally come from the same family (e.g. "Gaussians"), or you can go super complicated and generate them from different distributions.</p>
+<p>Graphically:</p>
+<p><img alt="" src="../markov-models-figures/02-gaussian-emissions.png" /></p>
+<p>Here are some special cases of the general framework. Firstly, the parameters of the <em>emission distribution</em> can be held constant (i.e. simple random walks). This is equivalent to when <span class="arithmatex"><span class="MathJax_Preview">k=1</span><script type="math/tex">k=1</script></span> and neither <span class="arithmatex"><span class="MathJax_Preview">\mu</span><script type="math/tex">\mu</script></span> nor <span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span> depend on current state. In this case, we get back the Gaussian random walk, where <span class="arithmatex"><span class="MathJax_Preview">y_t \sim N(k y_{t-1}, \sigma)</span><script type="math/tex">y_t \sim N(k y_{t-1}, \sigma)</script></span>!</p>
+<p>Secondly, the distribution parameters can depend on the solely on the current state. In this case, you get back basic HMMs!</p>
+<p>If you make the variance of the likelihood distribution vary based on state, you get <strong>heteroskedastic</strong> HMMs; conversely, if you keep the variance constant, then you have <strong>homoskedastic</strong> HMMs.</p>
+<p>Moving on, there's the <strong>"Autoregressive" Hidden Markov Models</strong>, in which the emissions generated from the states have a dependence on the previous states' emissions (and hence, indirectly, on the previous state). Here, we have the ultimate amount of flexibility to model our processes.</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">y_t|s_t \sim Dist(f(y_{t-1}, \theta_t))</div>
+<script type="math/tex; mode=display">y_t|s_t \sim Dist(f(y_{t-1}, \theta_t))</script>
+</div>
+<p>Graphically:</p>
+<p><img alt="" src="../markov-models-figures/03-autoregressive-emissions.png" /></p>
+<p>To keep things simple in this essay, we've only considered the case of lag of 1 (which is where the <span class="arithmatex"><span class="MathJax_Preview">t-1</span><script type="math/tex">t-1</script></span> comes from). However, arbitrary numbers of time lags are possible too!</p>
+<p>And, as usual, you can make them homoskedastic or heteroskedastic by simply controlling the variance parameter of the <span class="arithmatex"><span class="MathJax_Preview">Dist</span><script type="math/tex">Dist</script></span> distribution.</p>
+<p>Bonus point: your data don't necessarily have to be single dimensional;
+they can be multidimensional too!
+As long as you write the <span class="arithmatex"><span class="MathJax_Preview">f(y_{t-1}, \theta_t)</span><script type="math/tex">f(y_{t-1}, \theta_t)</script></span>
+in a fashion that handles <span class="arithmatex"><span class="MathJax_Preview">y</span><script type="math/tex">y</script></span> that are multidimensional,
+you're golden!
+Moreover, you can also write the function <span class="arithmatex"><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> to be any function you like.
+The function <span class="arithmatex"><span class="MathJax_Preview">f</span><script type="math/tex">f</script></span> doesn't have to be a linear function (like we did);
+it can instead be a neural network if you so choose,
+thus giving you a natural progression from Markov models to Recurrent Neural Networks.
+That, however, is out of scope for this essay.</p>
+<h2 id="bayesian-inference-on-markov-models">Bayesian Inference on Markov Models</h2>
+<p>Now that we've gone through the "data generating process" for Markov sequences with emissions, we can re-examine the entire class of models in a Bayesian light.</p>
+<p>If you've been observing the models that we've been "forward-simulating" all this while to generate data, you'll notice that there are a few key parameters that seemed like, "well, if we changed them, then the data would change, right?" If that's what you've been thinking, then bingo! You're on the right track.</p>
+<p>Moreover, you'll notice that I've couched everything in the language of probability distributions.
+The transition probabilities <span class="arithmatex"><span class="MathJax_Preview">P(s_t | s_{t-1})</span><script type="math/tex">P(s_t | s_{t-1})</script></span> are given by a Multinomial distribution.
+The emissions are given by an arbitrary continuous (or discrete) distribution,
+depending on what you believe to be the likelihood distribution for the observed data.
+Given that we're working with probability distributions and data, you probably have been thinking about it already:
+we need a way to calculate the log-likelihoods of the data that we observe!</p>
+<p>(Why we use log-likelihoods instead of likelihoods
+is clarified <a href="https://ericmjl.github.io/essays-on-data-science/machine-learning/computational-bayesian-stats/#defining-posterior-log-likelihood">here</a>.)</p>
+<h3 id="markov-chain-log-likelihood-calculation">Markov Chain Log-Likelihood Calculation</h3>
+<p>Let's examine how we would calculate the log likelihood of <strong>state data</strong> given the parameters. This will lead us to the Markov chain log-likelihood.</p>
+<p>The likelihood of a given Markov chain states is:</p>
+<ol>
+<li>the probability of the first state given some assumed initial distribution,</li>
+<li>times the probability of the second state given the first state,</li>
+<li>times the probability of the third state given the second state,</li>
+<li>and so on... until the end.</li>
+</ol>
+<p>In math notation, given the states <span class="arithmatex"><span class="MathJax_Preview">S = \{s_1, s_2, s_3, ..., s_n\}</span><script type="math/tex">S = \{s_1, s_2, s_3, ..., s_n\}</script></span>, this becomes:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">L(S) = P(s_1) P(s_2|s_1) P(s_3|s_2) ...</div>
+<script type="math/tex; mode=display">L(S) = P(s_1) P(s_2|s_1) P(s_3|s_2) ...</script>
+</div>
+<p>More explicitly, <span class="arithmatex"><span class="MathJax_Preview">P(s_1)</span><script type="math/tex">P(s_1)</script></span> is nothing more than the probability of observing that state <span class="arithmatex"><span class="MathJax_Preview">s_1</span><script type="math/tex">s_1</script></span> given an assumed initial (or equilibrium) distribution:</p>
+<div class="highlight"><pre><span></span><code><span class="n">s1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># assume we start in state 1 of {0, 1, 2}</span>
+<span class="n">p_eq</span> <span class="o">=</span> <span class="n">equilibrium_distribution</span><span class="p">(</span><span class="n">p_transition</span><span class="p">)</span>
+<span class="n">prob_s1</span> <span class="o">=</span> <span class="n">p_eq</span><span class="p">[</span><span class="n">s1</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">prob_s1</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="mf">0.27896995708154565</span>
+</code></pre></div>
+
+<p>Then, <span class="arithmatex"><span class="MathJax_Preview">P(s_2)</span><script type="math/tex">P(s_2)</script></span> is nothing more than the probability of observing that state <span class="arithmatex"><span class="MathJax_Preview">s_2</span><script type="math/tex">s_2</script></span> given the transition matrix entry for state <span class="arithmatex"><span class="MathJax_Preview">s_1</span><script type="math/tex">s_1</script></span>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># assume we enter into state 2 of {0, 1, 2}</span>
+<span class="n">s2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">transition_entry</span> <span class="o">=</span> <span class="n">p_transition</span><span class="p">[</span><span class="n">s1</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">prob_s2</span> <span class="o">=</span> <span class="n">transition_entry</span><span class="p">[</span><span class="n">s2</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">prob_s2</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="mf">0.09</span>
+</code></pre></div>
+
+<p>Their joint likelihood is given then by <code>prob_s1</code> times <code>prob_s2</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">prob_s1</span> <span class="o">*</span> <span class="n">prob_s2</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="mf">0.025107296137339107</span>
+</code></pre></div>
+
+<p>And because we operate in log space to avoid underflow, we do joint log-likelihoods instead:</p>
+<div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob_s1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">prob_s2</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>-3.6845967923219334
+</code></pre></div>
+
+<p>Let's generalize this in a math function.</p>
+<p>Since <span class="arithmatex"><span class="MathJax_Preview">P(s_t|s_{t-1})</span><script type="math/tex">P(s_t|s_{t-1})</script></span> is a <strong>multinomial distribution</strong>, then if we are given the log-likelihood of <span class="arithmatex"><span class="MathJax_Preview">\{s_1, s_2, s_3, ..., s_n\}</span><script type="math/tex">\{s_1, s_2, s_3, ..., s_n\}</script></span>, we can calculate the log-likelihood over <span class="arithmatex"><span class="MathJax_Preview">\{s_2,... s_n\}</span><script type="math/tex">\{s_2,... s_n\}</script></span>, which is given by the sum of the log probabilities:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">state_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">):</span>
+    <span class="n">logp</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># states are 0, 1, 2, but we model them as [1, 0, 0], [0, 1, 0], [0, 0, 1]</span>
+    <span class="n">states_oh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p_transition</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">curr_state</span><span class="p">,</span> <span class="n">next_state</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">states</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">states</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">p_tr</span> <span class="o">=</span> <span class="n">p_transition</span><span class="p">[</span><span class="n">curr_state</span><span class="p">]</span>
+        <span class="n">logp</span> <span class="o">+=</span> <span class="n">multinomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p_tr</span><span class="p">)</span><span class="o">.</span><span class="n">logpmf</span><span class="p">(</span><span class="n">states_oh</span><span class="p">[</span><span class="n">next_state</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">logp</span>
+
+<span class="n">state_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>-418.65677519562405
+</code></pre></div>
+
+<p>We will also write a vectorized version of <code>state_logp</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">state_logp_vect</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">):</span>
+    <span class="n">states_oh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p_transition</span><span class="p">))</span>
+    <span class="n">p_tr</span> <span class="o">=</span> <span class="n">p_transition</span><span class="p">[</span><span class="n">states</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">states_oh</span><span class="p">[</span><span class="n">states</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">multinomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">p_tr</span><span class="p">)</span><span class="o">.</span><span class="n">logpmf</span><span class="p">(</span><span class="n">obs</span><span class="p">))</span>
+
+<span class="n">state_logp_vect</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>-418.6567751956279
+</code></pre></div>
+
+<p>Now, there is a problem here: we also need the log likelihood of the first state.</p>
+<p>Remember that if we don't know what the initial distribution is supposed to be,
+one possible assumption we can make is that the Markov sequence began by drawing from the equilibrium distribution.
+Here is where equilibrium distribution calculation from before comes in handy!</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">initial_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">):</span>
+    <span class="n">initial_state</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">states_oh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">p_transition</span><span class="p">))</span>
+    <span class="n">eq_p</span> <span class="o">=</span> <span class="n">equilibrium_distribution</span><span class="p">(</span><span class="n">p_transition</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">multinomial</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">eq_p</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">logpmf</span><span class="p">(</span><span class="n">states_oh</span><span class="p">[</span><span class="n">initial_state</span><span class="p">]</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+    <span class="p">)</span>
+
+<span class="n">initial_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>array(-1.16057901)
+</code></pre></div>
+
+<p>Taken together, we get the following Markov chain log-likelihood:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">markov_state_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">state_logp_vect</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">initial_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+    <span class="p">)</span>
+
+<span class="n">markov_state_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>-419.81735420804523
+</code></pre></div>
+
+<h3 id="markov-chain-with-gaussian-emissions-log-likelihood-calculation">Markov Chain with Gaussian Emissions Log-Likelihood Calculation</h3>
+<p>Now that we know how to calculate the log-likelihood for the Markov chain sequence of states,
+we can move on to the log-likelihood calculation for the emissions.</p>
+<p>Let's first assume that we have emissions that are non-autoregressive, and have a Gaussian likelihood.
+For the benefit of those who need it written out explicitly,
+here's the for-loop version:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">gaussian_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">mus</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">,</span> <span class="n">emissions</span><span class="p">):</span>
+    <span class="n">logp</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="p">(</span><span class="n">emission</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">emissions</span><span class="p">,</span> <span class="n">states</span><span class="p">):</span>
+        <span class="n">logp</span> <span class="o">+=</span> <span class="n">norm</span><span class="p">(</span><span class="n">mus</span><span class="p">[</span><span class="n">state</span><span class="p">],</span> <span class="n">sigmas</span><span class="p">[</span><span class="n">state</span><span class="p">])</span><span class="o">.</span><span class="n">logpdf</span><span class="p">(</span><span class="n">emission</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logp</span>
+
+<span class="n">gaussian_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">mus</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">sigmas</span><span class="o">=</span><span class="p">[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="n">emissions</span><span class="o">=</span><span class="n">gaussian_ems</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="mf">250.57996114495296</span>
+</code></pre></div>
+
+<p>And we'll also make a vectorized version of it:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">gaussian_logp_vect</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">mus</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">,</span> <span class="n">emissions</span><span class="p">):</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">mus</span><span class="p">[</span><span class="n">states</span><span class="p">]</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigmas</span><span class="p">[</span><span class="n">states</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">logpdf</span><span class="p">(</span><span class="n">emissions</span><span class="p">))</span>
+
+<span class="n">gaussian_logp_vect</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">mus</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">sigmas</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]),</span> <span class="n">emissions</span><span class="o">=</span><span class="n">gaussian_ems</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="mf">250.5799611449528</span>
+</code></pre></div>
+
+<p>The joint log likelihood of the emissions and states are then given by their summation.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">gaussian_emission_hmm_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">,</span> <span class="n">mus</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">,</span> <span class="n">emissions</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">markov_state_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span> <span class="o">+</span> <span class="n">gaussian_logp_vect</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">mus</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">,</span> <span class="n">emissions</span><span class="p">)</span>
+
+<span class="n">gaussian_emission_hmm_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">,</span> <span class="n">mus</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">sigmas</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]),</span> <span class="n">emissions</span><span class="o">=</span><span class="n">gaussian_ems</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>-169.23739306309244
+</code></pre></div>
+
+<p>If you're in a <a href="https://mybinder.org/v2/gh/ericmjl/bayesian-analysis-recipes/master">Binder</a> or local Jupyter session, go ahead and tweak the values of <code>mus</code> and <code>sigmas</code>, and verify for yourself that the current values are the "maximum likelihood" values. After all, our Gaussian emission data were generated according to this exact set of parameters!</p>
+<h3 id="markov-chain-with-autoregressive-gaussian-emissions-log-likelihood-calculation">Markov Chain with Autoregressive Gaussian Emissions Log-Likelihood Calculation</h3>
+<p>I hope the pattern is starting to be clear here: since we have Gaussian emissions, we only have to calculate the parameters of the Gaussian to know what the logpdf would be.</p>
+<p>As an example, I will be using the Gaussian with:</p>
+<ul>
+<li>State-varying scale</li>
+<li>Mean that is dependent on the previously emitted value</li>
+</ul>
+<p>This is the AR-HMM with data generated from the <code>ar_gaussian_heteroskedastic_emissions</code> function.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ar_gaussian_heteroskedastic_emissions_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">,</span> <span class="n">emissions</span><span class="p">):</span>
+    <span class="n">logp</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">initial_state</span> <span class="o">=</span> <span class="n">states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">initial_emission_logp</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">[</span><span class="n">initial_state</span><span class="p">])</span><span class="o">.</span><span class="n">logpdf</span><span class="p">(</span><span class="n">emissions</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">previous_emission</span><span class="p">,</span> <span class="n">current_emission</span><span class="p">,</span> <span class="n">state</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">emissions</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">emissions</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">states</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">loc</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">previous_emission</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="n">sigmas</span><span class="p">[</span><span class="n">state</span><span class="p">]</span>
+        <span class="n">logp</span> <span class="o">+=</span> <span class="n">norm</span><span class="p">(</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="p">)</span><span class="o">.</span><span class="n">logpdf</span><span class="p">(</span><span class="n">current_emission</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">logp</span>
+
+<span class="n">ar_gaussian_heteroskedastic_emissions_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="n">emissions</span><span class="o">=</span><span class="n">ar_het_ems</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>-18605.714303907385
+</code></pre></div>
+
+<p>Now, we can write the full log likelihood of the entire AR-HMM:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ar_gausian_heteroskedastic_hmm_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">,</span> <span class="n">emissions</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">markov_state_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">ar_gaussian_heteroskedastic_emissions_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigmas</span><span class="p">,</span> <span class="n">emissions</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="n">ar_gausian_heteroskedastic_hmm_logp</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">],</span> <span class="n">emissions</span><span class="o">=</span><span class="n">ar_het_ems</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>-19025.53165811543
+</code></pre></div>
+
+<p>For those of you who are familiar with Bayesian inference, as soon as we have a joint log likelihood that we can calculate between our model priors and data, using the simple Bayes' rule equation, we can obtain posterior distributions easily through an MCMC sampler.</p>
+<p>If this looks all foreign to you, then check out my <a href="https://ericmjl.github.io/essays-on-data-science/machine-learning/computational-bayesian-stats/">other essay</a> for a first look (or a refresher)!</p>
+<h2 id="hmm-distributions-in-pymc3">HMM Distributions in PyMC3</h2>
+<p>While PyMC4 is in development, PyMC3 remains one of the leading probabilistic programming languages that can be used for Bayesian inference. PyMC3 doesn't have the HMM distribution defined in the library, but thanks to GitHub user <strong>@hstrey</strong> <a href="https://github.com/hstrey/Hidden-Markov-Models-pymc3/blob/master/Multi-State%20HMM.ipynb">posting a Jupyter notebook with HMMs defined in there</a>, many PyMC3 users have had a great baseline distribution to study pedagogically and use in their applications, myself included.</p>
+<p><em>Side note: I used @hstrey's implementation before setting out to write this essay. Thanks!</em></p>
+<p>The key thing to notice in this section is <strong>how the <code>logp</code> functions are defined</strong>. They will match the log probability functions that we have defined above, except written in Theano.</p>
+<h3 id="hmm-states-distribution">HMM States Distribution</h3>
+<p>Let's first look at the HMM States distribution, which will give us a way to calculate the log probability of the states.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+<span class="kn">import</span> <span class="nn">theano.tensor</span> <span class="k">as</span> <span class="nn">tt</span>
+<span class="kn">import</span> <span class="nn">theano.tensor.slinalg</span> <span class="k">as</span> <span class="nn">sla</span>  <span class="c1"># theano-wrapped scipy linear algebra</span>
+<span class="kn">import</span> <span class="nn">theano.tensor.nlinalg</span> <span class="k">as</span> <span class="nn">nla</span>  <span class="c1"># theano-wrapped numpy linear algebra</span>
+<span class="kn">import</span> <span class="nn">theano</span>
+
+<span class="n">theano</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">gcc</span><span class="o">.</span><span class="n">cxxflags</span> <span class="o">=</span> <span class="s2">&quot;-Wno-c++11-narrowing&quot;</span>
+
+<span class="k">class</span> <span class="nc">HMMStates</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">Categorical</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">,</span> <span class="n">p_equilibrium</span><span class="p">,</span> <span class="n">n_states</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;You can ignore this section for the time being.&quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">Categorical</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_transition</span> <span class="o">=</span> <span class="n">p_transition</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_equilibrium</span> <span class="o">=</span> <span class="n">p_equilibrium</span>
+        <span class="c1"># This is needed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">n_states</span>
+        <span class="c1"># This is only needed because discrete distributions must define a mode.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int64&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">logp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Focus your attention here!&quot;&quot;&quot;</span>
+        <span class="n">p_eq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_equilibrium</span>
+        <span class="c1"># Broadcast out the transition probabilities,</span>
+        <span class="c1"># so that we can broadcast the calculation</span>
+        <span class="c1"># of log-likelihoods</span>
+        <span class="n">p_tr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_transition</span><span class="p">[</span><span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+
+        <span class="c1"># the logp of the initial state evaluated against the equilibrium probabilities</span>
+        <span class="n">initial_state_logp</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Categorical</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">p_eq</span><span class="p">)</span><span class="o">.</span><span class="n">logp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="c1"># the logp of the rest of the states.</span>
+        <span class="n">x_i</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">ou_like</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Categorical</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">p_tr</span><span class="p">)</span><span class="o">.</span><span class="n">logp</span><span class="p">(</span><span class="n">x_i</span><span class="p">)</span>
+        <span class="n">transition_logp</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">ou_like</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">initial_state_logp</span> <span class="o">+</span> <span class="n">transition_logp</span>
+</code></pre></div>
+<p>Above, the categorical distribution is used for convenience - it can handle integers, while multinomial requires the one-hot transformation.
+The categorical distribution is the generalization
+of the multinomial distribution,
+but unfortunately, it isn't implemented in the SciPy stats library,
+which is why we used the multinomial earlier on.</p>
+<p>Now, we stated earlier on that the transition matrix can be treated as a parameter to tweak, or else a random variable for which we want to infer its parameters. This means there is a natural fit for placing priors on them! Dirichlet distributions are great priors for probability vectors, as they are the generalization of Beta distributions.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">solve_equilibrium</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">):</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">dmatrix</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_states</span><span class="p">)</span> <span class="o">-</span> <span class="n">p_transition</span> <span class="o">+</span> <span class="n">tt</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">))</span>
+    <span class="n">p_equilibrium</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Deterministic</span><span class="p">(</span><span class="s2">&quot;p_equilibrium&quot;</span><span class="p">,</span> <span class="n">sla</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">tt</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_states</span><span class="p">))))</span>
+    <span class="k">return</span> <span class="n">p_equilibrium</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
+<span class="n">n_states</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">p_transition</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Dirichlet</span><span class="p">(</span>
+        <span class="s2">&quot;p_transition&quot;</span><span class="p">,</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">tt</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">))</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span>  <span class="c1"># weakly informative prior</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">))</span>
+
+    <span class="c1"># Solve for the equilibrium state</span>
+    <span class="n">p_equilibrium</span> <span class="o">=</span> <span class="n">solve_equilibrium</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+
+    <span class="n">obs_states</span> <span class="o">=</span> <span class="n">HMMStates</span><span class="p">(</span>
+        <span class="s2">&quot;states&quot;</span><span class="p">,</span>
+        <span class="n">p_transition</span><span class="o">=</span><span class="n">p_transition</span><span class="p">,</span>
+        <span class="n">p_equilibrium</span><span class="o">=</span><span class="n">p_equilibrium</span><span class="p">,</span>
+        <span class="n">n_states</span><span class="o">=</span><span class="n">n_states</span><span class="p">,</span>
+        <span class="n">observed</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">states</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+</code></pre></div>
+<p>Now let's fit the model!</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="n">Auto</span><span class="o">-</span><span class="n">assigning</span><span class="w"> </span><span class="n">NUTS</span><span class="w"> </span><span class="n">sampler</span><span class="p">...</span>
+<span class="n">Initializing</span><span class="w"> </span><span class="n">NUTS</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">jitter</span><span class="o">+</span><span class="n">adapt_diag</span><span class="p">...</span>
+<span class="n">Multiprocess</span><span class="w"> </span><span class="n">sampling</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="n">chains</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">jobs</span><span class="p">)</span>
+<span class="nl">NUTS</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">p_transition</span><span class="o">]</span>
+<span class="n">Sampling</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">chains</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nl">divergences</span><span class="p">:</span><span class="w">   </span><span class="mi">0</span><span class="o">%|</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mi">0</span><span class="o">/</span><span class="mi">10000</span><span class="w"> </span><span class="o">[</span><span class="n">00:00&lt;?, ?draws/s</span><span class="o">]/</span><span class="n">home</span><span class="o">/</span><span class="n">ericmjl</span><span class="o">/</span><span class="n">anaconda</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">bayesian</span><span class="o">-</span><span class="n">analysis</span><span class="o">-</span><span class="n">recipes</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">theano</span><span class="o">/</span><span class="n">tensor</span><span class="o">/</span><span class="n">slinalg</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="mi">255</span><span class="err">:</span><span class="w"> </span><span class="nl">LinAlgWarning</span><span class="p">:</span><span class="w"> </span><span class="n">Ill</span><span class="o">-</span><span class="n">conditioned</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="p">(</span><span class="n">rcond</span><span class="o">=</span><span class="mf">5.89311e-08</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">accurate</span><span class="p">.</span>
+<span class="w">  </span><span class="n">rval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scipy</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">ericmjl</span><span class="o">/</span><span class="n">anaconda</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">bayesian</span><span class="o">-</span><span class="n">analysis</span><span class="o">-</span><span class="n">recipes</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">theano</span><span class="o">/</span><span class="n">tensor</span><span class="o">/</span><span class="n">slinalg</span><span class="p">.</span><span class="nl">py</span><span class="p">:</span><span class="mi">255</span><span class="err">:</span><span class="w"> </span><span class="nl">LinAlgWarning</span><span class="p">:</span><span class="w"> </span><span class="n">Ill</span><span class="o">-</span><span class="n">conditioned</span><span class="w"> </span><span class="n">matrix</span><span class="w"> </span><span class="p">(</span><span class="n">rcond</span><span class="o">=</span><span class="mf">5.89311e-08</span><span class="p">)</span><span class="err">:</span><span class="w"> </span><span class="k">result</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">accurate</span><span class="p">.</span>
+<span class="w">  </span><span class="n">rval</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scipy</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="n">Sampling</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">chains</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nl">divergences</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="o">%|</span><span class="err">██████████</span><span class="o">|</span><span class="w"> </span><span class="mi">10000</span><span class="o">/</span><span class="mi">10000</span><span class="w"> </span><span class="o">[</span><span class="n">00:08&lt;00:00, 1192.11draws/s</span><span class="o">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
+
+<span class="n">az</span><span class="o">.</span><span class="n">plot_forest</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;p_transition&quot;</span><span class="p">]);</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_95_0.png" /></p>
+<p>It looks like we were able to recover the original transitions!</p>
+<h3 id="hmm-with-gaussian-emissions">HMM with Gaussian Emissions</h3>
+<p>Let's try out now an HMM model with Gaussian emissions.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">HMMGaussianEmissions</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">Continuous</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">states</span>
+        <span class="c1"># self.rate = rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span> <span class="o">=</span> <span class="n">mu</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
+
+    <span class="k">def</span> <span class="nf">logp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        x: observations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span>
+        <span class="c1"># rate = self.rate[states]  # broadcast the rate across the states.</span>
+        <span class="n">mu</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">[</span><span class="n">states</span><span class="p">]</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">[</span><span class="n">states</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">tt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">logp</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">n_states</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Priors for transition matrix</span>
+    <span class="n">p_transition</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Dirichlet</span><span class="p">(</span><span class="s2">&quot;p_transition&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">tt</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">))</span>
+
+    <span class="c1"># Solve for the equilibrium state</span>
+    <span class="n">p_equilibrium</span> <span class="o">=</span> <span class="n">solve_equilibrium</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+
+    <span class="c1"># HMM state</span>
+    <span class="n">hmm_states</span> <span class="o">=</span> <span class="n">HMMStates</span><span class="p">(</span>
+        <span class="s2">&quot;hmm_states&quot;</span><span class="p">,</span>
+        <span class="n">p_transition</span><span class="o">=</span><span class="n">p_transition</span><span class="p">,</span>
+        <span class="n">p_equilibrium</span><span class="o">=</span><span class="n">p_equilibrium</span><span class="p">,</span>
+        <span class="n">n_states</span><span class="o">=</span><span class="n">n_states</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gaussian_ems</span><span class="p">),)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Prior for mu and sigma</span>
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">&quot;mu&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_states</span><span class="p">,))</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_states</span><span class="p">,))</span>
+
+    <span class="c1"># Observed emission likelihood</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">HMMGaussianEmissions</span><span class="p">(</span>
+        <span class="s2">&quot;emission&quot;</span><span class="p">,</span>
+        <span class="n">states</span><span class="o">=</span><span class="n">hmm_states</span><span class="p">,</span>
+        <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span>
+        <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+        <span class="n">observed</span><span class="o">=</span><span class="n">gaussian_ems</span>
+    <span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="n">Multiprocess</span><span class="w"> </span><span class="n">sampling</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="n">chains</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">jobs</span><span class="p">)</span>
+<span class="n">CompoundStep</span>
+<span class="o">&gt;</span><span class="nl">NUTS</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">sigma, mu, p_transition</span><span class="o">]</span>
+<span class="o">&gt;</span><span class="nl">CategoricalGibbsMetropolis</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">hmm_states</span><span class="o">]</span>
+<span class="n">Sampling</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">chains</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nl">divergences</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="o">%|</span><span class="err">██████████</span><span class="o">|</span><span class="w"> </span><span class="mi">10000</span><span class="o">/</span><span class="mi">10000</span><span class="w"> </span><span class="o">[</span><span class="n">11:59&lt;00:00, 13.90draws/s</span><span class="o">]</span>
+<span class="n">The</span><span class="w"> </span><span class="n">rhat</span><span class="w"> </span><span class="n">statistic</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">larger</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="mf">1.4</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="ow">some</span><span class="w"> </span><span class="k">parameters</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">sampler</span><span class="w"> </span><span class="n">did</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">converge</span><span class="p">.</span>
+<span class="n">The</span><span class="w"> </span><span class="n">estimated</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">effective</span><span class="w"> </span><span class="n">samples</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">smaller</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="ow">some</span><span class="w"> </span><span class="k">parameters</span><span class="p">.</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mu&quot;</span><span class="p">]);</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_101_0.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">]);</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_102_0.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="n">az</span><span class="o">.</span><span class="n">plot_forest</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">]);</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_103_0.png" /></p>
+<p>We are able to recover the parameters, but there is significant intra-chain homogeneity. That is fine, though one way to get around this is to explicitly instantiate prior distributions for each of the parameters instead.</p>
+<h3 id="autoregressive-hmms-with-gaussian-emissions">Autoregressive HMMs with Gaussian Emissions</h3>
+<p>Let's now add in the autoregressive component to it.
+The data we will use is the <code>ar_het_ems</code> data, which were generated by using a heteroskedastic assumption, with Gaussian emissions whose mean depends on the previous value, while variance depends on state.</p>
+<p>As a reminder of what the data look like:</p>
+<div class="highlight"><pre><span></span><code><span class="n">ar_het_ems</span> <span class="o">=</span> <span class="n">ar_gaussian_heteroskedastic_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">sigmas</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span>
+<span class="n">plot_emissions</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">ar_het_ems</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_106_0.png" /></p>
+<p>Let's now define the AR-HMM.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ARHMMGaussianEmissions</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">Continuous</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">states</span> <span class="o">=</span> <span class="n">states</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>  <span class="c1"># variance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>  <span class="c1"># autoregressive coefficient.</span>
+
+    <span class="k">def</span> <span class="nf">logp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        x: observations</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">states</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">states</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">[</span><span class="n">states</span><span class="p">]</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
+
+        <span class="n">ar_mean</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ar_like</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="n">ar_mean</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">logp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+
+        <span class="n">boundary_like</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">logp</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">ar_like</span> <span class="o">+</span> <span class="n">boundary_like</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">n_states</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="c1"># Priors for transition matrix</span>
+    <span class="n">p_transition</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Dirichlet</span><span class="p">(</span><span class="s2">&quot;p_transition&quot;</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">tt</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">n_states</span><span class="p">))</span>
+
+    <span class="c1"># Solve for the equilibrium state</span>
+    <span class="n">p_equilibrium</span> <span class="o">=</span> <span class="n">solve_equilibrium</span><span class="p">(</span><span class="n">n_states</span><span class="p">,</span> <span class="n">p_transition</span><span class="p">)</span>
+
+    <span class="c1"># HMM state</span>
+    <span class="n">hmm_states</span> <span class="o">=</span> <span class="n">HMMStates</span><span class="p">(</span>
+        <span class="s2">&quot;hmm_states&quot;</span><span class="p">,</span>
+        <span class="n">p_transition</span><span class="o">=</span><span class="n">p_transition</span><span class="p">,</span>
+        <span class="n">p_equilibrium</span><span class="o">=</span><span class="n">p_equilibrium</span><span class="p">,</span>
+        <span class="n">n_states</span><span class="o">=</span><span class="n">n_states</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ar_het_ems</span><span class="p">),)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Prior for sigma and k</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Exponential</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_states</span><span class="p">,))</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Beta</span><span class="p">(</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># a not-so-weak prior for k</span>
+
+    <span class="c1"># Observed emission likelihood</span>
+    <span class="n">obs</span> <span class="o">=</span> <span class="n">ARHMMGaussianEmissions</span><span class="p">(</span>
+        <span class="s2">&quot;emission&quot;</span><span class="p">,</span>
+        <span class="n">states</span><span class="o">=</span><span class="n">hmm_states</span><span class="p">,</span>
+        <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+        <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+        <span class="n">observed</span><span class="o">=</span><span class="n">ar_het_ems</span>
+    <span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">trace</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">2000</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="n">Multiprocess</span><span class="w"> </span><span class="n">sampling</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="n">chains</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">jobs</span><span class="p">)</span>
+<span class="n">CompoundStep</span>
+<span class="o">&gt;</span><span class="n">NUTS</span><span class="o">:</span><span class="w"> </span><span class="err">[</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">sigma</span><span class="p">,</span><span class="w"> </span><span class="n">p_transition</span><span class="err">]</span>
+<span class="o">&gt;</span><span class="n">CategoricalGibbsMetropolis</span><span class="o">:</span><span class="w"> </span><span class="err">[</span><span class="n">hmm_states</span><span class="err">]</span>
+<span class="n">Sampling</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">chains</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="n">divergences</span><span class="o">:</span><span class="w"> </span><span class="mi">100</span><span class="o">%|</span><span class="n">██████████</span><span class="o">|</span><span class="w"> </span><span class="mi">10000</span><span class="o">/</span><span class="mi">10000</span><span class="w"> </span><span class="err">[</span><span class="mi">12</span><span class="o">:</span><span class="mi">34</span><span class="o">&lt;</span><span class="mi">00</span><span class="o">:</span><span class="mi">00</span><span class="p">,</span><span class="w"> </span><span class="mf">13.26</span><span class="n">draws</span><span class="o">/</span><span class="n">s</span><span class="err">]</span>
+<span class="n">The</span><span class="w"> </span><span class="n">acceptance</span><span class="w"> </span><span class="n">probability</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="mf">0.9096431867898114</span><span class="p">,</span><span class="w"> </span><span class="n">but</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="k">close</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mf">0.8</span><span class="p">.</span><span class="w"> </span><span class="n">Try</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">increase</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">tuning</span><span class="w"> </span><span class="n">steps</span><span class="p">.</span>
+<span class="n">There</span><span class="w"> </span><span class="n">were</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="n">divergences</span><span class="w"> </span><span class="k">after</span><span class="w"> </span><span class="n">tuning</span><span class="p">.</span><span class="w"> </span><span class="n">Increase</span><span class="w"> </span><span class="n n-Quoted">`target_accept`</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">reparameterize</span><span class="p">.</span>
+<span class="n">The</span><span class="w"> </span><span class="n">rhat</span><span class="w"> </span><span class="n">statistic</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">larger</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="mf">1.4</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">parameters</span><span class="p">.</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">sampler</span><span class="w"> </span><span class="n">did</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">converge</span><span class="p">.</span>
+<span class="n">The</span><span class="w"> </span><span class="n">estimated</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">effective</span><span class="w"> </span><span class="n">samples</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">smaller</span><span class="w"> </span><span class="k">than</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">some</span><span class="w"> </span><span class="n">parameters</span><span class="p">.</span>
+</code></pre></div>
+
+<p>Let's now take a look at the key parameters we might be interested in estimating:</p>
+<ul>
+<li><span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span>: the autoregressive coefficient, or how much previous emissions influence current emissions.</li>
+<li><span class="arithmatex"><span class="MathJax_Preview">\sigma</span><script type="math/tex">\sigma</script></span>: the variance that belongs to each state.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">az</span><span class="o">.</span><span class="n">plot_forest</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]);</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_112_0.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;k&quot;</span><span class="p">]);</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_113_0.png" /></p>
+<p>It looks like we were able to obtain the value of <span class="arithmatex"><span class="MathJax_Preview">k</span><script type="math/tex">k</script></span> correctly!</p>
+<div class="highlight"><pre><span></span><code><span class="n">az</span><span class="o">.</span><span class="n">plot_trace</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">]);</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_115_0.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="n">az</span><span class="o">.</span><span class="n">plot_forest</span><span class="p">(</span><span class="n">trace</span><span class="p">,</span> <span class="n">var_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;sigma&quot;</span><span class="p">]);</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_116_0.png" /></p>
+<p>It also looks like we were able to obtain the correct sigma values too,
+except that the chains are mixed up.
+We would do well to take care when calculating means for each parameter on the basis of chains.</p>
+<p>How about the chain states? Did we get them right?</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">trace</span><span class="p">[</span><span class="s2">&quot;hmm_states&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">states</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;inferred&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</code></pre></div>
+<p><img alt="png" src="../markov-models-figures/output_118_0.png" /></p>
+<p>I had to flip the states because they were backwards relative to the original.</p>
+<p>Qualitatively, not bad!
+If we wanted to be a bit more rigorous,
+we would quantify the accuracy of state identification.</p>
+<p>If the transition probabilities were a bit more extreme,
+we might have an easier time with the identifiability of the states.
+As it stands, because the variance is the only thing that changes,
+and because the variance of two of the three states are quite similar
+(one is 0.1 and the other is 0.5),
+distinguishing between these two states may be more difficult.</p>
+<h2 id="concluding-notes">Concluding Notes</h2>
+<h3 id="nothing-in-statistics-makes-sense">Nothing in statistics makes sense...</h3>
+<p>...unless in light of a "data generating model".</p>
+<p>I initially struggled with the math behind HMMs and its variants,
+because I had never taken the time to think through the "data generating process" carefully.
+Once we have the data generating process, and in particular, its <em>structure</em>,
+it becomes trivial to map the structure of the model to the equations that are needed to model it.
+(I think this is why physicists are such good Bayesians:
+they are well-trained at thinking about mechanistic, data generating models.)</p>
+<p>For example, with autoregressive HMMs,
+until I sat down and thought through the data generating process step-by-step,
+nothing made sense.
+Once I wrote out how the mean of the previous observation
+influenced the mean of the current observation,
+then things made a ton of sense.</p>
+<p>In fact, now that I look back on my learning journey in Bayesian statistics,
+if we can define a likelihood function for our data,
+we can trivially work backwards and design a data generating process.</p>
+<h3 id="model-structure-is-important">Model structure is important</h3>
+<p>While writing out the PyMC3 implementations and conditioning them on data,
+I remember times when I mismatched the model to the data,
+thus generating posterior samples that exhibited pathologies: divergences and more.
+This is a reminder that getting the structure of the model is very important.</p>
+<h3 id="keep-learning">Keep learning</h3>
+<p>I hope this essay was useful for your learning journey as well.
+If you enjoyed it, please take a moment to <a href="https://github.com/ericmjl/essays-on-data-science">star the repository</a>!</p>
+<h2 id="acknowledgements">Acknowledgements</h2>
+<p>I would like to acknowledge the following colleagues and friends who have helped review the notebook.</p>
+<ul>
+<li>My colleagues, Zachary Barry and Balaji Goparaju, both of whom pointed out unclear phrasings in my prose and did some code review.</li>
+<li>Fellow PyMC developers, Colin Carroll (from whom I never cease to learn things), Alex Andorra (who also did code review), Junpeng Lao, Ravin Kumar, and Osvaldo Martin (also for their comments),</li>
+<li>Professor Allen Downey (of the Olin College of Engineering) who provided important pedagogical comments throughout the notebook.</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://www.shortwhale.com/ericmjl" target="_blank" rel="noopener" title="www.shortwhale.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ericmjl" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/ericmjl" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/in/ericmjl" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

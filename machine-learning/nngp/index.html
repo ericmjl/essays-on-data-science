@@ -1,0 +1,2819 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../differential-computing-jax/">
+      
+      
+        <link rel="next" href="../graph-nets/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.8">
+    
+    
+      
+        <title>Infinitely Wide Neural Networks - Essays on Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#how-useful-are-infinitely-wide-neural-networks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Essays on Data Science" class="md-header__button md-logo" aria-label="Essays on Data Science" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Essays on Data Science
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Infinitely Wide Neural Networks
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ericmjl/essays-on-data-science" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ericmjl/essays-on-data-science
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Essays on Data Science" class="md-nav__button md-logo" aria-label="Essays on Data Science" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Essays on Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ericmjl/essays-on-data-science" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ericmjl/essays-on-data-science
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Computing
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Computing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../computing/recursion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Recursion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../computational-bayesian-stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Introduction to Probability and Computational Bayesian Statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../markov-models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markov Models From The Bottom Up, with Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generating-markov-chains-dirichlet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dirichlet Processes and Hidden Markov Model Transition Matrices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../message-passing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Computational Representations of Message Passing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reimplementing-models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimplementing and Testing Deep Learning Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../differential-computing-jax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Differential Computing Explained
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Infinitely Wide Neural Networks
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Infinitely Wide Neural Networks
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation-for-this-notebook" class="md-nav__link">
+    Motivation for this notebook
+  </a>
+  
+    <nav class="md-nav" aria-label="Motivation for this notebook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#practical-implications-for-predictive-modelling" class="md-nav__link">
+    Practical implications for predictive modelling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curiousity-surrounding-kernels" class="md-nav__link">
+    Curiousity surrounding kernels
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-moleculenets-esol" class="md-nav__link">
+    Try MoleculeNet's ESOL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-infinitely-wide-neural-networks" class="md-nav__link">
+    Writing infinitely wide neural networks
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing infinitely wide neural networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-model-params" class="md-nav__link">
+    Initial model params
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocessing-of-data" class="md-nav__link">
+    Preprocessing of data
+  </a>
+  
+    <nav class="md-nav" aria-label="Preprocessing of data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtaining-the-nngp-and-ntk-kernels" class="md-nav__link">
+    Obtaining the NNGP and NTK kernels
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compare-against-standard-models" class="md-nav__link">
+    Compare against standard models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drumroll-please" class="md-nav__link">
+    Drumroll please...
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-the-infinitely-wide-neural-network" class="md-nav__link">
+    Optimizing the infinitely wide neural network
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimizing the infinitely wide neural network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-setup" class="md-nav__link">
+    Experiment setup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear-projections-aka-no-non-linearities" class="md-nav__link">
+    Linear projections (a.k.a. no non-linearities)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erf-nonlinearity" class="md-nav__link">
+    Erf nonlinearity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-with-relu-non-linearity" class="md-nav__link">
+    Try with Relu non-linearity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-with-gelu-nonlinearity" class="md-nav__link">
+    Try with Gelu nonlinearity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-trends-observed" class="md-nav__link">
+    Summary of Trends observed
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary of Trends observed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depth" class="md-nav__link">
+    Depth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activation-functions" class="md-nav__link">
+    Activation functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#number-of-hidden-nodes" class="md-nav__link">
+    Number of hidden nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-between-non-linearities-effects-on-uncertainties" class="md-nav__link">
+    Comparison between non-linearities' effects on uncertainties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-we-measure-the-performance-of-the-uncertainties" class="md-nav__link">
+    How do we measure the "performance" of the uncertainties?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-uncertainties-for-decision-making" class="md-nav__link">
+    Using the uncertainties for decision-making
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    Conclusions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lessons-learned" class="md-nav__link">
+    Lessons Learned
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graph-nets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Attempt at Demystifying Graph Deep Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm-dev-guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Developer-First Guide to LLM APIs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/dashboarding-landscape/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Review of the Python Data Science Dashboarding Landscape in 2019
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/learning-to-learn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How I Learned to Learn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/pydata-landscape/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Opinionated and Unofficial Guide to the PyData Ecosystem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/static-sites-on-dokku/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Static Sites and Apps On Your Own Dokku Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/code-style-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Style Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Software Skills
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Software Skills
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/code-formatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formatting your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documenting your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/environment-variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Data Scientist's Guide to Environment Variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/refactoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Refactoring your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    People Skills
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            People Skills
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../people-skills/hiring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Hiring and Interviewing Data Scientists
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Terminal Hacks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Terminal Hacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminal/cli-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Upgrades for your CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminal/pre-commits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using pre-commit git hooks to automate code checks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Workflow
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/code-review/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practicing Code Review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/effective-commit-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Effective Git Commits in Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/gitflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Principled Git-based Workflow in Collaborative Data Science Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../supporters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supporters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#motivation-for-this-notebook" class="md-nav__link">
+    Motivation for this notebook
+  </a>
+  
+    <nav class="md-nav" aria-label="Motivation for this notebook">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#practical-implications-for-predictive-modelling" class="md-nav__link">
+    Practical implications for predictive modelling
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#curiousity-surrounding-kernels" class="md-nav__link">
+    Curiousity surrounding kernels
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-moleculenets-esol" class="md-nav__link">
+    Try MoleculeNet's ESOL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-infinitely-wide-neural-networks" class="md-nav__link">
+    Writing infinitely wide neural networks
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing infinitely wide neural networks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-model-params" class="md-nav__link">
+    Initial model params
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preprocessing-of-data" class="md-nav__link">
+    Preprocessing of data
+  </a>
+  
+    <nav class="md-nav" aria-label="Preprocessing of data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#obtaining-the-nngp-and-ntk-kernels" class="md-nav__link">
+    Obtaining the NNGP and NTK kernels
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compare-against-standard-models" class="md-nav__link">
+    Compare against standard models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#drumroll-please" class="md-nav__link">
+    Drumroll please...
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optimizing-the-infinitely-wide-neural-network" class="md-nav__link">
+    Optimizing the infinitely wide neural network
+  </a>
+  
+    <nav class="md-nav" aria-label="Optimizing the infinitely wide neural network">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#experiment-setup" class="md-nav__link">
+    Experiment setup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#linear-projections-aka-no-non-linearities" class="md-nav__link">
+    Linear projections (a.k.a. no non-linearities)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#erf-nonlinearity" class="md-nav__link">
+    Erf nonlinearity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-with-relu-non-linearity" class="md-nav__link">
+    Try with Relu non-linearity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-with-gelu-nonlinearity" class="md-nav__link">
+    Try with Gelu nonlinearity
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-trends-observed" class="md-nav__link">
+    Summary of Trends observed
+  </a>
+  
+    <nav class="md-nav" aria-label="Summary of Trends observed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#depth" class="md-nav__link">
+    Depth
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activation-functions" class="md-nav__link">
+    Activation functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#number-of-hidden-nodes" class="md-nav__link">
+    Number of hidden nodes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-between-non-linearities-effects-on-uncertainties" class="md-nav__link">
+    Comparison between non-linearities' effects on uncertainties
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-do-we-measure-the-performance-of-the-uncertainties" class="md-nav__link">
+    How do we measure the "performance" of the uncertainties?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-uncertainties-for-decision-making" class="md-nav__link">
+    Using the uncertainties for decision-making
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    Conclusions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lessons-learned" class="md-nav__link">
+    Lessons Learned
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="how-useful-are-infinitely-wide-neural-networks">How useful are infinitely wide neural networks?</h1>
+<p>In this notebook,
+I would like to explore the use of the Neural Tangents package
+for doing cheminformatics tasks.</p>
+<p>For the non-cheminformatician reading this,
+cheminformatics tasks should be treated as a surrogate
+for complex modelling problems that do not have
+an obvious input-output relationship structure
+that can be easily written in an equation,
+hence necessitating the use of a neural network.</p>
+<p>The goal here is not to see
+how we can achieve state-of-the-art (SOTA) performance,
+but instead empirically explore how infinitely wide neural networks
+could possibly be leveraged to improve a data scientist's workflow
+and solve complex problems.
+As such, you won't see us try to tweak hyperparameters
+to squeeze out maximum performance.
+Rather, you'll see what we hope to be is a systematic exploration
+of how neural network architectures
+affect their infinite-width limit performance.</p>
+<h2 id="motivation-for-this-notebook">Motivation for this notebook</h2>
+<p>Given the popularity of neural networks
+and their productive use in applications,
+it sort of begs the question,
+why would one want to be interested in infinitely-wide neural networks
+as an applied topic?</p>
+<h3 id="practical-implications-for-predictive-modelling">Practical implications for predictive modelling</h3>
+<p>Putting aside the really fascinating theoretical connections
+between Gaussian Processes and infinitely wide neural networks,
+I saw some potentially attractive practical implications
+of infinitely wide neural networks.
+In particular, having read the original paper,
+and studying the code,
+I had this hunch that infinitely wide neural networks
+could save us deep learners from a wide swathe
+of Sisyphean hyperparameter tuning tasks,
+such as tuning learning rate, number of hidden nodes,
+number of epochs, and more.</p>
+<h3 id="curiousity-surrounding-kernels">Curiousity surrounding kernels</h3>
+<p>Having read the paper, I had this hunch that infinitely wide neural networks
+should give us different Gaussian Process kernels
+depending on the neural network architecture.
+As we know from GP literature,
+the kernel,
+which is a function of the distance between data points in input space,
+dictates the behaviour of a GP.
+Kernels are compositionally additive,
+and can thus be used to simultaneously model
+short-range and long-range behaviour,
+at least in 1-D examples that I have seen.</p>
+<h2 id="try-moleculenets-esol">Try MoleculeNet's ESOL</h2>
+<p>The dataset that we will focus on here is MoleculeNet's solubility dataset.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">load_ext</span> <span class="n">autoreload</span>
+<span class="o">%</span><span class="n">autoreload</span> <span class="mi">2</span>
+<span class="o">%</span><span class="n">load_ext</span> <span class="n">watermark</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">janitor</span>
+<span class="kn">import</span> <span class="nn">janitor.chemistry</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">jax.config</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+
+<span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;jax_enable_x64&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;XLA_PYTHON_CLIENT_ALLOCATOR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;platform&quot;</span>
+</code></pre></div>
+<p>The dataset is already well-cleaned;
+the column that is the input to our models will be the "smiles" column
+(converted into a 2048-bit Morgan-2 fingerprint),
+while the target column is
+the "measured log solubility in mols per litre" column.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Reset index to guarantee contiguous indexing.</span>
+<span class="c1"># Will be useful later.</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://deepchemdata.s3-us-west-1.amazonaws.com/datasets/delaney-processed.csv&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">smiles2mol</span><span class="p">(</span><span class="s2">&quot;smiles&quot;</span><span class="p">,</span> <span class="s2">&quot;mol&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Compound ID</th>
+      <th>ESOL predicted log solubility in mols per litre</th>
+      <th>Minimum Degree</th>
+      <th>Molecular Weight</th>
+      <th>Number of H-Bond Donors</th>
+      <th>Number of Rings</th>
+      <th>Number of Rotatable Bonds</th>
+      <th>Polar Surface Area</th>
+      <th>measured log solubility in mols per litre</th>
+      <th>smiles</th>
+      <th>mol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Amigdalin</td>
+      <td>-0.974</td>
+      <td>1</td>
+      <td>457.432</td>
+      <td>7</td>
+      <td>3</td>
+      <td>7</td>
+      <td>202.32</td>
+      <td>-0.77</td>
+      <td>OCC3OC(OCC2OC(OC(C#N)c1ccccc1)C(O)C(O)C2O)C(O)...</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febddddaff0&gt;</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Fenfuram</td>
+      <td>-2.885</td>
+      <td>1</td>
+      <td>201.225</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+      <td>42.24</td>
+      <td>-3.30</td>
+      <td>Cc1occc1C(=O)Nc2ccccc2</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febddddb060&gt;</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>citral</td>
+      <td>-2.579</td>
+      <td>1</td>
+      <td>152.237</td>
+      <td>0</td>
+      <td>0</td>
+      <td>4</td>
+      <td>17.07</td>
+      <td>-2.06</td>
+      <td>CC(C)=CCCC(C)=CC(=O)</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febddddb0d0&gt;</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Picene</td>
+      <td>-6.618</td>
+      <td>2</td>
+      <td>278.354</td>
+      <td>0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>-7.87</td>
+      <td>c1ccc2c(c1)ccc3c2ccc4c5ccccc5ccc43</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febddddb140&gt;</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Thiophene</td>
+      <td>-2.232</td>
+      <td>2</td>
+      <td>84.143</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.00</td>
+      <td>-1.33</td>
+      <td>c1ccsc1</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febddddb1b0&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">morgans</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">morgan_fingerprint</span><span class="p">(</span><span class="s2">&quot;mol&quot;</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nbits</span><span class="o">=</span><span class="mi">2048</span><span class="p">)</span>
+<span class="n">morgans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">morgans</span><span class="p">)</span>
+<span class="n">morgans</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="nx">Array</span><span class="p">([[</span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">1</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.],</span>
+<span class="w">       </span><span class="p">[</span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.],</span>
+<span class="w">       </span><span class="p">[</span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.],</span>
+<span class="w">       </span><span class="o">...</span><span class="p">,</span>
+<span class="w">       </span><span class="p">[</span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.],</span>
+<span class="w">       </span><span class="p">[</span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">1</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.],</span>
+<span class="w">       </span><span class="p">[</span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="o">...</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.,</span><span class="w"> </span><span class="mi">0</span><span class="p">.]],</span><span class="w"> </span><span class="nx">dtype</span><span class="p">=</span><span class="nx">float64</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">task</span> <span class="o">=</span> <span class="s2">&quot;SOLUBILITY&quot;</span>
+<span class="n">target_col_mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;LIPO&quot;</span><span class="p">:</span> <span class="s2">&quot;exp&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SOLUBILITY&quot;</span><span class="p">:</span> <span class="s2">&quot;measured log solubility in mols per litre&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">targets</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">target_col_mapping</span><span class="p">[</span><span class="n">task</span><span class="p">]]</span>
+<span class="n">targets</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">targets</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>(1128, 1)
+</code></pre></div>
+
+<h2 id="writing-infinitely-wide-neural-networks">Writing infinitely wide neural networks</h2>
+<p>Infinitely wide neural networks are written
+using the neural tangents library developed by Google Research.
+It is based on JAX, and provides a neural network library
+that lets us analytically obtain the infinite-width kernel
+corresponding to the particular neural network architecture specified.
+This is known as a <em>Neural Network Gaussian Process</em> (NNGP) kernel.</p>
+<p>I will primarily be concerned with the NNGP kernel
+rather than the Neural Tangent Kernel (NTK).
+Mostly for simplicity's sake;
+being the lazy person I am,
+I'll try avoiding adding an orthogonal and combinatorial axis of complexity
+wherever possible.</p>
+<p>Here is an example infinitely-wide neural network
+with two hidden layers,
+each with 4096 hidden nodes.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">jit</span>
+<span class="kn">import</span> <span class="nn">neural_tangents</span> <span class="k">as</span> <span class="nn">nt</span>
+<span class="kn">from</span> <span class="nn">neural_tangents</span> <span class="kn">import</span> <span class="n">stax</span>
+
+<span class="n">N_HIDDEN</span> <span class="o">=</span> <span class="mi">4096</span>
+
+<span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">stax</span><span class="o">.</span><span class="n">serial</span><span class="p">(</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">N_HIDDEN</span><span class="p">,</span> <span class="n">W_std</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">b_std</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span> <span class="n">stax</span><span class="o">.</span><span class="n">Erf</span><span class="p">(),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">N_HIDDEN</span><span class="p">,</span> <span class="n">W_std</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">b_std</span><span class="o">=</span><span class="mf">0.05</span><span class="p">),</span> <span class="n">stax</span><span class="o">.</span><span class="n">Erf</span><span class="p">(),</span>
+    <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">apply_fn</span> <span class="o">=</span> <span class="n">jit</span><span class="p">(</span><span class="n">apply_fn</span><span class="p">)</span>
+<span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">jit</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">static_argnums</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="mi">2022</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">23</span><span class="w"> </span><span class="mi">14</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mf">25.930704</span><span class="p">:</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">/</span><span class="n">compiler</span><span class="o">/</span><span class="n">xla</span><span class="o">/</span><span class="n">stream_executor</span><span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">dso_loader</span><span class="o">.</span><span class="n">cc</span><span class="p">:</span><span class="mi">64</span><span class="p">]</span><span class="w"> </span><span class="n">Could</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nb">load</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">library</span><span class="w"> </span><span class="s1">&#39;libnvinfer.so.7&#39;</span><span class="p">;</span><span class="w"> </span><span class="n">dlerror</span><span class="p">:</span><span class="w"> </span><span class="n">libnvinfer</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">7</span><span class="p">:</span><span class="w"> </span><span class="n">cannot</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="n">shared</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">file</span><span class="p">:</span><span class="w"> </span><span class="n">No</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">directory</span>
+<span class="mi">2022</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">23</span><span class="w"> </span><span class="mi">14</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mf">25.930781</span><span class="p">:</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">/</span><span class="n">compiler</span><span class="o">/</span><span class="n">xla</span><span class="o">/</span><span class="n">stream_executor</span><span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">default</span><span class="o">/</span><span class="n">dso_loader</span><span class="o">.</span><span class="n">cc</span><span class="p">:</span><span class="mi">64</span><span class="p">]</span><span class="w"> </span><span class="n">Could</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nb">load</span><span class="w"> </span><span class="n">dynamic</span><span class="w"> </span><span class="n">library</span><span class="w"> </span><span class="s1">&#39;libnvinfer_plugin.so.7&#39;</span><span class="p">;</span><span class="w"> </span><span class="n">dlerror</span><span class="p">:</span><span class="w"> </span><span class="n">libnvinfer_plugin</span><span class="o">.</span><span class="n">so</span><span class="o">.</span><span class="mi">7</span><span class="p">:</span><span class="w"> </span><span class="n">cannot</span><span class="w"> </span><span class="n">open</span><span class="w"> </span><span class="n">shared</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">file</span><span class="p">:</span><span class="w"> </span><span class="n">No</span><span class="w"> </span><span class="n">such</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">directory</span>
+<span class="mi">2022</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">23</span><span class="w"> </span><span class="mi">14</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mf">25.930789</span><span class="p">:</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">/</span><span class="n">compiler</span><span class="o">/</span><span class="n">tf2tensorrt</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">py_utils</span><span class="o">.</span><span class="n">cc</span><span class="p">:</span><span class="mi">38</span><span class="p">]</span><span class="w"> </span><span class="n">TF</span><span class="o">-</span><span class="n">TRT</span><span class="w"> </span><span class="n">Warning</span><span class="p">:</span><span class="w"> </span><span class="n">Cannot</span><span class="w"> </span><span class="n">dlopen</span><span class="w"> </span><span class="n">some</span><span class="w"> </span><span class="n">TensorRT</span><span class="w"> </span><span class="n">libraries</span><span class="o">.</span><span class="w"> </span><span class="n">If</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">would</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">Nvidia</span><span class="w"> </span><span class="n">GPU</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">TensorRT</span><span class="p">,</span><span class="w"> </span><span class="n">please</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">sure</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">missing</span><span class="w"> </span><span class="n">libraries</span><span class="w"> </span><span class="n">mentioned</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">installed</span><span class="w"> </span><span class="n">properly</span><span class="o">.</span>
+</code></pre></div>
+
+<h3 id="initial-model-params">Initial model params</h3>
+<p>For benchmarking purposes, we want to obtain the parameters at initialization
+in order to compare how the NNGP kernel conditioned on observed data
+compares against the initialized, unfitted model.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">random</span> <span class="k">as</span> <span class="n">rnd</span>
+<span class="n">key</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">71</span><span class="p">)</span>
+<span class="n">input_shape</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">init_fn</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2048</span><span class="p">,))</span>
+</code></pre></div>
+<h2 id="preprocessing-of-data">Preprocessing of data</h2>
+<p>We are going to use a fixed split, again, for simplicity purposes.
+To take advantage of JAX's deterministic random number generation capabilities,
+I have written my own train/test split function.</p>
+<p>We will bring all of our inputs into a standardized Gaussian space,
+mostly to ensure that our inputs
+are nicely scaled to roughly the same magnitudes.
+(Something something good numerical behaviour.)</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+
+
+<span class="k">def</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_fraction</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">rnd</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+    <span class="n">n_train</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">train_fraction</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">indices</span><span class="p">,</span> <span class="n">n_train</span>
+
+
+<span class="n">train_fraction</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">indices</span><span class="p">,</span> <span class="n">n_train</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">morgans</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">train_fraction</span><span class="p">)</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">morgans</span><span class="p">[</span><span class="n">indices</span><span class="p">][:</span><span class="n">n_train</span><span class="p">]</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[</span><span class="n">indices</span><span class="p">][:</span><span class="n">n_train</span><span class="p">]</span>
+<span class="n">train_samples</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indices</span><span class="p">][:</span><span class="n">n_train</span><span class="p">]</span>
+
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">morgans</span><span class="p">[</span><span class="n">indices</span><span class="p">][</span><span class="n">n_train</span><span class="p">:]</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">targets</span><span class="p">[</span><span class="n">indices</span><span class="p">][</span><span class="n">n_train</span><span class="p">:]</span>
+<span class="n">test_samples</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">indices</span><span class="p">][</span><span class="n">n_train</span><span class="p">:]</span>
+
+<span class="n">ss</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">ericmjl</span><span class="o">/</span><span class="nx">anaconda</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">essays</span><span class="o">-</span><span class="nx">on</span><span class="o">-</span><span class="nx">data</span><span class="o">-</span><span class="nx">science</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.10</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">jax</span><span class="o">/</span><span class="nx">_src</span><span class="o">/</span><span class="nx">random</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">400</span><span class="p">:</span><span class="w"> </span><span class="nx">FutureWarning</span><span class="p">:</span><span class="w"> </span><span class="nx">jax</span><span class="p">.</span><span class="nx">random</span><span class="p">.</span><span class="nx">shuffle</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">deprecated</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">future</span><span class="w"> </span><span class="nx">release</span><span class="p">.</span><span class="w"> </span><span class="nx">Use</span><span class="w"> </span><span class="nx">jax</span><span class="p">.</span><span class="nx">random</span><span class="p">.</span><span class="nx">permutation</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">independent</span><span class="p">=</span><span class="nx">True</span><span class="p">.</span>
+<span class="w">  </span><span class="nx">warnings</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span><span class="w"> </span><span class="nx">FutureWarning</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="obtaining-the-nngp-and-ntk-kernels">Obtaining the NNGP and NTK kernels</h3>
+<p>Following the notebook examples released by the neural tangents team,
+we now get the NNGP/NTK mean and covariance.</p>
+<p>But wait, didn't I say I wasn't going to care about NTK kernels?
+Yeah, I guess I waffled a bit here.
+I was copying and pasting code at this point.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># We generate the prediction function</span>
+<span class="c1"># which is conditioned on the training data.</span>
+<span class="n">predict_fn</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">gradient_descent_mse_ensemble</span><span class="p">(</span>
+    <span class="n">kernel_fn</span><span class="p">,</span>
+    <span class="n">x_train</span><span class="p">,</span>
+    <span class="n">y_train</span><span class="p">,</span>
+    <span class="n">diag_reg</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">,</span>
+    <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span>
+<span class="p">)</span>
+
+<span class="n">nngp_mean</span><span class="p">,</span> <span class="n">nngp_covariance</span> <span class="o">=</span> <span class="n">predict_fn</span><span class="p">(</span>
+    <span class="n">x_test</span><span class="o">=</span><span class="n">x_test</span><span class="p">,</span>
+    <span class="n">get</span><span class="o">=</span><span class="s1">&#39;nngp&#39;</span><span class="p">,</span>
+    <span class="n">compute_cov</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">nngp_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">nngp_covariance</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">ntk_mean</span><span class="p">,</span> <span class="n">ntk_covariance</span> <span class="o">=</span> <span class="n">predict_fn</span><span class="p">(</span>
+    <span class="n">x_test</span><span class="o">=</span><span class="n">x_test</span><span class="p">,</span>
+    <span class="n">get</span><span class="o">=</span><span class="s1">&#39;ntk&#39;</span><span class="p">,</span>
+    <span class="n">compute_cov</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+
+<span class="n">ntk_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">ntk_covariance</span><span class="p">))</span>
+</code></pre></div>
+<h2 id="compare-against-standard-models">Compare against standard models</h2>
+<p>You can't have a benchmarking exercise
+without having some models to compare against.
+We'll compare the NNGP/NTK means
+against predictions from a fitted Random Forest Regressor
+and a Gaussian Process Regressor,
+taken from our favourite standard machine learning library scikit-learn.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+
+<span class="n">rfr</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rfr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code>/tmp/ipykernel_986531/3912822998.py:4: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n_samples,), for example using ravel().
+  rfr.fit(x_train, y_train)
+</code></pre></div>
+
+<style>#sk-container-id-1 {color: black;background-color: white;}#sk-container-id-1 pre{padding: 0;}#sk-container-id-1 div.sk-toggleable {background-color: white;}#sk-container-id-1 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-1 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-1 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-1 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-1 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-1 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-1 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-1 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-1 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-1 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-1 div.sk-item {position: relative;z-index: 1;}#sk-container-id-1 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-1 div.sk-item::before, #sk-container-id-1 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-1 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-1 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-1 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-1 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-1 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-1 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-1 div.sk-label-container {text-align: center;}#sk-container-id-1 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-1 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>RandomForestRegressor(n_estimators=200, n_jobs=-1)</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" checked><label for="sk-estimator-id-1" class="sk-toggleable__label sk-toggleable__label-arrow">RandomForestRegressor</label><div class="sk-toggleable__content"><pre>RandomForestRegressor(n_estimators=200, n_jobs=-1)</pre></div></div></div></div></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.gaussian_process</span> <span class="kn">import</span> <span class="n">GaussianProcessRegressor</span>
+
+<span class="n">gpr</span> <span class="o">=</span> <span class="n">GaussianProcessRegressor</span><span class="p">()</span>
+<span class="n">gpr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div>
+<style>#sk-container-id-2 {color: black;background-color: white;}#sk-container-id-2 pre{padding: 0;}#sk-container-id-2 div.sk-toggleable {background-color: white;}#sk-container-id-2 label.sk-toggleable__label {cursor: pointer;display: block;width: 100%;margin-bottom: 0;padding: 0.3em;box-sizing: border-box;text-align: center;}#sk-container-id-2 label.sk-toggleable__label-arrow:before {content: "▸";float: left;margin-right: 0.25em;color: #696969;}#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {color: black;}#sk-container-id-2 div.sk-estimator:hover label.sk-toggleable__label-arrow:before {color: black;}#sk-container-id-2 div.sk-toggleable__content {max-height: 0;max-width: 0;overflow: hidden;text-align: left;background-color: #f0f8ff;}#sk-container-id-2 div.sk-toggleable__content pre {margin: 0.2em;color: black;border-radius: 0.25em;background-color: #f0f8ff;}#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {max-height: 200px;max-width: 100%;overflow: auto;}#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {content: "▾";}#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 input.sk-hidden--visually {border: 0;clip: rect(1px 1px 1px 1px);clip: rect(1px, 1px, 1px, 1px);height: 1px;margin: -1px;overflow: hidden;padding: 0;position: absolute;width: 1px;}#sk-container-id-2 div.sk-estimator {font-family: monospace;background-color: #f0f8ff;border: 1px dotted black;border-radius: 0.25em;box-sizing: border-box;margin-bottom: 0.5em;}#sk-container-id-2 div.sk-estimator:hover {background-color: #d4ebff;}#sk-container-id-2 div.sk-parallel-item::after {content: "";width: 100%;border-bottom: 1px solid gray;flex-grow: 1;}#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {background-color: #d4ebff;}#sk-container-id-2 div.sk-serial::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: 0;}#sk-container-id-2 div.sk-serial {display: flex;flex-direction: column;align-items: center;background-color: white;padding-right: 0.2em;padding-left: 0.2em;position: relative;}#sk-container-id-2 div.sk-item {position: relative;z-index: 1;}#sk-container-id-2 div.sk-parallel {display: flex;align-items: stretch;justify-content: center;background-color: white;position: relative;}#sk-container-id-2 div.sk-item::before, #sk-container-id-2 div.sk-parallel-item::before {content: "";position: absolute;border-left: 1px solid gray;box-sizing: border-box;top: 0;bottom: 0;left: 50%;z-index: -1;}#sk-container-id-2 div.sk-parallel-item {display: flex;flex-direction: column;z-index: 1;position: relative;background-color: white;}#sk-container-id-2 div.sk-parallel-item:first-child::after {align-self: flex-end;width: 50%;}#sk-container-id-2 div.sk-parallel-item:last-child::after {align-self: flex-start;width: 50%;}#sk-container-id-2 div.sk-parallel-item:only-child::after {width: 0;}#sk-container-id-2 div.sk-dashed-wrapped {border: 1px dashed gray;margin: 0 0.4em 0.5em 0.4em;box-sizing: border-box;padding-bottom: 0.4em;background-color: white;}#sk-container-id-2 div.sk-label label {font-family: monospace;font-weight: bold;display: inline-block;line-height: 1.2em;}#sk-container-id-2 div.sk-label-container {text-align: center;}#sk-container-id-2 div.sk-container {/* jupyter's `normalize.less` sets `[hidden] { display: none; }` but bootstrap.min.css set `[hidden] { display: none !important; }` so we also need the `!important` here to be able to override the default hidden behavior on the sphinx rendered scikit-learn.org. See: https://github.com/scikit-learn/scikit-learn/issues/21755 */display: inline-block !important;position: relative;}#sk-container-id-2 div.sk-text-repr-fallback {display: none;}</style>
+<div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>GaussianProcessRegressor()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item"><div class="sk-estimator sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" checked><label for="sk-estimator-id-2" class="sk-toggleable__label sk-toggleable__label-arrow">GaussianProcessRegressor</label><div class="sk-toggleable__content"><pre>GaussianProcessRegressor()</pre></div></div></div></div></div>
+
+<h2 id="drumroll-please">Drumroll please...</h2>
+<p>Now for our first benchmarking exericse: how do NNGPs and NTKs perform against
+standard models, and against the initialized neural network itself?</p>
+<p>We'll be using the explained variance score to measure performance.
+Why not others?
+Well, again, I'm a bit lazy, but there's another actually good reason here.
+Firstly, explained variance is a measure of "goodness of fit"
+that is scale-free.
+It is defined as:</p>
+<div class="arithmatex">
+<div class="MathJax_Preview">1 - \frac{var(residuals)}{var(target)}</div>
+<script type="math/tex; mode=display">1 - \frac{var(residuals)}{var(target)}</script>
+</div>
+<p>I wrote a <a href="https://ericmjl.github.io/blog/2019/3/24/variance-explained/">blog post</a> before on why I think the variance explained metric
+is a pretty neat one, even if it's not the most widely understood.
+The tl;dr of why is that it's a scale-free metric
+that is easily interpretable.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span> <span class="k">as</span> <span class="n">r2</span> <span class="p">,</span> <span class="n">explained_variance_score</span> <span class="k">as</span> <span class="n">evs</span>
+
+<span class="n">FIG_ALPHA</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">SCOREFUNC</span> <span class="o">=</span> <span class="n">evs</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">apply_fn</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_preds</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;untrained&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">FIG_ALPHA</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">SCOREFUNC</span><span class="p">(</span><span class="n">y_preds</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Untrained: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">ntk_mean</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">yerr</span><span class="o">=</span><span class="n">ntk_std</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">FIG_ALPHA</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;ntk&quot;</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">SCOREFUNC</span><span class="p">(</span><span class="n">ntk_mean</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NTK: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">nngp_mean</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">yerr</span><span class="o">=</span><span class="n">nngp_std</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">FIG_ALPHA</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;nngp&quot;</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">SCOREFUNC</span><span class="p">(</span><span class="n">nngp_mean</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;NNGP: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">rfr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_preds</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">FIG_ALPHA</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;random forest&quot;</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">SCOREFUNC</span><span class="p">(</span><span class="n">y_preds</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sklearn RF: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+
+<span class="n">y_preds</span> <span class="o">=</span> <span class="n">gpr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_preds</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">FIG_ALPHA</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;random forest&quot;</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">SCOREFUNC</span><span class="p">(</span><span class="n">y_preds</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sklearn GP: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">get_x_eq_y</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+    <span class="n">minvals</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">maxvals</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+        <span class="n">xlims</span><span class="p">,</span> <span class="n">ylims</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">(),</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
+        <span class="n">minval</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">xlims</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">ylims</span><span class="p">))</span>
+        <span class="n">maxval</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">xlims</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">ylims</span><span class="p">))</span>
+        <span class="n">minvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">minval</span><span class="p">)</span>
+        <span class="n">maxvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">maxval</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">minvals</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxvals</span><span class="p">)</span>
+
+
+<span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span> <span class="o">=</span> <span class="n">get_x_eq_y</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="p">[</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_yticks</span><span class="p">())</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../nngp_files/nngp_24_0.png" /></p>
+<p>In terms of raw performance,
+the scikit-learn random forest model performs the best,
+while the scikit-learn Gaussian Process model performs the worst.
+This is all done without any hyperparameter tweaking though.
+Again, laziness is the primary reason
+why I didn't go deeper into optimizing these baseline models,
+though, you know, using something like pycaret
+to satisfy my laziness would be a totally valid way to go.</p>
+<p>Now, at this point, we might be tempted to say
+that the NNGP model doesn't compare well vs. the Random Forest model.
+However, we haven't done any kind of exploration of the parameter space
+for the neural network models,
+so such a conclusion would be premature.</p>
+<h2 id="optimizing-the-infinitely-wide-neural-network">Optimizing the infinitely wide neural network</h2>
+<p>There's still some pieces of the infinitely wide neural network
+that I think we need to get a practical handle over.
+In particular, how does the neural network performance, and the uncertainties,
+change as a function of:</p>
+<ul>
+<li>The number of nodes in a hidden layer?</li>
+<li>The depth of the neural network?</li>
+<li>The activation function that we use?</li>
+</ul>
+<p>That's what we're going to explore in this section of the notebook.</p>
+<p>It's always good to go into an inquiry with some expected range of answers.
+Here's mine, stated up front:</p>
+<p><strong>Number of nodes:</strong> The number of nodes shouldn't matter.
+We're talking about expanding each layer to infinite width, after all.</p>
+<p><strong>Depth:</strong> Depth might affect the structure of the corresponding NNGP kernel.
+However, I am not well-versed enough in the math to know exactly how.</p>
+<p><strong>Activation function:</strong> I suspect the activation function
+will also affect the structure of the NNGP kernel.
+A hunch tells me it may have the weakest effect compared to depth,
+but I can't back that up with any theory.
+It's just a hunch.</p>
+<p>Let me first set up some utility functions below to help out with coding later.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Some utility functions to help out</span>
+
+<span class="kn">import</span> <span class="nn">jax.numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">neural_tangents</span> <span class="k">as</span> <span class="nn">nt</span>
+<span class="kn">from</span> <span class="nn">neural_tangents</span> <span class="kn">import</span> <span class="n">stax</span>
+<span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">jit</span>
+
+
+<span class="k">class</span> <span class="nc">NNGP</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;sklearn-compatible NNGP class.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="n">stax</span><span class="o">.</span><span class="n">Relu</span><span class="p">()):</span>
+        <span class="c1"># Storing for information only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_layers</span> <span class="o">=</span> <span class="n">n_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nonlinearity</span> <span class="o">=</span> <span class="n">nonlinearity</span>
+
+        <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="n">nonlinearity</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_fn</span> <span class="o">=</span> <span class="n">init_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">apply_fn</span> <span class="o">=</span> <span class="n">apply_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">kernel_fn</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">predict_fn</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;NNGP()&quot;</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">predict_fn</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">gradient_descent_mse_ensemble</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">diag_reg</span><span class="o">=</span><span class="mf">1e-4</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_fn</span><span class="p">(</span><span class="n">x_test</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">get</span><span class="o">=</span><span class="s2">&quot;nngp&quot;</span><span class="p">,</span> <span class="n">compute_cov</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">mean</span>
+
+
+<span class="k">def</span> <span class="nf">compute_mean_std</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function to compute mean and std function.&quot;&quot;&quot;</span>
+    <span class="n">predict_fn</span> <span class="o">=</span> <span class="n">nt</span><span class="o">.</span><span class="n">predict</span><span class="o">.</span><span class="n">gradient_descent_mse_ensemble</span><span class="p">(</span>
+        <span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">diag_reg</span><span class="o">=</span><span class="mf">1e-4</span>
+    <span class="p">)</span>
+
+    <span class="n">nngp_mean</span><span class="p">,</span> <span class="n">nngp_covariance</span> <span class="o">=</span> <span class="n">predict_fn</span><span class="p">(</span><span class="n">x_test</span><span class="o">=</span><span class="n">x_test</span><span class="p">,</span> <span class="n">get</span><span class="o">=</span><span class="s2">&quot;nngp&quot;</span><span class="p">,</span> <span class="n">compute_cov</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">nngp_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">nngp_covariance</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">nngp_mean</span><span class="p">,</span> <span class="n">nngp_std</span>
+
+
+<span class="k">def</span> <span class="nf">plot_results</span><span class="p">(</span><span class="n">SCOREFUNC</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">,</span> <span class="n">FIG_ALPHA</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Helper plotting function.&quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">mean</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">yerr</span><span class="o">=</span><span class="n">std</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">FIG_ALPHA</span><span class="p">)</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">SCOREFUNC</span><span class="p">(</span><span class="n">mean</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span> <span class="n">y_test</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Score: </span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">n_layers</span><span class="si">}</span><span class="s2"> layers,</span><span class="se">\n</span><span class="si">{</span><span class="n">n_hidden</span><span class="si">}</span><span class="s2"> hidden nodes&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="n">stax</span><span class="o">.</span><span class="n">Erf</span><span class="p">()):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convenience function to make infinitely wide NN of different architectures.&quot;&quot;&quot;</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_layers</span><span class="p">):</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">n_hidden</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">nonlinearity</span><span class="p">:</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nonlinearity</span><span class="p">)</span>
+    <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">stax</span><span class="o">.</span><span class="n">serial</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">layers</span><span class="p">,</span>
+        <span class="n">stax</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">apply_fn</span> <span class="o">=</span> <span class="n">jit</span><span class="p">(</span><span class="n">apply_fn</span><span class="p">)</span>
+    <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">jit</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">static_argnums</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,))</span>
+    <span class="k">return</span> <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span>
+</code></pre></div>
+<h3 id="experiment-setup">Experiment setup</h3>
+<p>For number of layers, we're going to explore 1, 10 and 20 layers.</p>
+<p>For number of nodes per hidden layer,
+we'll explore what happens with 1, 512, and 4096 nodes.
+(I mean, it's gonna go to infinity,
+so why would I try thousands of hidden nodes, right?)</p>
+<p>For non-linearities, we'll do:</p>
+<ul>
+<li>No non-linearities (i.e. simple linear projections)</li>
+<li>Erf non-linearity</li>
+<li>Relu non-linearity</li>
+<li>Gelu non-linearity</li>
+</ul>
+<p>The three non-linearities are available in neural tangents,
+so we're using them for convenience.
+At 4x3x3, we're already at 36 combinations,
+which I think is more than enough to see any patterns.</p>
+<h2 id="linear-projections-aka-no-non-linearities">Linear projections (a.k.a. no non-linearities)</h2>
+<p>Let's start with linear projections and see what happens.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
+
+<span class="n">NUM_LAYERS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">]</span>
+<span class="n">NUM_HIDDEN</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">512</span><span class="p">,</span> <span class="mi">4096</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">NUM_LAYERS</span><span class="p">,</span> <span class="n">NUM_HIDDEN</span><span class="p">)):</span>
+    <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">compute_mean_std</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+
+    <span class="n">plot_results</span><span class="p">(</span><span class="n">SCOREFUNC</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">],</span> <span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">,</span> <span class="n">FIG_ALPHA</span><span class="p">)</span>
+
+<span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span> <span class="o">=</span> <span class="n">get_x_eq_y</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="p">[</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../nngp_files/nngp_30_0.png" /></p>
+<p>Apparently, with no pure linear projections, we:</p>
+<ol>
+<li>Do much better with the performance as measured by posterior expectation values.</li>
+<li>See that layer depth and number of hidden nodes have zero effect on performance and uncertainty widths.</li>
+</ol>
+<h2 id="erf-nonlinearity">Erf nonlinearity</h2>
+<p>Now let's see what happens when we use the Erf nonlinearity,
+which was the default activation function
+that the neural tangents demo notebooks use.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">NUM_LAYERS</span><span class="p">,</span> <span class="n">NUM_HIDDEN</span><span class="p">)):</span>
+    <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">)</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">compute_mean_std</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+
+    <span class="n">plot_results</span><span class="p">(</span><span class="n">SCOREFUNC</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">],</span> <span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">,</span> <span class="n">FIG_ALPHA</span><span class="p">)</span>
+
+<span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span> <span class="o">=</span> <span class="n">get_x_eq_y</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="p">[</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../nngp_files/nngp_33_0.png" /></p>
+<p>We see here that the Erf non-linearity gives us poorer performance
+when compared to having no non-linearities as the activation function.</p>
+<p>Additionally, there is a trend w.r.t. network depth.
+The deeper the network, the poorer the performance
+of the corresponding NNGP kernel.
+I suspect there may be some kind of overfitting that happens.
+How the overfitting happens, though,
+remains something of inquiry for me to learn.
+(My current hypothesis hinges on the hunch
+that deeper networks correspond to stacked GPs,
+though I would need further confirmation
+from someone better at math than I am to see if that is correct.)</p>
+<p>An intriguing thing I see as well is that as we add depth to the network,
+the resulting NNGP kernel yields smaller uncertainties.
+Anthropomorphically, we would say that the neural network
+is more confident of its predictions even as it becomes generally more wrong.
+We should call these networks Dunning-Kruger networks.</p>
+<h2 id="try-with-relu-non-linearity">Try with Relu non-linearity</h2>
+<p>Let's now try a popular non-linearity, the Relu non-linearity.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">NUM_LAYERS</span><span class="p">,</span> <span class="n">NUM_HIDDEN</span><span class="p">)):</span>
+    <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="n">stax</span><span class="o">.</span><span class="n">Relu</span><span class="p">())</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">compute_mean_std</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+
+    <span class="n">plot_results</span><span class="p">(</span><span class="n">SCOREFUNC</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">],</span> <span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">,</span> <span class="n">FIG_ALPHA</span><span class="p">)</span>
+
+<span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span> <span class="o">=</span> <span class="n">get_x_eq_y</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="p">[</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../nngp_files/nngp_36_0.png" /></p>
+<p>A really cool result shows up here:
+we have better performance using the Relu activation function!
+The same trend w.r.t. number of hidden layers also holds:
+as we increase the number of hidden layers,
+the performance decreases, and the uncertainty decreases.
+The network becomes a Dunning-Kruger network.</p>
+<h2 id="try-with-gelu-nonlinearity">Try with Gelu nonlinearity</h2>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">NUM_LAYERS</span><span class="p">,</span> <span class="n">NUM_HIDDEN</span><span class="p">)):</span>
+    <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="n">stax</span><span class="o">.</span><span class="n">Gelu</span><span class="p">())</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">compute_mean_std</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+
+    <span class="n">plot_results</span><span class="p">(</span><span class="n">SCOREFUNC</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">],</span> <span class="n">n_layers</span><span class="p">,</span> <span class="n">n_hidden</span><span class="p">,</span> <span class="n">FIG_ALPHA</span><span class="p">)</span>
+
+<span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span> <span class="o">=</span> <span class="n">get_x_eq_y</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="p">[</span><span class="n">minval</span><span class="p">,</span> <span class="n">maxval</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Predicted&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]:</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Actual&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../nngp_files/nngp_39_0.png" /></p>
+<p>The Gelu network is a highly interesting one!
+As the depth increases,
+the correctness of the network, i.e. performance, doesn't go down,
+but the uncertainties do become smaller.
+Anthropomorphically, the network remains just as wrong about predictions,
+and becomes more confident of them.
+As usual, the number of hidden nodes
+affect neither the model's expected performance
+nor the uncertainties.</p>
+<h2 id="summary-of-trends-observed">Summary of Trends observed</h2>
+<h3 id="depth">Depth</h3>
+<p>The observable trend here is that going with deeper nets
+that have non-identity activation functions
+leads to overfitting on the training set;
+shallower nets have the best performance.
+This holds in general, with the Gelu network being the exception
+of the activation functions tested here.</p>
+<h3 id="activation-functions">Activation functions</h3>
+<p>Of the three tested inside the nt.stax library of nonlinearities,
+the Gelu activation function provided the best performance
+based on the posterior expectation,
+with the Relu activation function a close second.</p>
+<p>The effect of activation functions on model performance was dramatic,
+and this was something out of expectation based on my stated prior beliefs.</p>
+<p>What the effect of activation functions are
+on the width of the posterior uncertainties
+is something we will investigate next.</p>
+<h3 id="number-of-hidden-nodes">Number of hidden nodes</h3>
+<p>From the get-go,
+I expected that the number of hidden nodes declared in the network constructor
+should not play a role with NNGP performance,
+as after all, we're taking the number of hidden nodes to the infinite limit.
+As the results show, whether we use 1, 2, or 3 hidden nodes in the hidden layer,
+the infinite-width performance is identical.</p>
+<h2 id="comparison-between-non-linearities-effects-on-uncertainties">Comparison between non-linearities' effects on uncertainties</h2>
+<p>Having seen that neural networks begin to exhibit the Dunning-Kruger effect
+as they get more powerful (at least in the limit of infinite width),
+we will limit further probing of our model
+to just the single layer depth networks with a single hidden node.
+I'm playing with fire here, just to prove the point.
+Take that, overparameterized networks, we're going infinite now.</p>
+<p>To investigate how the nonlinearities affect uncertainty,
+we will plot the distribution of standard deviations
+of the test set predictions.
+It will be an ECDF plot, so that we can cram everything into one plot
+and compare directly.
+(Histograms are so 1950s!)</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">neural_tangents</span> <span class="kn">import</span> <span class="n">stax</span>
+<span class="n">nonlinearities</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;none&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">&quot;ReLu&quot;</span><span class="p">:</span> <span class="n">stax</span><span class="o">.</span><span class="n">Relu</span><span class="p">(),</span>
+    <span class="s2">&quot;GeLu&quot;</span><span class="p">:</span> <span class="n">stax</span><span class="o">.</span><span class="n">Gelu</span><span class="p">(),</span>
+    <span class="s2">&quot;Erf&quot;</span><span class="p">:</span> <span class="n">stax</span><span class="o">.</span><span class="n">Erf</span><span class="p">(),</span>
+<span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">ecdf</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span>
+
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nonlinearities</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_hidden</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="n">nonlinearity</span><span class="p">)</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">compute_mean_std</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">ecdf</span><span class="p">(</span><span class="n">std</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Std. Dev&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Cumulative Fraction&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribution</span><span class="se">\n</span><span class="s2">of uncertainties&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../nngp_files/nngp_46_0.png" /></p>
+<p>What do we see here?
+Well, to begin with, infinitely wide neural networks with no nonlinearities
+end up being the most uncertain about their predictions.
+The ReLu and GeLu network end up showing
+practically identical distributions of uncertainties in test set predictions.
+Meanwhile, the Erf network, which was the worst of all of the networks tested,
+showed a tighter distribution of uncertainties,
+though roughly at the same scale as the other networks.</p>
+<h2 id="how-do-we-measure-the-performance-of-the-uncertainties">How do we measure the "performance" of the uncertainties?</h2>
+<p>Well, one way to do so is to ask what fraction of the uncertainties' range
+capture the correct value.
+We have the standard deviation of predictions from our GP;
+3x the standard deviation gives us about 96% of the posterior probability.
+If the mean ± 3x standard deviation encapsulates the true value,
+then we know our posterior standard deviation
+was highly likely to capture the true value,
+even if the expected value was off.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">evaluate_uncertainty</span><span class="p">(</span><span class="n">mean</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">std</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_test</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="n">lt</span> <span class="o">=</span> <span class="n">y_test</span> <span class="o">&lt;</span> <span class="n">mean</span> <span class="o">+</span> <span class="n">std</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="n">gt</span> <span class="o">=</span> <span class="n">y_test</span> <span class="o">&gt;</span> <span class="n">mean</span> <span class="o">-</span> <span class="n">std</span> <span class="o">*</span> <span class="mi">3</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">lt</span><span class="p">,</span> <span class="n">gt</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">jax</span> <span class="kn">import</span> <span class="n">vmap</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nonlinearities</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_hidden</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="n">nonlinearity</span><span class="p">)</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">compute_mean_std</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">vmap</span><span class="p">(</span><span class="n">evaluate_uncertainty</span><span class="p">)(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Activation&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;P(correct)&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">despine</span><span class="p">()</span>
+</code></pre></div>
+<p><img alt="png" src="../nngp_files/nngp_51_0.png" /></p>
+<p>As we can see above, the ReLu function has the best performing uncertainties,
+with 70% of the posteriors harbouring the correct value.
+One might say that the ReLu infinite networks
+are best calibrated for prediction purposes.</p>
+<p>You'd <em>think</em> that the linear projection networks
+would have well-calibrated uncertainties given their widths,
+and that's certainly something I thought would happen,
+but that turned out not to be the case.</p>
+<h2 id="using-the-uncertainties-for-decision-making">Using the uncertainties for decision-making</h2>
+<p>In a chemistry setting, we're usually concerned with prioritization tasks.
+A chemist's time for testing molecules is usually finite,
+so we need some help rank-ordering items in a principled fashion.
+Well, turns out when you have Gaussian uncertainties,
+you can do this pretty easily.</p>
+<p>If you know anything about Bayesian optimization,
+we need to have an acquisition function that helps us rank-order our predictions.
+The acquisition function that gets chosen is going to depend on the task at hand.
+Because we're dealing with solubility as a task,
+and in medicinal chemistry high solubility is a desirable property,
+we can rank order our test samples according to
+the probability that they are above some threshold value.
+This is effectively evaluating the survival function,
+or <code>1 - CDF(threshold)</code>, of a Gaussian.</p>
+<div class="highlight"><pre><span></span><code><span class="n">test_indices</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">n_train</span><span class="p">:]</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">jax.scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span>
+<span class="k">def</span> <span class="nf">prob_above_threshold</span><span class="p">(</span><span class="n">mean</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">std</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">norm</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">std</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="n">prob_thresh</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">nonlinearities</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">init_fn</span><span class="p">,</span> <span class="n">apply_fn</span><span class="p">,</span> <span class="n">kernel_fn</span> <span class="o">=</span> <span class="n">make_inf_nn</span><span class="p">(</span><span class="n">n_layers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_hidden</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="o">=</span><span class="n">nonlinearity</span><span class="p">)</span>
+    <span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">compute_mean_std</span><span class="p">(</span><span class="n">kernel_fn</span><span class="p">,</span> <span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">vmap</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">prob_above_threshold</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=-</span><span class="mf">0.1</span><span class="p">))(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">)</span>
+    <span class="n">prob_thresh</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+</code></pre></div>
+<p>Let's now query for molecules in the test set
+that are predicted to have greater than 50% probability
+of having solubility greater than 0.
+This would be akin to helping a chemist prioritize the selection of molecules
+where we'd be happy to bet at 1:1 odds of having a desirable property,
+given the model's predictions.</p>
+<p>Remember that the uncertainties dataframe is indexed differently,
+so we'll need to do some fancy indexing to get back to
+the indexing that is used in the original dataframe.</p>
+<div class="highlight"><pre><span></span><code><span class="n">prob_thresh_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">prob_thresh</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;ReLu&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;ReLu &gt; 0.5&quot;</span><span class="p">)</span>
+<span class="n">prob_thresh_df</span>
+</code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>none</th>
+      <th>ReLu</th>
+      <th>GeLu</th>
+      <th>Erf</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>133</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>1.000000</td>
+      <td>0.991346</td>
+      <td>0.999885</td>
+      <td>0.999994</td>
+    </tr>
+    <tr>
+      <th>78</th>
+      <td>1.000000</td>
+      <td>0.980182</td>
+      <td>0.920877</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>121</th>
+      <td>0.999974</td>
+      <td>0.538650</td>
+      <td>0.629214</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th>39</th>
+      <td>1.000000</td>
+      <td>0.536250</td>
+      <td>0.007561</td>
+      <td>0.206573</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">test_samples</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">test_indices</span><span class="p">[</span><span class="n">prob_thresh_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">]]</span>
+</code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Compound ID</th>
+      <th>ESOL predicted log solubility in mols per litre</th>
+      <th>Minimum Degree</th>
+      <th>Molecular Weight</th>
+      <th>Number of H-Bond Donors</th>
+      <th>Number of Rings</th>
+      <th>Number of Rotatable Bonds</th>
+      <th>Polar Surface Area</th>
+      <th>measured log solubility in mols per litre</th>
+      <th>smiles</th>
+      <th>mol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>679</th>
+      <td>Glycerol</td>
+      <td>0.688</td>
+      <td>1</td>
+      <td>92.094</td>
+      <td>3</td>
+      <td>0</td>
+      <td>2</td>
+      <td>60.69</td>
+      <td>1.120</td>
+      <td>OCC(O)CO</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febddea1bd0&gt;</td>
+    </tr>
+    <tr>
+      <th>785</th>
+      <td>Urea</td>
+      <td>0.832</td>
+      <td>1</td>
+      <td>60.056</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+      <td>69.11</td>
+      <td>0.960</td>
+      <td>NC(=O)N</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febddea4ac0&gt;</td>
+    </tr>
+    <tr>
+      <th>298</th>
+      <td>Raffinose</td>
+      <td>0.496</td>
+      <td>1</td>
+      <td>504.438</td>
+      <td>11</td>
+      <td>3</td>
+      <td>8</td>
+      <td>268.68</td>
+      <td>-0.410</td>
+      <td>OCC1OC(CO)(OC2OC(COC3OC(CO)C(O)C(O)C3O)C(O)C(O...</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febdde97370&gt;</td>
+    </tr>
+    <tr>
+      <th>145</th>
+      <td>2-hydroxypteridine</td>
+      <td>-1.404</td>
+      <td>1</td>
+      <td>148.125</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>71.79</td>
+      <td>-1.947</td>
+      <td>Oc2ncc1nccnc1n2</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febdde92ff0&gt;</td>
+    </tr>
+    <tr>
+      <th>983</th>
+      <td>Ethanol</td>
+      <td>0.020</td>
+      <td>1</td>
+      <td>46.069</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>20.23</td>
+      <td>1.100</td>
+      <td>CCO</td>
+      <td>&lt;rdkit.Chem.rdchem.Mol object at 0x7febddeaa1f0&gt;</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Hey, not bad! From what I know about chemistry,
+glycerol is highly soluble in water,
+and is used by microbiologists to protect frozen bacteria cells
+from being cracked open upon freeze/thawing cycles.
+Urea is definitely a molecule that is soluble in water;
+we make it all the time in our bodies as a waste product,
+and is carried out of our body in our urine.
+Raffinose is a sugar, and so with all of the oxygens and hydrogens in there,
+it'll likely be dissolvable in water.
+2-hydroxy-something always sounds like it'll be soluble in water,
+and Ethanol... well, we know how that one goes :).</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>Overall, this deep dive into infinite-width neural networks tells me that
+we deep learners have a superb tool at our disposal
+for modelling complex relationships
+that don't have an obvious input-output structure.
+We can write a single layer neural network,
+expand it out to its infinite width form easily
+to get a Neural Net Gaussian Process kernel that,
+when conditioned on training data,
+could give us good test performance.
+(No guarantees though, we'd have to benchmark.)
+For expensive data collection problems
+like those that we find in the life sciences,
+this is a superb modelling tool on many levels.</p>
+<p>Firstly, Gaussian processes are highly flexible and inherently Bayesian modelling tools,
+but proper kernel design is difficult;
+neural net design is an easier alternative language to work with
+to generate GPs for our modelling problems.
+Infinitely wide neural networks give us the best of both worlds.</p>
+<p>Secondly, because we get a highly flexible function learner,
+complex functions are easily modelled
+without needing to do much work with hyperparameter tuning.
+Down with the Sisyphean tasks of twiddling with neural networks!
+(OK, maybe I'm taking the rant a bit too far.)
+Single layer infinitely wide neural networks did a practically great job on solubility
+with standard molecular descriptors,
+were as easy to wield as the cheminformatics-favourite Random Forest model,
+and had performance metrics effectively on par with Random Forests.
+We may be able to squeeze out more performance by adopting alternative model architectures
+that have different inductive biases, such as graph neural networks,
+but I have to admit, it was pretty easy to get to the performance levels we observed here.</p>
+<p>Thirdly, because NNGPs are inherently Bayesian,
+the suite of tools from Bayesian decision science are at our disposal.
+Prioritizing, ranking, selecting...
+once you have the posterior likelihood density at hand,
+you have the principle by which these activities can be done.
+No more premature thresholds;
+delay all binarization until the end,
+when we have the posterior likelihood calculated.
+No fancy methods needed either;
+"likelihood is all you need".</p>
+<h2 id="lessons-learned">Lessons Learned</h2>
+<p>From this exercise, it seems evident to me that
+the nonlinearity is the biggest thing that affects the kernel,
+which in turn affects the expected performance
+(as given by the posterior means)
+and uncertainty calibration
+(as measured by the posterior standard deviations).
+If you remember where my headspace was when we first started,
+I was completely wrong w.r.t. this point;
+the NNGP kernel is highly influenced by the choice of activation function.
+Where I was correct was that the number of hidden nodes per layer
+didn't matter one bit for the performance of the network,
+because we are, after all, going to infinity ~~and beyond~~.</p>
+<p>Knowing that we can get pretty decent expected predictive performance
+<em>and</em> somewhat nicely calibrated uncertainties
+without needing to fiddle with layer width, number of layers,
+number of training epochs, learning rate,
+and the myriad of other hyperparameters that we might be interested in...
+is actually kind of a nice result.
+With the NNGP kernel, we basically eliminate a ton of hyperparameters in training neural nets,
+and can focus primarily on the non-linear activation function
+to design the best NNGP kernel.
+Hyperparameter tuning is <em>the worst</em> Sisyphean task
+that will bore the crap out of any data scientist.</p>
+<p>Hence, from the perspective of <em>workflow</em>,
+using infinitely-wide neural networks is an attractive proposition
+for modelling problems that do not have
+an obvious input-output relationship.
+At the end of the day, by using infinitely wide neural networks,
+fitting a Gaussian Process with a particular kernel to the problem at hand,
+and this cuts down on the number of hyperparameters that we have to fiddle with.
+Pragmatically, I have a hunch that we can mostly stick with single layer NNGPs
+and leverage the uncertainty instead.</p>
+<p>Finally, I have to comment on the lack of compute intensity needed
+to wield infinitely wide neural networks.
+Everything I did in this notebook was first prototyped on an M1 MacBook Air,
+done in emulation mode.
+No GPUs were used. None!
+The entire notebook runs from top to bottom in under two minutes.
+Take that, Transformers.</p>
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">watermark</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="nx">Last</span><span class="w"> </span><span class="nx">updated</span><span class="p">:</span><span class="w"> </span><span class="mi">2022</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">23</span><span class="nx">T14</span><span class="p">:</span><span class="mi">36</span><span class="p">:</span><span class="m m-Double">34.109063</span><span class="o">-</span><span class="mi">05</span><span class="p">:</span><span class="mi">00</span>
+
+<span class="nx">Python</span><span class="w"> </span><span class="nx">implementation</span><span class="p">:</span><span class="w"> </span><span class="nx">CPython</span>
+<span class="nx">Python</span><span class="w"> </span><span class="nx">version</span><span class="w">       </span><span class="p">:</span><span class="w"> </span><span class="m m-Double">3.10.8</span>
+<span class="nx">IPython</span><span class="w"> </span><span class="nx">version</span><span class="w">      </span><span class="p">:</span><span class="w"> </span><span class="m m-Double">8.7.0</span>
+
+<span class="nx">Compiler</span><span class="w">    </span><span class="p">:</span><span class="w"> </span><span class="nx">GCC</span><span class="w"> </span><span class="m m-Double">10.4.0</span>
+<span class="nx">OS</span><span class="w">          </span><span class="p">:</span><span class="w"> </span><span class="nx">Linux</span>
+<span class="nx">Release</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="m m-Double">5.15.0</span><span class="o">-</span><span class="mi">53</span><span class="o">-</span><span class="nx">generic</span>
+<span class="nx">Machine</span><span class="w">     </span><span class="p">:</span><span class="w"> </span><span class="nx">x86_64</span>
+<span class="nx">Processor</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="nx">x86_64</span>
+<span class="nx">CPU</span><span class="w"> </span><span class="nx">cores</span><span class="w">   </span><span class="p">:</span><span class="w"> </span><span class="mi">8</span>
+<span class="nx">Architecture</span><span class="p">:</span><span class="w"> </span><span class="mi">64</span><span class="nx">bit</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">%</span><span class="n">watermark</span> <span class="o">--</span><span class="n">iversions</span>
+</code></pre></div>
+<div class="codehilite"><pre><span></span><code><span class="n">pandas</span><span class="w">         </span><span class="o">:</span><span class="w"> </span><span class="mf">1.5</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">neural_tangents</span><span class="o">:</span><span class="w"> </span><span class="mf">0.6</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">matplotlib</span><span class="w">     </span><span class="o">:</span><span class="w"> </span><span class="mf">3.6</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">jax</span><span class="w">            </span><span class="o">:</span><span class="w"> </span><span class="mf">0.4</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">janitor</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="mf">0.23</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">seaborn</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="mf">0.12</span><span class="o">.</span><span class="mi">1</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://www.shortwhale.com/ericmjl" target="_blank" rel="noopener" title="www.shortwhale.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ericmjl" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/ericmjl" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/in/ericmjl" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>

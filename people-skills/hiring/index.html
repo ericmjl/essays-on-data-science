@@ -1,0 +1,2413 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../software-skills/testing/">
+      
+      
+        <link rel="next" href="../../terminal/cli-tools/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.2.8">
+    
+    
+      
+        <title>Hiring and Interviewing Data Scientists - Essays on Data Science</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="https://unpkg.com/mermaid@7.1.2/dist/mermaid.css">
+    
+      <link rel="stylesheet" href="../../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../../css/pandas-dataframe.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hiring-and-interviewing-data-scientists" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Essays on Data Science" class="md-header__button md-logo" aria-label="Essays on Data Science" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Essays on Data Science
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hiring and Interviewing Data Scientists
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ericmjl/essays-on-data-science" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ericmjl/essays-on-data-science
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Essays on Data Science" class="md-nav__button md-logo" aria-label="Essays on Data Science" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Essays on Data Science
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ericmjl/essays-on-data-science" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ericmjl/essays-on-data-science
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Computing
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Computing
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../computing/recursion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Recursion
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Machine Learning
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/computational-bayesian-stats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Introduction to Probability and Computational Bayesian Statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/markov-models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Markov Models From The Bottom Up, with Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/generating-markov-chains-dirichlet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dirichlet Processes and Hidden Markov Model Transition Matrices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/message-passing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Computational Representations of Message Passing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/reimplementing-models/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reimplementing and Testing Deep Learning Models
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/differential-computing-jax/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Differential Computing Explained
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/nngp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Infinitely Wide Neural Networks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/graph-nets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Attempt at Demystifying Graph Deep Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../machine-learning/llm-dev-guide/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Developer-First Guide to LLM APIs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Miscellaneous
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Miscellaneous
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/dashboarding-landscape/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Review of the Python Data Science Dashboarding Landscape in 2019
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/learning-to-learn/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How I Learned to Learn
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/pydata-landscape/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Opinionated and Unofficial Guide to the PyData Ecosystem
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/static-sites-on-dokku/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Static Sites and Apps On Your Own Dokku Server
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../miscellaneous/code-style-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Style Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Software Skills
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Software Skills
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Importance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/code-formatting/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Formatting your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/documentation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Documenting your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/environment-variables/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    A Data Scientist's Guide to Environment Variables
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/refactoring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Refactoring your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../software-skills/testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing your code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    People Skills
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            People Skills
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Hiring and Interviewing Data Scientists
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Hiring and Interviewing Data Scientists
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#criteria-for-hiring" class="md-nav__link">
+    Criteria for Hiring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#team-interviews" class="md-nav__link">
+    Team Interviews
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#people-skills" class="md-nav__link">
+    People Skills
+  </a>
+  
+    <nav class="md-nav" aria-label="People Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#people-skills-rubric" class="md-nav__link">
+    People Skills Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#communication-skills" class="md-nav__link">
+    Communication Skills
+  </a>
+  
+    <nav class="md-nav" aria-label="Communication Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#communication-skills-rubric" class="md-nav__link">
+    Communication Skills Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scientific-knowledge" class="md-nav__link">
+    Scientific Knowledge
+  </a>
+  
+    <nav class="md-nav" aria-label="Scientific Knowledge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scientific-knowledge-rubric" class="md-nav__link">
+    Scientific Knowledge Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coding-skills" class="md-nav__link">
+    Coding Skills
+  </a>
+  
+    <nav class="md-nav" aria-label="Coding Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coding-skills-rubric" class="md-nav__link">
+    Coding Skills Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modeling-skills" class="md-nav__link">
+    Modeling Skills
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-skills-rubric" class="md-nav__link">
+    Modeling Skills Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-evaluation" class="md-nav__link">
+    Final Evaluation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-lessons-learned" class="md-nav__link">
+    General Lessons Learned
+  </a>
+  
+    <nav class="md-nav" aria-label="General Lessons Learned">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#details-matter" class="md-nav__link">
+    Details matter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-context-matters" class="md-nav__link">
+    Local context matters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expectations-mapped-to-technical-level" class="md-nav__link">
+    Expectations mapped to technical level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continual-challenges-when-interviewing" class="md-nav__link">
+    Continual Challenges when Interviewing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qa" class="md-nav__link">
+    Q&amp;A
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    Conclusions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    Acknowledgments
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Terminal Hacks
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Terminal Hacks
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminal/cli-tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tools and Upgrades for your CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../terminal/pre-commits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Using pre-commit git hooks to automate code checks
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Workflow
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Workflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/code-review/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Practicing Code Review
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/effective-commit-messages/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Effective Git Commits in Data Science
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workflow/gitflow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Principled Git-based Workflow in Collaborative Data Science Projects
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../supporters/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Supporters
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#criteria-for-hiring" class="md-nav__link">
+    Criteria for Hiring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#team-interviews" class="md-nav__link">
+    Team Interviews
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#people-skills" class="md-nav__link">
+    People Skills
+  </a>
+  
+    <nav class="md-nav" aria-label="People Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#people-skills-rubric" class="md-nav__link">
+    People Skills Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#communication-skills" class="md-nav__link">
+    Communication Skills
+  </a>
+  
+    <nav class="md-nav" aria-label="Communication Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#communication-skills-rubric" class="md-nav__link">
+    Communication Skills Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scientific-knowledge" class="md-nav__link">
+    Scientific Knowledge
+  </a>
+  
+    <nav class="md-nav" aria-label="Scientific Knowledge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scientific-knowledge-rubric" class="md-nav__link">
+    Scientific Knowledge Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coding-skills" class="md-nav__link">
+    Coding Skills
+  </a>
+  
+    <nav class="md-nav" aria-label="Coding Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coding-skills-rubric" class="md-nav__link">
+    Coding Skills Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#modeling-skills" class="md-nav__link">
+    Modeling Skills
+  </a>
+  
+    <nav class="md-nav" aria-label="Modeling Skills">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modeling-skills-rubric" class="md-nav__link">
+    Modeling Skills Rubric
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-evaluation" class="md-nav__link">
+    Final Evaluation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-lessons-learned" class="md-nav__link">
+    General Lessons Learned
+  </a>
+  
+    <nav class="md-nav" aria-label="General Lessons Learned">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#details-matter" class="md-nav__link">
+    Details matter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-context-matters" class="md-nav__link">
+    Local context matters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expectations-mapped-to-technical-level" class="md-nav__link">
+    Expectations mapped to technical level
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#continual-challenges-when-interviewing" class="md-nav__link">
+    Continual Challenges when Interviewing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#qa" class="md-nav__link">
+    Q&amp;A
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusions" class="md-nav__link">
+    Conclusions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acknowledgments" class="md-nav__link">
+    Acknowledgments
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="hiring-and-interviewing-data-scientists">Hiring and Interviewing Data Scientists</h1>
+<p>Back in 2021, I hired two new teammates for my home team,
+the Data Science and Artificial Intelligence (Research) team at Moderna.
+As indicated by the "(Research)" label,
+our main collaborators are other research scientists within the company.
+In 2023, I will be <em>potentially</em> hiring for four more positions
+(as long as the business situation doesn't change).
+While I had helped hire data scientists in the past,
+2021 was the first time I was primarily responsible for the role.
+So when I first joined,
+I thought I would have some time, say, half a year or so,
+to ease into the team lead part of the role.
+But by day 2, the 21st of July,
+my manager Andrew sent me an MS Teams message saying,
+"Hey, two positions for you are approved. Merry Christmas!"
+I was both surprised and excited at the time.</p>
+<h2 id="criteria-for-hiring">Criteria for Hiring</h2>
+<p>During this time, I had to develop the criteria for hiring.
+Thankfully, our Talent Acquisition (TA) team had a process in place,
+so I didn't have to design that half.
+Our department head, Dave Johnson,
+emphasized keeping the technical bar high
+because we want to hire people who can hit the ground running straight away.
+I also knew from previous experience
+that I would enjoy working with bright individuals who were:</p>
+<ol>
+<li>quick to learn,</li>
+<li>thorough in thinking through problems,</li>
+<li>capable of going deep into technical details,</li>
+<li>sufficiently humble to accept feedback, and</li>
+<li>courageous enough to challenge my views.</li>
+</ol>
+<p>I also had to specify the exact skill requirements for the new roles.
+I came up with a list of skills that I believed were needed for the job.
+One thing our Talent Acquisition team suggested surprised me.
+They suggested that we shouldn't hire someone
+who hits <em>all</em> of the required technical skills for that level.
+Instead, we should hire someone who has a majority of the skills necessary
+and has shown the potential to learn the rest.</p>
+<p>Why?
+It's related to our psychology.
+Most of us are motivated when we see a positive delta in our abilities,
+receive affirmation that we are improving,
+and can see the fruits of our labor in a finished product.
+Hence, this advice ensures that our new hires
+can hit the ground running while staying motivated longer.</p>
+<p>Hiring takes time and is expensive;
+the longer we can retain high-quality individuals within the team,
+the better it is for continuity, morale, productivity, and the bottom line.
+This news should actually encourage those who think they're not a perfect fit for the role!</p>
+<p>What about skills and knowledge, though?
+What are we looking for in our candidates?
+Well, here are the broad categories that I assess:</p>
+<ol>
+<li>People skills</li>
+<li>Communication skills</li>
+<li>Scientific knowledge</li>
+<li>Coding skills</li>
+<li>Modeling skills</li>
+</ol>
+<p>Later on, I will go through them in more detail.
+Before we discuss those, though, let's talk about the hiring process.</p>
+<h2 id="team-interviews">Team Interviews</h2>
+<p>We interview candidates in a "team-based" interview;
+this aligns with my experiences interviewing at Verily and
+the Novartis Institutes for BioMedical Research (NIBR)
+when I interviewed for my first data science role.
+As the hiring manager, I get to assemble the committee
+and decide what aspect each hiring committee member will be interviewing for.
+Usually, I would pick potential close collaborators as interviewers,
+which makes sense given the nature of our team's work being collaborative.</p>
+<p>Interviewing as a team helps ensure that we cover a wide range of perspectives
+and a rich set of questions
+covering both the technical and people dimensions.</p>
+<p>I was most comfortable interviewing for technical skills,
+so I assigned the people dimension to my colleagues.
+Because we are a team that works with scientists,
+I also asked my colleagues to assess
+the candidates' scientific knowledge within the interviewers' domain.
+The hiring committee makes a go/no-go recommendation to the hiring manager,
+who makes the final call on whether to hire a candidate or to continue searching.
+(Other companies may have a different practice.)</p>
+<p>With the hiring process described,
+let's explore those five (broad) criteria in more detail below.</p>
+<h2 id="people-skills">People Skills</h2>
+<p>In assessing the people dimension,
+we were looking for stories highlighting
+a candidate's ability to handle difficult interpersonal situations and,
+more importantly,
+how they turned these testing situations around for the better.
+Taken together, I'm always curious to hear
+what lessons candidates have learned for the future.
+When doing the interview, I would ask the candidate to tell me about a time
+when they were in a difficult situation and how they handled it.</p>
+<p>Here, then, is a set of questions that I would use to evaluate the candidate.</p>
+<h3 id="people-skills-rubric">People Skills Rubric</h3>
+<details class="question">
+<summary>Was the situation sufficiently non-trivial to handle?</summary>
+<p>Trivial situations are neither interesting nor revealing.
+If the candidate can offer up a non-trivial situation they handled
+and explain how they handled it,
+that is a positive sign.
+On the other hand, if they can only offer up trivial situations,
+then there is a chance they may not have sufficient battle scars
+to act maturely when faced with a non-trivial situation.</p>
+</details>
+<details class="question">
+<summary>How much verifiable detail did the candidate provide in the story?</summary>
+<p>Details indicate ownership over the situation,
+and verifiability means we can check the details for truthfulness.
+Therefore, it's a positive sign if
+the candidate can offer up a story with sufficient details,
+such as the nature of the situation and
+how the people involved would be affected by their actions and decisions.
+Additionally, if the details are self-consistent,
+that's a plus sign too!</p>
+</details>
+<details class="question">
+<summary>If applicable, how did the candidate turn around the situation for the better?</summary>
+<p>We are looking for tangible "how"s here.
+I would pay attention to <strong>how</strong> the candidate re-established rapport,
+worked to restore trust,
+and guide the team towards a productive outcome.
+With these details,
+we can get a sense of a candidate's toolbox for handling tough situations.
+Equipped with this people skills toolbox,
+I have a strong prior that they would also
+handle day-to-day situations productively.</p>
+</details>
+<details class="question">
+<summary>Did the candidate reveal generally desirable qualities, such as humility, courage, resilience, and empathy? Or did they reveal other positive traits? Which specific details revealed these qualities?</summary>
+<p>We can gain an accurate picture of the candidate's character
+as long as the candidate provides details.
+Hence, details matter!
+Additionally, the qualities mentioned above
+are what we want to see in our teammates.</p>
+</details>
+<details class="question">
+<summary>Did they reveal negative qualities instead that may turn out to be orange or red flags? What specific details revealed these qualities?</summary>
+<p>We need to be on the lookout for potentially negative qualities.
+If the candidate reveals negative attributes,
+we need to assess whether they are red or orange flags
+or whether cultural differences led to the negative perception.
+This is another reason why I believe a hiring committee is worth the time tradeoff;
+we can reduce the bias from our own cultural upbringing
+when interpreting a candidate's story.</p>
+</details>
+<h2 id="communication-skills">Communication Skills</h2>
+<p>Communication skills matter.
+Our work is irrelevant if our collaborators do not understand it.
+Hence, we need to ensure that our candidates can communicate effectively
+to a wide range of audiences - from the technical to the non-technical,
+from junior members to senior leadership,
+and from the scientific to the business.
+Additionally, communication skills are essential in
+a senior-level candidate's ability to mentor junior team members,
+which is important for developing the team's capabilities.</p>
+<p>To assess communication skills, we often use a seminar format.
+Here, we ask the candidate to present a data science project they have worked on.
+Sometimes it is their thesis work;
+at other times, it is a project they have worked on in their current role.
+Usually, there is a 30-40 minute presentation
+followed by additional time, interleaved or at the end, for Q&amp;A.
+When assessing a candidate's communication skills,
+this is the rubric that I usually go for.</p>
+<h3 id="communication-skills-rubric">Communication Skills Rubric</h3>
+<details class="question">
+<summary>Based on the presented material, am I able to summarize the candidate's problem statement, methodology, and key findings in 3 bullet points?</summary>
+<p>This question places the onus on me to put in
+a best-faith effort to understand the candidate's presentation.
+If I can summarize the candidate's presentation in 3 bullet points,
+that's an immediate positive sign.
+That said, even if I can't summarize the presentation in 3 bullet points,
+I can use follow-up questions to attempt to understand the work better.
+If, after a good-faith follow-up,
+the candidate still cannot explain their work in a way that I can understand,
+only then do we have a red flag.</p>
+</details>
+<details class="question">
+<summary>How engaged was the audience during the candidate's presentation?</summary>
+<p>High engagement is a positive aggregate sign;
+while it doesn't necessarily reveal specific traits,
+it usually means the candidate is able to hold the audience's attention
+through a combination of:</p>
+<ol>
+<li>A clear and compelling problem statement that resonates,</li>
+<li>A methodology that is logical and, even better, exciting to the audience,</li>
+<li>A conclusion that is <em>interesting</em> and potentially <em>relevant</em> to the audience, and</li>
+<li>Effective visual storytelling employed by the candidate.</li>
+</ol>
+</details>
+<details class="question">
+<summary>Did I learn something new that was technical? Alternatively, did I see a new way of explaining an existing thing I already understood?</summary>
+<p>This is especially important for senior candidates
+and speaks to the candidate's potential to mentor junior team members.
+If the candidate can teach me something new
+or present it in a novel way that is also effective,
+they likely can teach others too.</p>
+</details>
+<details class="question">
+<summary>What were the aesthetically pleasing aspects of the presentation, if any?</summary>
+<p>This question is subjective but important to me.
+I want to work with individuals who have a good sense of design
+and, more importantly, can execute and bring that design to life.
+Good aesthetics is a marker of excellence!
+A pleasant presentation aesthetic,
+such as pixel-perfectly aligned shapes,
+harmonized colors across all figures,
+and a consistent font and font size,
+are second-order indicators of attention to detail,
+which is a general quality we want in our teammates.</p>
+</details>
+<h2 id="scientific-knowledge">Scientific Knowledge</h2>
+<p>Because we are a team that works with scientists,
+we also need to ensure that our candidates can communicate with scientists,
+which heavily implies that they need a solid scientific knowledge base.</p>
+<p>For junior candidates, such as those fresh from a Master's or Bachelor's program,
+this means they need to have sufficient knowledge over at least one domain of science,
+such as biochemistry, analytical chemistry, or immunology,
+depending on the expectations of the role.</p>
+<p>Senior candidates, such as those who have finished a Ph.D. or post-doc training,
+should know more than one domain of science.
+Both levels should also be able to follow along in scientific discussions
+and be courageous enough to raise questions when they don't understand something.</p>
+<p>Because our work involves working with experimental scientists,
+familiarity with the experiment design process is also essential.
+Hence, we place a premium on
+knowing how to design an experiment and institute appropriate controls,
+all while articulating the limitations of that experiment.
+A data scientist in our domain who has those qualities
+will be able to win the trust of our wet lab scientist colleagues.</p>
+<p>Alternatively, if the candidate has not worked on experiments before,
+they should be able to articulate how they would work within the "design-make-test-analyze" cycle of machine-learning-guided experimentation.
+Prior experience using machine learning methods to impact any of these steps
+would significantly enhance their candidacy.</p>
+<p>To assess scientific knowledge,
+if the candidate presents a seminar with a strong science flavor,
+we will typically use the seminar topic to evaluate their scientific knowledge.
+Usually, we do this by asking detailed follow-up questions.
+If not, I would ask them to teach me a scientific topic of their choosing.
+To assess experimental design knowledge,
+I would ask the candidate to describe a scientific experiment they helped design
+and see how well they could articulate the details of the experiment.
+Then, I would use the following questions to evaluate their response.</p>
+<details class="note">
+<summary>Scientific Domain Knowledge</summary>
+<p>While I write extensively about the need for scientific training here,
+that is borne out of our role as a data science team working with scientists and engineers.
+For other data science roles at Moderna that <em>don't</em> work closely with scientists and engineers,
+this is not as important.
+The same may hold true at other companies.
+As a hiring manager, I believe it's vital for us to ask ourselves critically
+how much domain knowledge we expect a candidate to come in with
+and how much we are willing to coach.
+Some domains are easier to pick up through shallow osmosis;
+others need deep immersion in the field.</p>
+</details>
+<h3 id="scientific-knowledge-rubric">Scientific Knowledge Rubric</h3>
+<details class="question">
+<summary>How much scientific detail can the candidate delve into?</summary>
+<p>The candidate should be able to provide
+a high-level overview of their scientific domain
+and be ready to field questions on any relevant details.</p>
+<p>For example, if the candidate is speaking on
+finetuning AlphaFold for protein design,
+they should be able to answer questions about how proteins fold,
+the different levels of structure,
+and common patterns of how mutations affect a protein's structure, and so on.
+If the candidate does <em>not</em> have a biochemistry background,
+that's even better!
+Being able to field such questions indicates their ability to learn quickly.</p>
+<p>As another example,
+if the candidate is speaking on the use of machine learning models
+to prioritize molecule candidates based on an assay
+and can talk fluently about the experiment design, caveats,
+and even go as far as to identify where the assay is particularly laborious,
+then that is an immensely positive sign of a candidate's ability to learn
+and to empathize with experimental scientists.</p>
+</details>
+<details class="question">
+<summary>How much detail did the candidate provide about an experiment they designed? Did they highlight any limitations of the experiment?</summary>
+<p>This question checks a candidate's proficiency in experiment design.
+The presence of detail helps us build confidence that the candidate actually participated in the experiment design.
+They should be able to describe the experimental controls and what they control for.
+They should be familiar with the
+various axes of variation in the experiment (such as time or temperature)
+and how we expect these axes to affect the outcome of the experiment.</p>
+<p>No experiment will give us the answers we need for scientific inquiry.
+As such, the candidate should offer up the limitations of the experiment.
+For example, did they highlight limitations of the controls,
+where physical limitations may occur in the experiment,
+and how they would address those limitations in a future experiment?</p>
+</details>
+<h2 id="coding-skills">Coding Skills</h2>
+<p>Coding skill is another axis along which we assess candidates.
+Because <a href="https://www.youtube.com/watch?v=cpbtcsGE0OA">"data science can't be done in a GUI"</a>,
+we need to ensure that our candidates can write
+both readable and maintainable code.
+After all, even though our primary value-add is our modeling skills,
+we still need to write code that surrounds the model
+so that we can make the model useful.
+Hence, it is crucial to assess a candidate's coding skills.</p>
+<p>How do we assess coding skills?
+If a candidate interests me,
+I will proactively look out for their profile on GitHub
+to see what kind of code they've put out there.
+One well-maintained codebase is a positive sign;
+not having one is <strong>not</strong> a negative,
+as I understand not everybody has the privilege of time to maintain a codebase.</p>
+<p>I have found one way to deeply evaluate a candidate's coding skills,
+which I would like to share here.
+In this interview question,
+I would ask the candidate to bring a piece of code
+they are particularly proud of to the interview.
+We would then go through the code together, code-review style.</p>
+<p>We intentionally ask candidates to pick the code they are proud of,
+which gives them a home-court advantage.
+They should be able to explain their code better than anyone else.
+They also won't need to live up to an imagined standard of excellence.
+Additionally, because this is their best work,
+we gain a glimpse into what standards of excellence they hold themselves to.</p>
+<p>During the code review,
+I would ask the candidate questions about the code.
+These are some of the questions that I would cover:</p>
+<ol>
+<li>What's the purpose of the code?</li>
+<li>How is it organized? Are there other plausible ways of organizing the code?</li>
+<li>What tradeoffs did the candidate make in choosing that particular code organization?</li>
+<li>Are there parts of the code that remain dissatisfactory, and if so, how would you improve it in the future?</li>
+</ol>
+<p>That 4th question is particularly revealing.
+No code is going to be perfect, even my own.
+As such, if a candidate answers "no" to that question,
+then I would be wary of their coding skills.
+A "no" answer usually betrays a Dunning-Kruger effect,
+where the candidate thinks they are better than they actually are.</p>
+<p>That said, even a "yes" answer with superficial or scant details
+betrays a lack of thought into the code.
+Even if the code is, in my own eyes, very well-written,
+I would still expect the candidate to have some ideas
+on <strong>where</strong> the code could be extended for a logical expansion of use cases,
+refactored, or better tested.
+If the candidate cannot provide details on these ideas,
+it would betray their shallow thinking
+about the problem for which they wrote the code.</p>
+<p>In the next section, I'll describe my rubric for assessing coding skills.</p>
+<h3 id="coding-skills-rubric">Coding Skills Rubric</h3>
+<details class="question">
+<summary>Did the candidate offer the details mentioned above without prompting?</summary>
+<p>This is a sign of experience;
+they know how to handle a code review, which we often do,
+and are usually confident in their knowledge of
+their code's strengths and weaknesses.</p>
+</details>
+<details class="question">
+<summary>How well-organized was the code? Does it reflect idiomatic domain knowledge, and if so, how?</summary>
+<p>Organizing code logically is a sign of
+thoroughly thinking through the problem domain.
+Conversely, messy code usually suggests that
+the candidate is not well-versed in the problem domain
+and hence does not have a well-formed opinion on
+how they can organize code to match their domain knowledge.
+Additionally, because code is read more than written,
+a well-organized library of code will be easily reusable by others,
+thereby giving our team a leverage multiplier in the long run.</p>
+</details>
+<details class="question">
+<summary>How well-documented was the code? In what ways does the documentation enable reusability of the code?</summary>
+<p>Documentation is a sign of thoughtfulness.
+In executing our projects,
+we consider the problem at hand
+<em>and</em> the reusability of the code in adjacent problem spaces.
+Documentation is crucial here.
+Without good documentation,
+future colleagues would have difficulty understanding the code
+and how to use it.</p>
+</details>
+<details class="question">
+<summary>Did the candidate exhibit defensive behaviors during the code review?</summary>
+<p>A positive answer to this question is a red flag for us.
+We want to hire people who are confident in their skills
+but humble enough to accept feedback.
+Defensive behaviors shut down feedback,
+leading to a poor environment for learning and improvement.</p>
+</details>
+<details class="question">
+<summary>How strong were reasons for certain design choices over others?</summary>
+<p>This question gives us a sense of the candidate's thought process.
+Are they thorough in their thinking, or do they rush to a solution?
+Because our team is building out machine learning systems,
+we must be careful about our design choices at each step.
+Therefore, if a candidate does not demonstrate
+thinking thoroughly through their design choices,
+then it means we will need to spend time and effort coaching this habit.</p>
+</details>
+<h2 id="modeling-skills">Modeling Skills</h2>
+<p>The final aspect of our roles as data scientists
+is picking and building computational or mathematical models
+that help us solve the problems we are working on.
+By their very nature, models are an abstract simplification of the real world.
+Then, modeling skill is the artful ability to figure out
+what needs to be abstracted while translating that into code.</p>
+<details class="note">
+<summary>What do I mean by modeling skills?</summary>
+<p>I'd like to disambiguate what I don't mean by modeling skills.
+If you're used to building <em>predictive</em> models of the world,
+you might say something along the lines of,
+"XGBoost is all you need for tabular data,
+variants of UNet for image machine learning,
+and a Transformer for sequence data."
+Or you might be used to trying several <code>scikit-learn</code> models
+and deciding on one based on cross-validation.
+In my mind, this is not skillful modeling;
+it's just following a recipe.
+By modeling skill, I am referring to the ability to do
+physics-style <strong>mechanistic modeling</strong>.</p>
+<p>As a team embedded in a larger <em>scientific research</em> organization,
+there is something deeply dissatisfying with only being able to make predictive models.
+Being able to build explicit mathematical models is what I mean by modeling skill,
+whether that involves the use of differential equations,
+state space models,
+or other forms of mechanistic modeling.</p>
+</details>
+<p>Now, how do we assess modeling skills?
+Usually, we do this through their seminar or presentation,
+which is a standard part of our interview process.
+Usually, a candidate will present a problem they are working on,
+how they solved it, and its impact on their colleagues
+and the business they are part of.
+During the seminar,
+we would ask questions about the modeling process
+and use the candidates' answers to assess their modeling skills.
+While handy, I think the seminars may be insufficient alone;
+often, I have found that we need to dig deeper during the 1:1 sessions
+in order to tease out the necessary details to assess modeling skills.</p>
+<h3 id="modeling-skills-rubric">Modeling Skills Rubric</h3>
+<details class="question">
+<summary>What alternative models or modeling approaches did the candidate consider, and why were they not chosen?</summary>
+<p>If the candidate can provide a solid and logical reason for their final model choice
+while contrasting it against other choices,
+then it means they are familiar with a broad range of approaches,
+which is a sign of a well-rounded modeling skillset.</p>
+<p>I would expect this trait in someone who is a Data Scientist-level hire.
+For a Research Associate-level hire, this would be less of an expectation,
+but if the candidate possesses this trait, I would be impressed.</p>
+<p>Someone who can only come up with one model option to solve a problem
+needs more training in modeling.</p>
+<p>Finally, if the candidate can't explain why they chose a particular model,
+that is a red flag, and I would be wary of their modeling skills.</p>
+</details>
+<details class="question">
+<summary>If applicable, how clear was the candidate in mapping the parameters of the model onto explainable aspects of the problem?</summary>
+<p>If the model involved was an explicit model of a system,
+such as a hidden Markov model or a linear model,
+I would expect the candidate to explain how the parameters of the model
+map onto the key questions being answered.
+For example, what does the slope parameter in a linear model mean for this problem?
+How do we interpret the transition matrix in an HMM?</p>
+</details>
+<details class="question">
+<summary>If the candidate presented a neural network model, can the candidate explain the model architecture in detail without jargon? Can they articulate the inductive biases of the model and contrast those biases' suitability for the problem at hand?</summary>
+<p>In particular, I would expect the candidate to explain
+how they arrived at their preferred model architecture
+and how they <em>ruled out</em> other architectures.
+Too often, I have seen candidates pick an architecture they are familiar with
+or feel is popular or hot
+without thinking through their choice's pros and cons.
+(The worst I saw was using
+a convolutional neural network on tabular data for no good reason --
+in a journal article that I reviewed.)
+A strong candidate would compare and contrast
+the inductive biases of various architectures.</p>
+</details>
+<h2 id="final-evaluation">Final Evaluation</h2>
+<p>As hiring managers,
+we have tradeoffs to consider
+when evaluating the candidate along the dimensions above.
+It is exceedingly rare to find a candidate who is strong in all dimensions.
+Beyond raw execution ability,
+complementarity with the rest of the team also matters.
+Therefore, we must decide which dimensions we are most willing to coach on
+and in which dimensions we expect a candidate to be well-equipped.</p>
+<p>Here is an example of a set of questions I would ask myself about a candidate.</p>
+<details class="question">
+<summary>Am I capable of coaching them something new?</summary>
+<p>I'm more inclined to coach on coding skills than modeling skills,
+so I would expect a candidate to come in with a robust modeling skillset;
+my role would be to refine their ability to write software.
+Hence, I would prioritize candidates according to that criteria.
+(Other hiring managers would prioritize differently.)
+Additionally, I am willing to coach on communication skills
+but less on domain knowledge,
+so I expect a candidate to come in knowing their science fundamentals well.</p>
+</details>
+<details class="question">
+<summary>Does the candidate come equipped with special modeling skills that are complementary to the team's current skill sets?</summary>
+<p>Beyond the role's requirements,
+we would also like to bring additional skill sets to the team.
+Doing so lets us tackle a broader range of problems
+(and therefore deliver more value),
+foster a learning environment with a diverse breadth of skills,
+and crucially, build a more resilient team,
+especially if one of our team members leaves.</p>
+</details>
+<details class="question">
+<summary>Will the candidate work well with other teammates and collaborators?</summary>
+<p>For example, are they able to communicate well with others?
+Do they leave others feeling more confused than clear?
+If they display a sense of humor, does it mesh well with the team,
+or does it come off as abrasive?</p>
+<p>Do they have the confidence to execute their ideas in a group setting
+with a track record of successful execution to back it up?</p>
+</details>
+<h2 id="general-lessons-learned">General Lessons Learned</h2>
+<p>Here are some general lessons that I learned from the hiring process.
+These should be beneficial to both interviewers and interviewees.</p>
+<h3 id="details-matter">Details matter</h3>
+<p>Firstly, details matter!
+A pattern you may see above is that
+I expect to see many details relevant to the skill under assessment.
+An apocryphal story I read before stated that
+details are how Elon Musk tells if a candidate is faking it.
+While I disagree with many of Elon Musk's ways,
+this is a handy lesson for interviewers and interviewees.</p>
+<p><strong>For interviewers</strong>, it is vital to dig into details.
+The more information you can fish out,
+the better handle you'll have on your candidate's capabilities,
+and you'll be less likely to make a poor hire.
+<strong>For interviewees</strong>, conversely, it is important to be forthcoming with details.
+The more you're able to provide details to your interviewer,
+especially the ones critical to the job,
+the more accurately your interviewer will be able to evaluate you.
+Your challenge, as a candidate, is to be concise <em>and</em> detailed!
+You <em>don't</em> want to overwhelm your interviewer with irrelevant details.
+<strong>For both parties,</strong> the best way to avoid doing so is to treat the interview as
+a conversation rather than a presentation,
+where you share information in a back-and-forth manner.</p>
+<h3 id="local-context-matters">Local context matters</h3>
+<p>Secondly, the team's local context matters!
+I see teams as continual works-in-progress, puzzles with missing pieces.
+The missing piece has to <em>fit</em> and <em>enhance</em> a team.
+And by that <em>fit</em>, I don't just mean the fuzzy cultural fit
+that can be used as a smokescreen for rejecting a validly great candidate.</p>
+<p>We need to consider technical skills and
+what the hiring manager and the rest of the team are willing to coach.
+Ideally, these should be complementary for the benefit of the team <em>and</em> new hire.</p>
+<p>We also need to consider whether the candidate's mix of skills
+can bring a new dimension to the team's capabilities.
+For example, if the team needs someone with deep learning experience
+and a candidate also brings probabilistic modeling skills
+that the team currently lacks,
+that candidate would bring a unique new capability to the team.
+Therefore, we would favor that candidate
+over another who <em>only</em> brings deep learning experience.</p>
+<p>What does this mean for candidates?
+First, it can mean that even though you're thoroughly qualified for a role,
+you might not be the final choice because of the local context of a team.</p>
+<p>For example, a hiring manager may be willing to coach you
+on skills you're already strong in,
+which means they would not be as great for you
+as a professional development coach.
+(This is an essential expectation for you to have for your manager!)
+Therefore, from this perspective only,
+it would be to your benefit <em>not</em> to be accepted for the role
+and to continue searching elsewhere.</p>
+<p>Or it could mean that your skillsets were an excellent match,
+but another candidate came in with an enhancer skillset
+that complemented what the team already had.
+Of course, from this perspective,
+that other candidate only wowed the hiring manager and the team
+with their extra skillsets that you didn't have,
+and they will be valued accordingly.
+Nonetheless, you should still be confident in your capabilities
+and continue to search for a team to which you can be a special sauce contributor.
+That will give you the confidence to know that you possess something special for the team
+and will be valued accordingly.</p>
+<h3 id="expectations-mapped-to-technical-level">Expectations mapped to technical level</h3>
+<p>Where I work, we have three broad levels of technical folks, in increasing order:</p>
+<ol>
+<li>Research Associates (3 levels, including Senior and Principal)</li>
+<li>Data Scientists (3 levels, including Senior and Principal)</li>
+<li>Fellows (3 levels, including Senior and Distinguished)</li>
+</ol>
+<p>Research Associate ranks are usually for fresh graduates out of Bachelor's or Master's programs,
+with the Senior and Principal ranks for longer industry experiences.
+Data Scientists are for those newly graduated from Ph.D. programs
+or just finishing their post-doc training without industry experience
+or Master's graduates with prior industry experience in a related role.
+Here, the Senior and Principal ranks are generally for
+existing Data Scientists with a track record of accomplishment in a prior industry role,
+regardless of prior educational training.
+"Fellow" ranks are for highly skilled and experienced individuals
+who bring technical, domain, and people leadership skills to the table,
+with a focus on technical strategy.
+Think "Staff Engineer" for an analogy.
+(Thought leadership is the summary term for all three.)</p>
+<p>We calibrate our expectations for each level.
+For example, our expectations of Data Scientists,
+who either have extensive industry experience or have completed doctoral training,
+are much higher than that of a Research Associate.
+We expect them to be much more mature in their people skills,
+more polished in their communication skills,
+and possess greater depth and breadth of domain knowledge.
+On the other hand,
+Fellows need to be concerned with technical leadership,
+partner with our Digital Business Partners to align the team's work with research needs,
+have a firm grasp of our work's impact to research productivity,
+and be able to mentor and coach others on effective work practices.
+Their credibility for such leadership comes from their battle-tested experience.</p>
+<p>Summarizing my take on the expectations in a table:</p>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Research Associate</th>
+<th>Data Scientist</th>
+<th>Fellow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>People Skills</td>
+<td>Good</td>
+<td>Excellent</td>
+<td>Excellent</td>
+</tr>
+<tr>
+<td>Communication Skills</td>
+<td>Great</td>
+<td>Polished</td>
+<td>TED-style :)</td>
+</tr>
+<tr>
+<td>Scientific Knowledge</td>
+<td>Single discipline</td>
+<td>Multi-disciplinary</td>
+<td>Multi-disciplinary &amp; tied to business</td>
+</tr>
+<tr>
+<td>Coding Skills</td>
+<td>Writes organized code that works</td>
+<td>Develops &amp; maintains project codebases</td>
+<td>Sets technical standards for team</td>
+</tr>
+<tr>
+<td>Modeling Skills</td>
+<td>Knows how to apply models</td>
+<td>Can develop new mathematical models</td>
+<td>Sets modeling strategy for the team, invents methods</td>
+</tr>
+<tr>
+<td>Leadership</td>
+<td>Owns individual problems</td>
+<td>Owns and directs a related suite of projects</td>
+<td>Evangelizes new technologies across business</td>
+</tr>
+</tbody>
+</table>
+<p>When it comes to coding skills,
+I think we recognize that most of our candidates fresh from academia
+would not be as polished as those with industry experience.
+My experience played out uniquely;
+I picked up software development skills during my graduate school days,
+thanks to my involvement in the open-source community.
+However, most of my peers did not have the same experience,
+and I am seeing the same situation six years after graduation.
+Therefore, at the time of writing (January 2023),
+I consider any demonstrated software development skill
+to be a differentiating attribute for a candidate.
+Finally, with increasing seniority,
+we expect stronger opinions on structuring and organizing code,
+more extensive experience with code review
+and a more nuanced understanding of software development best practices.</p>
+<p>When it comes to modeling skills,
+I would expect a Research Associate-level candidate
+to be well-trained in a few modeling techniques
+(especially those taught in regular university curricula),
+know where to apply those models, and compare and contrast their use cases.
+On the other hand,
+Data Scientists should be able to apply a broader range of modeling techniques
+(covering both mechanistic and data-driven models),
+and they should be able to dive into the math behind them.
+With increasing seniority,
+candidates should also have a more opinionated philosophy on modeling strategy.
+For example, where to use a mechanistic model vs. a data-driven model,
+or, my favorite,
+being able to cast any modeling problem through the lens of probabilistic modeling.</p>
+<h2 id="continual-challenges-when-interviewing">Continual Challenges when Interviewing</h2>
+<p>There is still one area that I feel is challenging to assess:
+how fast a candidate can learn a new thing.
+I have tried asking questions, such as:</p>
+<ul>
+<li>How do you learn a new technical skill?</li>
+<li>What is your process for learning a new topic?</li>
+</ul>
+<p>However, I tend to get generic answers, such as:</p>
+<ul>
+<li>Asking other people.</li>
+<li>Reading papers.</li>
+<li>Trying out an example with code.</li>
+</ul>
+<p>None of those answers really get to the heart of what I'm trying to ask:
+how does the candidate master a new skill <em>quickly</em>?
+I probably need a better way to ask the question.</p>
+<h2 id="qa">Q&amp;A</h2>
+<details class="question" open="open">
+<summary>How does conducting a simulated code review compare against other common data science hiring practices, such as live coding, completing a data challenge or a Leetcode challenge?</summary>
+<p>Leetcode challenges are
+(1) gameable through practice and
+(2) don't correspond to a real day-to-day activity in our work.</p>
+<p>Data challenges, on the other hand, are
+(1) potentially unfair to candidates who have families, and
+(2) take a lot of effort to evaluate.</p>
+<p>While I have successfully run a data challenge
+and recruited an intern candidate before,
+I don't think it's a scalable way to hire full-timers.</p>
+<p>Live coding also does not reflect how we work -
+we usually do things independently first and then get the work reviewed later.
+Hence, live coding is irrelevant to us,
+and I choose not to evaluate candidates based on it.
+Moreover, for candidates who have never done live coding before,
+it can be stressful and may lead to a poor candidate interview experience,
+which will reflect poorly on us
+and impact our ability to recruit talented individuals.</p>
+</details>
+<details class="question" open="open">
+<summary>Are interviews done remotely? If so, how do you assess engagement?</summary>
+<p>Interviews can be done remotely or in person.
+I usually assess audience engagement by looking at
+the quality of questions that the audience asks.
+If the audience is engaged,
+you'll hear lots of questions that probe the speaker's thought process.
+It's an aggregate sign that
+the candidate is matching their message to the audience well.
+On the other hand, lots of <em>basic</em> questions means that
+the candidate is missing crucial information in their presentation.
+Finally, a low-engagement audience will usually be bored by the presentation
+and not too many questions.</p>
+</details>
+<h2 id="conclusions">Conclusions</h2>
+<p>This essay is the culmination of reflecting on my hiring experiences
+since I joined the industry in 2017.
+I wrote it down with three goals in mind:</p>
+<ol>
+<li>To record what I've learned from my hiring experiences for future reference,</li>
+<li>To help others who may find the hiring process to be opaque or mystical, and</li>
+<li>To serve as a conveniently sharable record of my hiring thought process for my colleagues.</li>
+</ol>
+<p>If you've found this essay useful as a hiring manager,
+please consider doing two things:</p>
+<ol>
+<li>Sharing it with your peers and colleagues so that they may benefit, and</li>
+<li>Leave me a note on the repository's <a href="https://github.com/ericmjl/essays-on-data-science/discussions">discussion forum</a> to let me know what you think.</li>
+</ol>
+<p>If, as an interviewee, you are starting to feel intimidated at the process,
+please reconsider your feelings!
+I've peeled back the curtain on what I look for in a candidate
+precisely to help you, the interviewee, understand better what we're looking for.
+It should help you better prepare for an interview,
+at least, for an interview with me and my team.
+Likewise, if you've found the essay useful,
+please consider sharing it with your peers,
+and let me know your thoughts and questions on the <a href="https://github.com/ericmjl/essays-on-data-science/discussions">discussion forum</a>.</p>
+<h2 id="acknowledgments">Acknowledgments</h2>
+<p>I want to thank my NIBR colleague <a href="https://www.linkedin.com/in/william-j-godinez/">William J. Godinez</a>
+and <code>pyjanitor</code> core developer <a href="https://www.linkedin.com/in/hectoremunoz/">Hector E. Muñoz</a>
+for their feedback on the essay.</p>
+<p>I would also like to thank my Patreon sponsors for their support!
+If you find my work valuable, please consider sponsoring <a href="https://www.patreon.com/ericmjl">here</a>!</p>
+<details class="info">
+<summary>Sponsors</summary>
+<p>Thank you, Ahmed, Daniel, Sat, Robert, Rafael, Fazal, Hector, Carol, and Eddie!</p>
+</details>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="http://www.shortwhale.com/ericmjl" target="_blank" rel="noopener" title="www.shortwhale.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/ericmjl" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/ericmjl" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/in/ericmjl" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["tabs"], "search": "../../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      
+        <script src="https://unpkg.com/mermaid@7.1.2/dist/mermaid.min.js"></script>
+      
+    
+  </body>
+</html>
